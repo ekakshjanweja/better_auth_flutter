@@ -13,11 +13,18 @@ environment:
 dependencies:
   auto_exporter_annotation: ^1.0.3
   cookie_jar: ^4.0.8
+  dio: ^5.8.0+1
+  dio_cookie_manager: ^3.2.0
   flutter:
     sdk: flutter
   flutter_web_auth_2: ^4.1.0
+  freezed_annotation: ^3.1.0
   http: ^1.3.0
+  json_annotation: ^4.9.0
+  logger: ^2.6.0
+  package_info_plus: ^8.0.2
   path_provider: ^2.1.5
+  retrofit: ^4.5.0
   shared_preferences: ^2.5.3
 
 dev_dependencies:
@@ -26,6 +33,8 @@ dev_dependencies:
   flutter_lints: 6.0.0
   flutter_test:
     sdk: flutter
+  json_serializable: ^6.9.5
+  freezed: ^3.1.0
 
 platforms:
   android:
