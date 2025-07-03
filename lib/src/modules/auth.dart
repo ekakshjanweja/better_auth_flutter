@@ -18,7 +18,34 @@ class Auth {
 
       if (error != null) return (null, error);
 
-      return (result as Map<String, dynamic>, null);
+      final responseData = result as Map<String, dynamic>;
+
+      // Extract and store user data if present
+      if (responseData.containsKey("user")) {
+        final user = User.fromMap(responseData["user"] as Map<String, dynamic>);
+        await KVStore.set(KVStoreKeys.user, user.toJson());
+        // Update client state
+        BetterAuth.instance.client.user = user;
+      }
+
+      // Extract and store session data if present
+      if (responseData.containsKey("session")) {
+        final session = Session.fromMap(
+          responseData["session"] as Map<String, dynamic>,
+        );
+        await KVStore.set(KVStoreKeys.session, session.toJson());
+        // Update client state
+        BetterAuth.instance.client.session = session;
+      }
+
+      // Get the full session after signup if user was auto-signed in
+      if (responseData.containsKey("user") ||
+          responseData.containsKey("session")) {
+        await Future.delayed(const Duration(milliseconds: 500));
+        await SessionManagement.getSession();
+      }
+
+      return (responseData, null);
     } catch (e) {
       return (
         null,
@@ -48,6 +75,24 @@ class Auth {
       }
 
       final user = User.fromMap(result["user"] as Map<String, dynamic>);
+
+      // Extract and store session data if present
+      if (result.containsKey("session")) {
+        final session = Session.fromMap(
+          result["session"] as Map<String, dynamic>,
+        );
+        await KVStore.set(KVStoreKeys.session, session.toJson());
+        // Update client state immediately
+        BetterAuth.instance.client.session = session;
+      }
+
+      // Store user data and update client state
+      await KVStore.set(KVStoreKeys.user, user.toJson());
+      BetterAuth.instance.client.user = user;
+
+      // Get the full session after login to ensure consistency
+      await Future.delayed(const Duration(milliseconds: 500));
+      await SessionManagement.getSession();
 
       return (user, null);
     } catch (e) {
@@ -85,11 +130,23 @@ class Auth {
 
       final user = User.fromMap(result["user"] as Map<String, dynamic>);
 
+      // Extract and store session data if present
+      if (result.containsKey("session")) {
+        final session = Session.fromMap(
+          result["session"] as Map<String, dynamic>,
+        );
+        await KVStore.set(KVStoreKeys.session, session.toJson());
+        // Update client state
+        BetterAuth.instance.client.session = session;
+      }
+
       await KVStore.set(KVStoreKeys.user, user.toJson());
+      // Update client state
+      BetterAuth.instance.client.user = user;
 
-      await Future.delayed(const Duration(milliseconds: 1000));
-
+      await Future.delayed(const Duration(milliseconds: 500));
       await SessionManagement.getSession();
+
       return (user, null);
     } catch (e) {
       return (
@@ -134,14 +191,12 @@ class Auth {
 
       final url = result["url"] as String?;
 
-      //TODO: Implement this
+      if (url == null) {
+        return (null, BetterAuthFailure(code: BetterAuthError.invalidResponse));
+      }
 
-      // final res = await FlutterWebAuth2.authenticate(
-      //   url: result!.toString(),
-      //   callbackUrlScheme: "$callbackUrlScheme:/",
-      //   options: FlutterWebAuth2Options(),
-      // );
-
+      // Return the URL for external OAuth flow handling
+      // The calling code should use flutter_web_auth_2 or similar to handle the OAuth flow
       return (url, null);
     } catch (e) {
       return (
@@ -171,7 +226,10 @@ class Auth {
         return BetterAuthFailure(code: BetterAuthError.failedToSignOut);
       }
 
+      // Clear local storage and client state
       await KVStore.clear();
+      BetterAuth.instance.client.user = null;
+      BetterAuth.instance.client.session = null;
 
       return null;
     } catch (e) {

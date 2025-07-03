@@ -7,6 +7,7 @@ import "package:better_auth_flutter/src/core/api/data/models/api_failure.dart";
 import "package:better_auth_flutter/src/core/api/data/models/session.dart";
 import "package:better_auth_flutter/src/core/api/data/models/user.dart";
 import "package:better_auth_flutter/src/core/constants/app_endpoints.dart";
+import "package:better_auth_flutter/src/better_auth_flutter_base.dart";
 import "../core/local_storage/kv_store.dart";
 import "../core/local_storage/kv_store_keys.dart";
 
@@ -44,6 +45,10 @@ class SessionManagement {
       await KVStore.set(KVStoreKeys.user, user.toJson());
       await KVStore.set(KVStoreKeys.session, session.toJson());
 
+      // Update client state
+      BetterAuth.instance.client.user = user;
+      BetterAuth.instance.client.session = session;
+
       return ((session, user), null);
     } catch (e) {
       return (
@@ -57,28 +62,43 @@ class SessionManagement {
   }
 
   static void refreshSession(Session session) async {
-    // Refresh only when the current session is **expired**.
-    final isSessionExpired = session.expiresAt.isBefore(DateTime.now());
+    // Check if we need to refresh the session (before it expires)
+    final now = DateTime.now();
+    final timeUntilExpiry = session.expiresAt.difference(now);
 
-    // Nothing to do if the session is still valid.
-    if (!isSessionExpired) return;
+    // Refresh if session expires in less than 5 minutes (proactive refresh)
+    final shouldRefresh = timeUntilExpiry.inMinutes < 5;
 
-    final (result, error) = await getSession();
-
-    if (error != null || result == null) {
-      final erroMessage = error?.message ?? "server returned null";
-      throw Exception("Failed to refresh session: $erroMessage");
+    if (!shouldRefresh) {
+      // Start auto-refresh timer if session is still valid for a while
+      // Only start timer if session expires within 5 hours
+      if (timeUntilExpiry.inHours < 5) {
+        startAutoRefreshTicker();
+      }
+      return;
     }
 
-    final (newSession, user) = result;
+    try {
+      final (result, error) = await getSession();
 
-    final shouldStartAutoRefreshTicker =
-        newSession != null &&
-        newSession.expiresAt.isAfter(DateTime.now()) &&
-        newSession.expiresAt.difference(DateTime.now()).inHours < 5;
+      if (error != null || result == null) {
+        final errorMessage = error?.message ?? "server returned null";
+        throw Exception("Failed to refresh session: $errorMessage");
+      }
 
-    if (shouldStartAutoRefreshTicker) {
-      startAutoRefreshTicker();
+      final (newSession, user) = result;
+
+      // Start auto-refresh timer if the new session is valid and expires within 5 hours
+      final shouldStartAutoRefreshTicker =
+          newSession != null &&
+          newSession.expiresAt.isAfter(DateTime.now()) &&
+          newSession.expiresAt.difference(DateTime.now()).inHours < 5;
+
+      if (shouldStartAutoRefreshTicker) {
+        startAutoRefreshTicker();
+      }
+    } catch (e) {
+      log("Session refresh failed: $e", name: "SessionManagement");
     }
   }
 

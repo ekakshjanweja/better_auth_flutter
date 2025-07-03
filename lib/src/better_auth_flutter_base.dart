@@ -23,9 +23,15 @@ class BetterAuth {
 
   static Future<void> init({required Uri baseUrl}) async {
     if (_isInitialized) return;
+
+    // Initialize core components first
     await KVStore.init();
     await Api.init();
     Config.initialize(uri: baseUrl);
+
+    // Initialize the client with cached data
+    await _instance._client.init();
+
     _isInitialized = true;
   }
 }

@@ -17,6 +17,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_sign_in: 7.0.0
   flutter_web_auth_2: ^4.1.0
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -26,3 +27,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - .env
