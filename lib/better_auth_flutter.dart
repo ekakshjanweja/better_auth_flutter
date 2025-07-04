@@ -26,6 +26,8 @@ export 'package:better_auth_flutter/src/core/storage/memory_storage.dart';
 export 'package:better_auth_flutter/src/core/storage/persistant_cookie_store.dart';
 export 'package:better_auth_flutter/src/core/storage/storage.dart';
 export 'package:better_auth_flutter/src/core/utils/logger.dart';
+export 'package:better_auth_flutter/src/modules/presentation/better_auth_consumer.dart';
+export 'package:better_auth_flutter/src/modules/presentation/better_auth_inherit.dart';
 export 'package:better_auth_flutter/src/modules/sign_in/models/email/request/sign_in_email_request.dart';
 export 'package:better_auth_flutter/src/modules/sign_in/models/email/response/sign_in_email_response.dart';
 export 'package:better_auth_flutter/src/modules/sign_in/models/social/common/sign_in_id_token_body.dart';
