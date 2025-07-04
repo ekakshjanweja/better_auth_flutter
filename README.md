@@ -1,55 +1,70 @@
 # Better Auth Flutter
 
-A Flutter package that provides seamless integration with Better Auth for authentication in Flutter applications.
+A comprehensive Flutter client package for [Better Auth](https://www.better-auth.com/) - providing seamless authentication integration with type-safe APIs and extensive feature support.
 
-## Critical Fixes Applied
+## Features
 
-This implementation has been thoroughly analyzed and fixed to address several critical issues:
+### 🔐 Authentication Methods
+- **Email/Password** - Traditional email and password authentication
+- **Username/Password** - Username-based authentication
+- **Social Authentication** - Support for 10+ providers including Google, Apple, GitHub, and more
+- **Anonymous Authentication** - Guest user support (coming soon)
 
-### 1. **Session Handling Issues Fixed**
-- **Problem**: Authentication methods only extracted user data but ignored session data from Better Auth responses
-- **Fix**: All authentication methods now properly extract and store both user and session data
-- **Impact**: Complete authentication state is now maintained after login/signup
+### 👤 User Management
+- **Profile Management** - Update user information, change email/password
+- **Email Verification** - Send and verify email addresses
+- **Password Reset** - Secure password recovery flow
+- **Account Deletion** - Complete user data removal
 
-### 2. **Synchronous Constructor Problems Fixed**
-- **Problem**: `BetterAuthClient` constructor attempted synchronous operations on async storage
-- **Fix**: Removed synchronous constructor logic and implemented proper async `init()` method
-- **Impact**: No more timing issues with cached session loading
+### 🔗 Social Integration
+- **Account Linking** - Connect multiple social accounts to one user
+- **Provider Management** - List and unlink connected accounts
+- **Token Management** - Refresh and retrieve access tokens
+- **OAuth Callbacks** - Handle social authentication redirects
 
-### 3. **Session Refresh Logic Fixed**
-- **Problem**: Session refresh was reactive (after expiration) instead of proactive
-- **Fix**: Changed to proactive refresh (5 minutes before expiration) 
-- **Impact**: Sessions now refresh automatically before expiring
+### 🗂️ Session Management
+- **Multi-Session Support** - List and manage active sessions
+- **Session Control** - Revoke individual or all sessions
+- **Persistent Storage** - Automatic session persistence with SharedPreferences
+- **Cookie Management** - Secure cookie-based authentication
 
-### 4. **Client State Management Fixed**
-- **Problem**: Authentication operations didn't update client instance state
-- **Fix**: All auth methods now properly update both storage and client state
-- **Impact**: Client state is always synchronized with authentication status
+### 🛡️ Security & Reliability
+- **Type-Safe APIs** - Full type safety with Freezed models
+- **Error Handling** - Comprehensive error types and messages
+- **Result Pattern** - Clean success/failure handling
+- **Automatic Retries** - Built-in network resilience
 
-### 5. **Async Initialization Fixed**
-- **Problem**: No proper async initialization pattern for loading cached data
-- **Fix**: Added comprehensive async `init()` method with error handling
-- **Impact**: Reliable client initialization with cached authentication data
+## Supported Social Providers
 
-### 6. **Account Model Properties Fixed**
-- **Problem**: Example code referenced non-existent properties (`providerId`, `accountId`)
-- **Fix**: Updated to use correct properties (`provider`, `id`)
-- **Impact**: Account listing now works correctly
+| Provider | Status | Provider | Status |
+|----------|---------|----------|---------|
+| Google | ✅ | Apple | ✅ |
+| GitHub | ✅ | Facebook | ✅ |
+| Discord | ✅ | LinkedIn | ✅ |
+| Microsoft | ✅ | Spotify | ✅ |
+| Twitch | ✅ | Twitter/X | ✅ |
+
+> **Note**: All social providers currently require idToken-based authentication. Ensure your OAuth configuration supports OpenID Connect and returns an `idToken`.
 
 ## Installation
 
-Add this to your `pubspec.yaml`:
+Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  better_auth_flutter: ^latest_version
+  better_auth_flutter: ^0.0.7
 ```
 
-## Usage
+Then run:
+```bash
+flutter pub get
+```
+
+## Quick Start
 
 ### 1. Initialize Better Auth
 
-**Important**: Always call `await BetterAuth.init()` before using any authentication methods.
+Initialize the package in your `main()` function:
 
 ```dart
 import 'package:better_auth_flutter/better_auth_flutter.dart';
@@ -57,286 +72,492 @@ import 'package:better_auth_flutter/better_auth_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  try {
-    await BetterAuth.init(
-      baseUrl: Uri.parse("https://your-better-auth-server.com"),
-    );
-    print("BetterAuth initialized successfully");
-  } catch (e) {
-    print("Failed to initialize BetterAuth: $e");
-  }
+  await BetterAuthFlutter.initialize(
+    url: "https://your-better-auth-server.com/api/auth",
+  );
   
   runApp(MyApp());
 }
 ```
 
-### 2. Sign Up with Email and Password
+### 2. Get the Client
+
+Access the authentication client:
 
 ```dart
-try {
-  final (result, error) = await BetterAuth.instance.client
-      .signUpWithEmailAndPassword(
-        email: "user@example.com",
-        password: "securePassword123",
-        name: "John Doe",
-      );
+final client = BetterAuthFlutter.client;
+```
 
-  if (error != null) {
-    print("Signup error: ${error.message}");
-    return;
-  }
+## Authentication
 
-  print("Signup successful: $result");
+### Email & Password Sign Up
+
+```dart
+final result = await client.signUp.email(
+  request: SignUpRequest(
+    email: "user@example.com",
+    password: "securePassword123",
+    name: "John Doe",
+  ),
+);
+
+if (result.error != null) {
+  print("Error: ${result.error!.message}");
+  return;
+}
+
+print("User created: ${result.data!.user.name}");
+```
+
+### Email & Password Sign In
+
+```dart
+final result = await client.signIn.email(
+  request: SignInEmailRequest(
+    email: "user@example.com", 
+    password: "securePassword123",
+  ),
+);
+
+if (result.error != null) {
+  print("Error: ${result.error!.message}");
+  return;
+}
+
+print("Welcome back, ${result.data!.user.name}!");
+```
+
+### Username Sign In
+
+```dart
+final result = await client.signIn.username(
+  request: SignInUsernameRequest(
+    username: "johndoe",
+    password: "securePassword123",
+  ),
+);
+```
+
+### Social Authentication (Google Example)
+
+> ⚠️ **Important**: Currently, only idToken-based social authentication is supported. Make sure your social provider is configured to return an idToken and use the `SocialIdTokenBody` approach shown below.
+
+```dart
+// Using google_sign_in package
+final GoogleSignIn googleSignIn = GoogleSignIn();
+final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+if (googleUser != null) {
+  final GoogleSignInAuthentication auth = await googleUser.authentication;
   
-  // Check if user was automatically signed in
-  if (BetterAuth.instance.client.user != null) {
-    print("User auto-signed in: ${BetterAuth.instance.client.user!.name}");
-  }
-} catch (e) {
-  print("Signup exception: $e");
-}
-```
-
-### 3. Sign In with Email and Password
-
-```dart
-try {
-  final (user, error) = await BetterAuth.instance.client
-      .signInWithEmailAndPassword(
-        email: "user@example.com",
-        password: "securePassword123",
-      );
-
-  if (error != null) {
-    print("Signin error: ${error.message}");
-    return;
-  }
-
-  print("Signin successful: ${user?.name}");
-  
-  // Client state is automatically updated
-  print("Client user: ${BetterAuth.instance.client.user?.name}");
-  print("Session valid: ${BetterAuth.instance.client.session != null}");
-} catch (e) {
-  print("Signin exception: $e");
-}
-```
-
-### 4. Get Current Session
-
-```dart
-try {
-  final (sessionData, error) = await BetterAuth.instance.client.getSession();
-  
-  if (error != null) {
-    print("Get session error: ${error.message}");
-    return;
-  }
-
-  if (sessionData != null) {
-    final (session, user) = sessionData;
-    print("User: ${user?.name}");
-    print("Session expires: ${session?.expiresAt}");
-  } else {
-    print("No active session found");
-  }
-} catch (e) {
-  print("Get session exception: $e");
-}
-```
-
-### 5. Sign Out
-
-```dart
-try {
-  final error = await BetterAuth.instance.client.signOut();
-
-  if (error != null) {
-    print("Signout error: ${error.message}");
-    return;
-  }
-
-  print("Signed out successfully");
-  
-  // Client state is automatically cleared
-  print("User after signout: ${BetterAuth.instance.client.user}"); // null
-  print("Session after signout: ${BetterAuth.instance.client.session}"); // null
-} catch (e) {
-  print("Signout exception: $e");
-}
-```
-
-### 6. List User Accounts
-
-```dart
-try {
-  final (accounts, error) = await BetterAuth.instance.client.listAccounts();
-
-  if (error != null) {
-    print("List accounts error: ${error.message}");
-    return;
-  }
-
-  if (accounts == null || accounts.isEmpty) {
-    print("No accounts found");
-    return;
-  }
-
-  print("Found ${accounts.length} accounts:");
-  for (Account account in accounts) {
-    print("Account: ${account.provider} - ${account.id}");
-  }
-} catch (e) {
-  print("List accounts exception: $e");
-}
-```
-
-### 7. Social Sign-In with Google
-
-```dart
-try {
-  final (user, error) = await BetterAuth.instance.client.signInWithIdToken(
-    provider: SocialProvider.google,
-    idToken: "google_id_token",
-    accessToken: "google_access_token",
+  final result = await client.signIn.social(
+    request: SignInSocialRequest(
+      provider: SocialProvider.google,
+      idToken: SocialIdTokenBody(
+        token: auth.idToken!,
+        accessToken: auth.accessToken!,
+      ),
+    ),
   );
-
-  if (error != null) {
-    print("Google signin error: ${error.message}");
-    return;
+  
+  if (result.error == null) {
+    print("Google sign-in successful!");
   }
-
-  print("Google signin successful: ${user?.name}");
-} catch (e) {
-  print("Google signin exception: $e");
 }
 ```
 
-## Key Features
+### Sign Out
 
-### Automatic Session Management
-- Sessions are automatically refreshed 5 minutes before expiration
-- Session state is persisted across app restarts
-- Invalid cached sessions are automatically cleared
+```dart
+final result = await client.signOut();
 
-### State Synchronization
-- Client state is automatically updated after all authentication operations
-- Local storage and memory state are kept in sync
-- Real-time session validation
+if (result.error != null) {
+  print("Error signing out: ${result.error!.message}");
+} else {
+  print("Signed out successfully");
+}
+```
 
-### Error Handling
-- Comprehensive error types for different failure scenarios
-- Graceful handling of network errors and invalid data
-- Detailed error messages for debugging
+## Session Management
 
-### Caching
-- User and session data are automatically cached
-- Cached data is validated on app startup
-- Invalid cache entries are automatically cleaned up
+### Get Current Session
+
+```dart
+final result = await client.getSession();
+
+if (result.error != null) {
+  print("No active session");
+  return;
+}
+
+final session = result.data!.session;
+final user = result.data!.user;
+
+print("Session expires: ${session.expiresAt}");
+print("User: ${user.name}");
+```
+
+### List All Sessions
+
+```dart
+final result = await client.listSessions();
+
+if (result.error == null) {
+  for (final session in result.data!) {
+    print("Session: ${session.id} - ${session.userAgent}");
+  }
+}
+```
+
+### Revoke Sessions
+
+```dart
+// Revoke current session
+await client.revokeSession();
+
+// Revoke all sessions
+await client.revokeSessions();
+
+// Revoke other sessions (keep current)
+await client.revokeOtherSessions();
+```
+
+## User Management
+
+### Update User Profile
+
+```dart
+final result = await client.updateUser(
+  request: UpdateUserRequest(
+    name: "New Name",
+    image: "https://example.com/avatar.jpg",
+  ),
+);
+```
+
+### Change Password
+
+```dart
+final result = await client.changePassword(
+  request: ChangePasswordRequest(
+    currentPassword: "oldPassword",
+    newPassword: "newSecurePassword123",
+  ),
+);
+```
+
+### Change Email
+
+```dart
+final result = await client.changeEmail(
+  request: ChangeEmailRequest(
+    newEmail: "newemail@example.com",
+  ),
+);
+```
+
+### Email Verification
+
+```dart
+// Send verification email
+final result = await client.sendVerificationEmail(
+  request: SendVerificationEmailRequest(
+    email: "user@example.com",
+  ),
+);
+
+// Verify email with token
+final verifyResult = await client.verifyEmail(
+  token: "verification_token_from_email",
+  callbackURL: "https://yourapp.com/verified",
+);
+```
+
+### Password Reset
+
+```dart
+// Send reset email
+final result = await client.forgetPassword(
+  request: ForgetPasswordRequest(
+    email: "user@example.com",
+  ),
+);
+
+// Reset password with token
+final resetResult = await client.resetPassword(
+  request: ResetPasswordRequest(
+    token: "reset_token_from_email",
+    password: "newPassword123",
+  ),
+);
+```
+
+### Delete User Account
+
+```dart
+final result = await client.deleteUser(
+  request: DeleteUserRequest(
+    password: "currentPassword", // Usually required for confirmation
+  ),
+);
+```
+
+## Social Account Management
+
+> ⚠️ **Note**: Social account management features require idToken-based authentication. Ensure your social providers support OpenID Connect.
+
+### Link Social Account
+
+```dart
+final result = await client.social.link(
+  request: SocialLinkRequest(
+    provider: SocialProvider.github,
+    // Include OAuth tokens from GitHub authentication
+  ),
+);
+```
+
+### List Connected Accounts
+
+```dart
+final result = await client.social.listAccounts();
+
+if (result.error == null) {
+  for (final account in result.data!) {
+    print("Connected: ${account.providerId}");
+  }
+}
+```
+
+### Unlink Social Account
+
+```dart
+final result = await client.social.unlink(
+  request: SocialUnlinkRequest(
+    provider: SocialProvider.github,
+  ),
+);
+```
+
+### Refresh Social Tokens
+
+```dart
+final result = await client.social.refreshToken(
+  request: SocialTokenRequest(
+    provider: SocialProvider.google,
+  ),
+);
+```
+
+## Data Models
+
+### User Model
+
+```dart
+class User {
+  String id;
+  String name;
+  String email;
+  bool emailVerified;
+  String? image;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  bool twoFactorEnabled;
+  String? username;
+  String? displayUsername;
+  bool isAnonymous;
+  String? phoneNumber;
+  bool phoneNumberVerified;
+  String? role;
+  bool banned;
+  String? banReason;
+  DateTime? banExpires;
+}
+```
+
+### Session Model
+
+```dart
+class Session {
+  String id;
+  String token;
+  DateTime expiresAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? ipAddress;
+  String? userAgent;
+  String userId;
+  String? impersonatedBy;
+  String? activeOrganizationId;
+}
+```
+
+### Account Model
+
+```dart
+class Account {
+  String id;
+  String providerId;       // e.g., "google", "github"
+  String accountId;        // Provider's user ID
+  String userId;           // Your app's user ID
+  String? accessToken;
+  String? refreshToken;
+  String? idToken;
+  DateTime? accessTokenExpiresAt;
+  DateTime? refreshTokenExpiresAt;
+  String? scope;
+  String? password;        // For email/password accounts
+  DateTime? createdAt;
+  DateTime? updatedAt;
+}
+```
+
+## Error Handling
+
+The package uses a Result pattern for type-safe error handling:
+
+```dart
+final result = await client.signIn.email(request: request);
+
+// Pattern matching approach
+switch (result) {
+  case Success(:final data):
+    print("Success: ${data.user.name}");
+  case Failure(:final error):
+    print("Error: ${error.message}");
+}
+
+// Extension method approach
+if (result.error != null) {
+  print("Error: ${result.error!.message}");
+  print("Code: ${result.error!.code}");
+} else {
+  print("Success: ${result.data!.user.name}");
+}
+```
+
+### Common Error Codes
+
+- `INVALID_CREDENTIALS` - Wrong email/password
+- `USER_NOT_FOUND` - User doesn't exist  
+- `EMAIL_ALREADY_EXISTS` - Email is taken
+- `SESSION_EXPIRED` - Session is no longer valid
+- `EMAIL_NOT_VERIFIED` - Email verification required
+- `WEAK_PASSWORD` - Password doesn't meet requirements
+
+## Advanced Configuration
+
+### Custom Storage
+
+Implement custom storage for cookies and session data:
+
+```dart
+class CustomStorage implements StorageInterface {
+  @override
+  Future<void> setCookies(String url, List<Cookie> cookies) async {
+    // Your custom cookie storage logic
+  }
+  
+  @override
+  Future<List<Cookie>> getCookies(String url) async {
+    // Your custom cookie retrieval logic
+  }
+}
+
+await BetterAuthFlutter.initialize(
+  url: "https://your-server.com/api/auth",
+  storage: CustomStorage(),
+);
+```
+
+### Custom Dio Client
+
+Use your own configured Dio client:
+
+```dart
+final dio = Dio();
+// Configure interceptors, timeouts, etc.
+
+await BetterAuthFlutter.initialize(
+  url: "https://your-server.com/api/auth", 
+  dio: dio,
+);
+```
 
 ## Best Practices
 
-### 1. Always Initialize First
-```dart
-// ✅ Good
-await BetterAuth.init(baseUrl: Uri.parse("https://your-server.com"));
-final user = BetterAuth.instance.client.user;
-
-// ❌ Bad - will throw exception
-final user = BetterAuth.instance.client.user; // Exception: not initialized
-```
-
-### 2. Handle Errors Properly
-```dart
-// ✅ Good
-try {
-  final (user, error) = await BetterAuth.instance.client.signInWithEmailAndPassword(
-    email: email,
-    password: password,
-  );
-  
-  if (error != null) {
-    // Handle specific error
-    switch (error.code) {
-      case BetterAuthError.invalidEmailOrPassword:
-        showMessage("Invalid credentials");
-        break;
-      case BetterAuthError.userNotFound:
-        showMessage("User not found");
-        break;
-      default:
-        showMessage("An error occurred: ${error.message}");
-    }
-    return;
-  }
-  
-  // Success - user is now signed in
-  navigateToHome();
-} catch (e) {
-  showMessage("Unexpected error: $e");
-}
-```
-
-### 3. Check Client State
-```dart
-// Check if user is signed in
-if (BetterAuth.instance.client.user != null) {
-  // User is signed in
-  final userName = BetterAuth.instance.client.user!.name;
-  print("Welcome back, $userName!");
-}
-
-// Check if session is valid
-if (BetterAuth.instance.client.session != null) {
-  final expiresAt = BetterAuth.instance.client.session!.expiresAt;
-  if (expiresAt.isAfter(DateTime.now())) {
-    print("Session is valid until $expiresAt");
-  }
-}
-```
-
-## Troubleshooting
-
-### Issue: "BetterAuth not initialized" Exception
-**Solution**: Make sure to call `await BetterAuth.init()` before accessing the client:
+### 1. Initialize Early
+Always initialize Better Auth before using any authentication methods:
 
 ```dart
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await BetterAuth.init(baseUrl: Uri.parse("https://your-server.com"));
+  await BetterAuthFlutter.initialize(url: "...");
   runApp(MyApp());
 }
 ```
 
-### Issue: Client State Not Updated After Authentication
-**Solution**: This is now fixed in the current implementation. Client state is automatically updated after all authentication operations.
-
-### Issue: Session Expires Unexpectedly
-**Solution**: The implementation now includes proactive session refresh. Sessions are automatically refreshed 5 minutes before expiration.
-
-### Issue: Cached Data Causing Issues
-**Solution**: Invalid cached data is now automatically detected and cleared. If you need to manually clear cache:
+### 2. Handle Errors Gracefully
+Always check for errors in API responses:
 
 ```dart
-await BetterAuth.instance.client.signOut(); // Clears all cached data
+final result = await client.signIn.email(request: request);
+if (result.error != null) {
+  // Show user-friendly error message
+  showErrorDialog(result.error!.message);
+  return;
+}
+// Proceed with success case
 ```
 
-## Error Types
+### 3. Secure Social Authentication
+When implementing social authentication, validate tokens properly and handle edge cases:
 
-The package provides comprehensive error types for different scenarios:
+```dart
+try {
+  final googleUser = await GoogleSignIn().signIn();
+  if (googleUser == null) return; // User cancelled
+  
+  final auth = await googleUser.authentication;
+  if (auth.idToken == null) {
+    throw Exception("Failed to get ID token");
+  }
+  
+  // Proceed with Better Auth
+} catch (e) {
+  // Handle social provider errors
+}
+```
 
-- `BetterAuthError.invalidEmailOrPassword` - Invalid login credentials
-- `BetterAuthError.userNotFound` - User doesn't exist
-- `BetterAuthError.userAlreadyExists` - User already registered
-- `BetterAuthError.sessionExpired` - Session has expired
-- `BetterAuthError.emailNotVerified` - Email verification required
-- `BetterAuthError.invalidToken` - Invalid authentication token
-- And many more...
+### 4. Session Management
+Check session validity before performing authenticated operations:
+
+```dart
+final sessionResult = await client.getSession();
+if (sessionResult.error != null) {
+  // Redirect to login
+  Navigator.pushReplacement(context, LoginRoute());
+  return;
+}
+```
+
+## Migration Guide
+
+### From v0.0.6 to v0.0.7
+- Update initialization call to use `BetterAuthFlutter.initialize()`
+- Replace direct client instantiation with `BetterAuthFlutter.client`
+- Update error handling to use the Result pattern
 
 ## Contributing
 
-Please feel free to contribute to this package by submitting issues or pull requests.
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## Support
+
+- 📖 [Documentation](https://www.better-auth.com/docs)
+- 🐛 [Issue Tracker](https://github.com/ekakshjanweja/better_auth_flutter/issues)
+- 💬 [Discussions](https://github.com/ekakshjanweja/better_auth_flutter/discussions)
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
