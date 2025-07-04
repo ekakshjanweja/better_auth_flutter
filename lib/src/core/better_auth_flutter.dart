@@ -67,4 +67,13 @@ class BetterAuthFlutter {
     );
     return _instance._client;
   }
+
+  static StorageInterface get storage {
+    assert(
+      _initialized,
+      "Better Auth Flutter has not been initialized. Call initialize() first.",
+    );
+
+    return _storage;
+  }
 }
