@@ -7,12 +7,15 @@ class PersistantCookieStore extends PersistCookieJar {
 
   @override
   Future<void> saveFromResponse(Uri uri, List<Cookie> cookies) async {
-    await store.setCookies(uri.host, cookies);
+    await store.setCookies(
+      StorageInterface.distillUrl(uri.toString()),
+      cookies,
+    );
     return super.saveFromResponse(uri, cookies);
   }
 
   @override
   Future<List<Cookie>> loadForRequest(Uri uri) async {
-    return await store.getCookies(uri.host);
+    return await store.getCookies(StorageInterface.distillUrl(uri.toString()));
   }
 }

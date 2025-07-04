@@ -1,4 +1,5 @@
 import "dart:convert";
+import "dart:developer";
 import "dart:io";
 import "package:better_auth_flutter/src/core/storage/storage.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -30,12 +31,12 @@ class LocalStorage implements StorageInterface {
             .toList();
 
     final jsonString = jsonEncode(list);
-    await _prefs.setString(url, jsonString);
+    await _prefs.setString(StorageInterface.distillUrl(url), jsonString);
   }
 
   @override
   Future<List<Cookie>> getCookies(String url) async {
-    final jsonString = _prefs.getString(url);
+    final jsonString = _prefs.getString(StorageInterface.distillUrl(url));
     if (jsonString == null) return [];
 
     try {
@@ -50,6 +51,12 @@ class LocalStorage implements StorageInterface {
         cookie.domain = c["domain"];
         cookie.httpOnly = c["httpOnly"] ?? false;
         cookie.secure = c["secure"] ?? false;
+        log(
+          cookie.toString(),
+          name: "LocalStorage.getCookies",
+          level: 800,
+          error: "Cookie loaded from local storage",
+        );
         return cookie;
       }).toList();
     } catch (e) {
