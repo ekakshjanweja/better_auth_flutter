@@ -33,12 +33,13 @@ dev_dependencies:
   flutter_lints: 6.0.0
   flutter_test:
     sdk: flutter
-  json_serializable: ^6.9.5
   freezed: ^3.1.0
+  json_serializable: ^6.9.5
+  retrofit_generator: ^9.1.4
 
 platforms:
-  android:
-  ios:
-  macos:
-  windows:
-  linux:
+  ? android
+  ? ios
+  ? macos
+  ? windows
+  ? linux
