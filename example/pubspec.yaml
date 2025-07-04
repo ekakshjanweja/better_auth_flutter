@@ -15,7 +15,7 @@ dependencies:
     path: ../
   url_launcher: ^6.3.1
   cupertino_icons: ^1.0.8
-  google_sign_in: 7.0.0
+  google_sign_in: 7.1.0
   flutter_web_auth_2: ^4.1.0
   flutter_dotenv: ^5.2.1
   provider: ^6.1.5

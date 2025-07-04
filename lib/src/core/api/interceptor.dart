@@ -49,7 +49,7 @@ class RemoveNullsInterceptor extends Interceptor {
     );
   }
 
-  /// Checks if [obj] has a `toJson()` method that returns a Map<String, dynamic>.
+  /// Checks if [obj] has a `toJson()` method that returns a `Map<String, dynamic>`.
   bool _canCallToJson(Object? obj) {
     try {
       final result = (obj as dynamic).toJson();

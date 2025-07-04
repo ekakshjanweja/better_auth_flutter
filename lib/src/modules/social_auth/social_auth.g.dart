@@ -19,14 +19,12 @@ class _SocialAuth implements SocialAuth {
 
   Future<HttpResponse<SessionResponse>> _callback({
     required String provider,
-    String? code,
-    String? state,
+    required SocialCallbackRequest request,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = request;
     final _options = _setStreamType<Result<SessionResponse>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -52,24 +50,20 @@ class _SocialAuth implements SocialAuth {
   @override
   Future<Result<SessionResponse>> callback({
     required String provider,
-    String? code,
-    String? state,
+    required SocialCallbackRequest request,
   }) {
     return BetterAuthCallAdapter<SessionResponse>().adapt(
-      () => _callback(provider: provider, code: code, state: state),
+      () => _callback(provider: provider, request: request),
     );
   }
 
   Future<HttpResponse<SocialLinkResponse>> _link({
-    String? callbackURL,
-    String? scopes,
-    required String provider,
+    required SocialLinkRequest request,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = request;
     final _options = _setStreamType<Result<SocialLinkResponse>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -94,12 +88,10 @@ class _SocialAuth implements SocialAuth {
 
   @override
   Future<Result<SocialLinkResponse>> link({
-    String? callbackURL,
-    String? scopes,
-    required String provider,
+    required SocialLinkRequest request,
   }) {
     return BetterAuthCallAdapter<SocialLinkResponse>().adapt(
-      () => _link(callbackURL: callbackURL, scopes: scopes, provider: provider),
+      () => _link(request: request),
     );
   }
 
@@ -144,14 +136,12 @@ class _SocialAuth implements SocialAuth {
   }
 
   Future<HttpResponse<StatusResponse>> _unlink({
-    required String providerId,
-    String? accountId,
+    required SocialUnlinkRequest request,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = request;
     final _options = _setStreamType<Result<StatusResponse>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
@@ -176,24 +166,20 @@ class _SocialAuth implements SocialAuth {
 
   @override
   Future<Result<StatusResponse>> unlink({
-    required String providerId,
-    String? accountId,
+    required SocialUnlinkRequest request,
   }) {
     return BetterAuthCallAdapter<StatusResponse>().adapt(
-      () => _unlink(providerId: providerId, accountId: accountId),
+      () => _unlink(request: request),
     );
   }
 
   Future<HttpResponse<TokenResponse>> _refreshToken({
-    required String providerId,
-    String? accountId,
-    String? userId,
+    required SocialTokenRequest request,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = request;
     final _options = _setStreamType<Result<TokenResponse>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -218,29 +204,20 @@ class _SocialAuth implements SocialAuth {
 
   @override
   Future<Result<TokenResponse>> refreshToken({
-    required String providerId,
-    String? accountId,
-    String? userId,
+    required SocialTokenRequest request,
   }) {
     return BetterAuthCallAdapter<TokenResponse>().adapt(
-      () => _refreshToken(
-        providerId: providerId,
-        accountId: accountId,
-        userId: userId,
-      ),
+      () => _refreshToken(request: request),
     );
   }
 
   Future<HttpResponse<TokenResponse>> _getAccessToken({
-    required String providerId,
-    String? accountId,
-    String? userId,
+    required SocialTokenRequest request,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = request;
     final _options = _setStreamType<Result<TokenResponse>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -265,16 +242,10 @@ class _SocialAuth implements SocialAuth {
 
   @override
   Future<Result<TokenResponse>> getAccessToken({
-    required String providerId,
-    String? accountId,
-    String? userId,
+    required SocialTokenRequest request,
   }) {
     return BetterAuthCallAdapter<TokenResponse>().adapt(
-      () => _getAccessToken(
-        providerId: providerId,
-        accountId: accountId,
-        userId: userId,
-      ),
+      () => _getAccessToken(request: request),
     );
   }
 

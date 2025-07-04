@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:better_auth_flutter/better_auth_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +20,8 @@ void main() async {
   } catch (e) {
     log("Failed to initialize BetterAuth: $e");
   }
+
+  await AuthRepo.initializeGoogleSignIn();
 
   runApp(const App());
 }
@@ -62,6 +66,18 @@ class AuthPage extends StatelessWidget {
               },
               child: Text("Sign In"),
             ),
+            FilledButton(
+              onPressed: () async {
+                await AuthRepo.signOut();
+              },
+              child: Text("Sign Out"),
+            ),
+            FilledButton(
+              onPressed: () async {
+                await AuthRepo.signInWithGoogle();
+              },
+              child: Text("Sign In With Google"),
+            ),
           ],
         ),
       ),
@@ -82,13 +98,23 @@ class Home extends StatelessWidget {
 }
 
 class AuthRepo {
-  static final BetterAuthClient client = BetterAuthFlutter.client;
+  static final BetterAuthClient _client = BetterAuthFlutter.client;
+
+  static final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
+
+  static final List<String> scopes = <String>["openid", "email", "profile"];
+
+  static Future<void> initializeGoogleSignIn() async {
+    await _googleSignIn.initialize(
+      serverClientId: dotenv.env['GOOGLE_CLIENT_ID']!,
+    );
+  }
 
   static Future<void> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
-    final response = await client.signIn.email(
+    final response = await _client.signIn.email(
       request: SignInEmailRequest(email: email, password: password),
     );
 
@@ -105,7 +131,7 @@ class AuthRepo {
     required String password,
     required String name,
   }) async {
-    final response = await client.signUp.email(
+    final response = await _client.signUp.email(
       request: SignUpRequest(name: name, email: email, password: password),
     );
 
@@ -115,5 +141,81 @@ class AuthRepo {
     }
 
     log(response.data.toString());
+  }
+
+  static Future<void> signOut() async {
+    await _googleSignIn.signOut();
+    final response = await _client.signOut();
+
+    if (response.error != null) {
+      log(response.error!.message);
+      return;
+    }
+  }
+
+  static Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount user = await _googleSignIn.authenticate(
+        scopeHint: scopes,
+      );
+
+      final GoogleSignInAuthentication authentication = user.authentication;
+      final String? idToken = authentication.idToken;
+
+      if (idToken == null) {
+        log("Id token is null", error: "GOOGLE_SIGN_IN_ERROR");
+        return;
+      }
+
+      final accessToken = await _getAccessToken(user);
+
+      if (accessToken == null) {
+        log("Access token is null", error: "GOOGLE_SIGN_IN_ERROR");
+        return;
+      }
+
+      final response = await _client.signIn.social(
+        request: SignInSocialRequest(
+          provider: SocialProvider.google,
+          idToken: SocialIdTokenBody(token: idToken, accessToken: accessToken),
+          scopes: scopes,
+        ),
+      );
+
+      if (response.error != null) {
+        log(response.error!.message, error: "GOOGLE_SIGN_IN_ERROR");
+        return;
+      }
+
+      log(response.data.toString(), name: "GOOGLE_SIGN_IN_SUCCESS");
+    } on GoogleSignInException catch (e) {
+      log(e.toString(), error: "GOOGLE_SIGN_IN_ERROR");
+
+      return;
+    } catch (e) {
+      log(e.toString(), error: "GOOGLE_SIGN_IN_ERROR");
+      return;
+    }
+  }
+
+  static Future<String?> _getAccessToken(GoogleSignInAccount user) async {
+    final ClientAuthorizationTokenData? tokens = await GoogleSignInPlatform
+        .instance
+        .clientAuthorizationTokensForScopes(
+          ClientAuthorizationTokensForScopesParameters(
+            request: AuthorizationRequestDetails(
+              scopes: scopes,
+              userId: user.id,
+              email: user.email,
+              promptIfUnauthorized: false,
+            ),
+          ),
+        );
+
+    if (tokens == null) return null;
+
+    final accessToken = tokens.accessToken;
+
+    return accessToken;
   }
 }

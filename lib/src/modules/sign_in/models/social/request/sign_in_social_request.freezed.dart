@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SignInSocialRequest {
 
- String get provider; String? get callbackUrl; String? get newUserCallbackURL; String? get errorCallbackURL; bool? get disableRedirect; String? get scopes; SocialIdTokenBody? get idToken; String? get requestSignUp; String? get loginHint;
+ SocialProvider get provider; String? get callbackUrl; String? get newUserCallbackURL; String? get errorCallbackURL; bool? get disableRedirect; List<String>? get scopes; SocialIdTokenBody? get idToken; String? get requestSignUp; String? get loginHint;
 /// Create a copy of SignInSocialRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,12 +28,12 @@ $SignInSocialRequestCopyWith<SignInSocialRequest> get copyWith => _$SignInSocial
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInSocialRequest&&(identical(other.provider, provider) || other.provider == provider)&&(identical(other.callbackUrl, callbackUrl) || other.callbackUrl == callbackUrl)&&(identical(other.newUserCallbackURL, newUserCallbackURL) || other.newUserCallbackURL == newUserCallbackURL)&&(identical(other.errorCallbackURL, errorCallbackURL) || other.errorCallbackURL == errorCallbackURL)&&(identical(other.disableRedirect, disableRedirect) || other.disableRedirect == disableRedirect)&&(identical(other.scopes, scopes) || other.scopes == scopes)&&(identical(other.idToken, idToken) || other.idToken == idToken)&&(identical(other.requestSignUp, requestSignUp) || other.requestSignUp == requestSignUp)&&(identical(other.loginHint, loginHint) || other.loginHint == loginHint));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInSocialRequest&&(identical(other.provider, provider) || other.provider == provider)&&(identical(other.callbackUrl, callbackUrl) || other.callbackUrl == callbackUrl)&&(identical(other.newUserCallbackURL, newUserCallbackURL) || other.newUserCallbackURL == newUserCallbackURL)&&(identical(other.errorCallbackURL, errorCallbackURL) || other.errorCallbackURL == errorCallbackURL)&&(identical(other.disableRedirect, disableRedirect) || other.disableRedirect == disableRedirect)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.idToken, idToken) || other.idToken == idToken)&&(identical(other.requestSignUp, requestSignUp) || other.requestSignUp == requestSignUp)&&(identical(other.loginHint, loginHint) || other.loginHint == loginHint));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,provider,callbackUrl,newUserCallbackURL,errorCallbackURL,disableRedirect,scopes,idToken,requestSignUp,loginHint);
+int get hashCode => Object.hash(runtimeType,provider,callbackUrl,newUserCallbackURL,errorCallbackURL,disableRedirect,const DeepCollectionEquality().hash(scopes),idToken,requestSignUp,loginHint);
 
 @override
 String toString() {
@@ -48,7 +48,7 @@ abstract mixin class $SignInSocialRequestCopyWith<$Res>  {
   factory $SignInSocialRequestCopyWith(SignInSocialRequest value, $Res Function(SignInSocialRequest) _then) = _$SignInSocialRequestCopyWithImpl;
 @useResult
 $Res call({
- String provider, String? callbackUrl, String? newUserCallbackURL, String? errorCallbackURL, bool? disableRedirect, String? scopes, SocialIdTokenBody? idToken, String? requestSignUp, String? loginHint
+ SocialProvider provider, String? callbackUrl, String? newUserCallbackURL, String? errorCallbackURL, bool? disableRedirect, List<String>? scopes, SocialIdTokenBody? idToken, String? requestSignUp, String? loginHint
 });
 
 
@@ -68,12 +68,12 @@ class _$SignInSocialRequestCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? provider = null,Object? callbackUrl = freezed,Object? newUserCallbackURL = freezed,Object? errorCallbackURL = freezed,Object? disableRedirect = freezed,Object? scopes = freezed,Object? idToken = freezed,Object? requestSignUp = freezed,Object? loginHint = freezed,}) {
   return _then(_self.copyWith(
 provider: null == provider ? _self.provider : provider // ignore: cast_nullable_to_non_nullable
-as String,callbackUrl: freezed == callbackUrl ? _self.callbackUrl : callbackUrl // ignore: cast_nullable_to_non_nullable
+as SocialProvider,callbackUrl: freezed == callbackUrl ? _self.callbackUrl : callbackUrl // ignore: cast_nullable_to_non_nullable
 as String?,newUserCallbackURL: freezed == newUserCallbackURL ? _self.newUserCallbackURL : newUserCallbackURL // ignore: cast_nullable_to_non_nullable
 as String?,errorCallbackURL: freezed == errorCallbackURL ? _self.errorCallbackURL : errorCallbackURL // ignore: cast_nullable_to_non_nullable
 as String?,disableRedirect: freezed == disableRedirect ? _self.disableRedirect : disableRedirect // ignore: cast_nullable_to_non_nullable
 as bool?,scopes: freezed == scopes ? _self.scopes : scopes // ignore: cast_nullable_to_non_nullable
-as String?,idToken: freezed == idToken ? _self.idToken : idToken // ignore: cast_nullable_to_non_nullable
+as List<String>?,idToken: freezed == idToken ? _self.idToken : idToken // ignore: cast_nullable_to_non_nullable
 as SocialIdTokenBody?,requestSignUp: freezed == requestSignUp ? _self.requestSignUp : requestSignUp // ignore: cast_nullable_to_non_nullable
 as String?,loginHint: freezed == loginHint ? _self.loginHint : loginHint // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -173,7 +173,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String provider,  String? callbackUrl,  String? newUserCallbackURL,  String? errorCallbackURL,  bool? disableRedirect,  String? scopes,  SocialIdTokenBody? idToken,  String? requestSignUp,  String? loginHint)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SocialProvider provider,  String? callbackUrl,  String? newUserCallbackURL,  String? errorCallbackURL,  bool? disableRedirect,  List<String>? scopes,  SocialIdTokenBody? idToken,  String? requestSignUp,  String? loginHint)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SignInSocialRequest() when $default != null:
 return $default(_that.provider,_that.callbackUrl,_that.newUserCallbackURL,_that.errorCallbackURL,_that.disableRedirect,_that.scopes,_that.idToken,_that.requestSignUp,_that.loginHint);case _:
@@ -194,7 +194,7 @@ return $default(_that.provider,_that.callbackUrl,_that.newUserCallbackURL,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String provider,  String? callbackUrl,  String? newUserCallbackURL,  String? errorCallbackURL,  bool? disableRedirect,  String? scopes,  SocialIdTokenBody? idToken,  String? requestSignUp,  String? loginHint)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SocialProvider provider,  String? callbackUrl,  String? newUserCallbackURL,  String? errorCallbackURL,  bool? disableRedirect,  List<String>? scopes,  SocialIdTokenBody? idToken,  String? requestSignUp,  String? loginHint)  $default,) {final _that = this;
 switch (_that) {
 case _SignInSocialRequest():
 return $default(_that.provider,_that.callbackUrl,_that.newUserCallbackURL,_that.errorCallbackURL,_that.disableRedirect,_that.scopes,_that.idToken,_that.requestSignUp,_that.loginHint);case _:
@@ -214,7 +214,7 @@ return $default(_that.provider,_that.callbackUrl,_that.newUserCallbackURL,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String provider,  String? callbackUrl,  String? newUserCallbackURL,  String? errorCallbackURL,  bool? disableRedirect,  String? scopes,  SocialIdTokenBody? idToken,  String? requestSignUp,  String? loginHint)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SocialProvider provider,  String? callbackUrl,  String? newUserCallbackURL,  String? errorCallbackURL,  bool? disableRedirect,  List<String>? scopes,  SocialIdTokenBody? idToken,  String? requestSignUp,  String? loginHint)?  $default,) {final _that = this;
 switch (_that) {
 case _SignInSocialRequest() when $default != null:
 return $default(_that.provider,_that.callbackUrl,_that.newUserCallbackURL,_that.errorCallbackURL,_that.disableRedirect,_that.scopes,_that.idToken,_that.requestSignUp,_that.loginHint);case _:
@@ -229,15 +229,23 @@ return $default(_that.provider,_that.callbackUrl,_that.newUserCallbackURL,_that.
 @JsonSerializable()
 
 class _SignInSocialRequest implements SignInSocialRequest {
-  const _SignInSocialRequest({required this.provider, this.callbackUrl, this.newUserCallbackURL, this.errorCallbackURL, this.disableRedirect, this.scopes, this.idToken, this.requestSignUp, this.loginHint});
+  const _SignInSocialRequest({required this.provider, this.callbackUrl, this.newUserCallbackURL, this.errorCallbackURL, this.disableRedirect, final  List<String>? scopes, this.idToken, this.requestSignUp, this.loginHint}): _scopes = scopes;
   factory _SignInSocialRequest.fromJson(Map<String, dynamic> json) => _$SignInSocialRequestFromJson(json);
 
-@override final  String provider;
+@override final  SocialProvider provider;
 @override final  String? callbackUrl;
 @override final  String? newUserCallbackURL;
 @override final  String? errorCallbackURL;
 @override final  bool? disableRedirect;
-@override final  String? scopes;
+ final  List<String>? _scopes;
+@override List<String>? get scopes {
+  final value = _scopes;
+  if (value == null) return null;
+  if (_scopes is EqualUnmodifiableListView) return _scopes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
 @override final  SocialIdTokenBody? idToken;
 @override final  String? requestSignUp;
 @override final  String? loginHint;
@@ -255,12 +263,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInSocialRequest&&(identical(other.provider, provider) || other.provider == provider)&&(identical(other.callbackUrl, callbackUrl) || other.callbackUrl == callbackUrl)&&(identical(other.newUserCallbackURL, newUserCallbackURL) || other.newUserCallbackURL == newUserCallbackURL)&&(identical(other.errorCallbackURL, errorCallbackURL) || other.errorCallbackURL == errorCallbackURL)&&(identical(other.disableRedirect, disableRedirect) || other.disableRedirect == disableRedirect)&&(identical(other.scopes, scopes) || other.scopes == scopes)&&(identical(other.idToken, idToken) || other.idToken == idToken)&&(identical(other.requestSignUp, requestSignUp) || other.requestSignUp == requestSignUp)&&(identical(other.loginHint, loginHint) || other.loginHint == loginHint));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInSocialRequest&&(identical(other.provider, provider) || other.provider == provider)&&(identical(other.callbackUrl, callbackUrl) || other.callbackUrl == callbackUrl)&&(identical(other.newUserCallbackURL, newUserCallbackURL) || other.newUserCallbackURL == newUserCallbackURL)&&(identical(other.errorCallbackURL, errorCallbackURL) || other.errorCallbackURL == errorCallbackURL)&&(identical(other.disableRedirect, disableRedirect) || other.disableRedirect == disableRedirect)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.idToken, idToken) || other.idToken == idToken)&&(identical(other.requestSignUp, requestSignUp) || other.requestSignUp == requestSignUp)&&(identical(other.loginHint, loginHint) || other.loginHint == loginHint));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,provider,callbackUrl,newUserCallbackURL,errorCallbackURL,disableRedirect,scopes,idToken,requestSignUp,loginHint);
+int get hashCode => Object.hash(runtimeType,provider,callbackUrl,newUserCallbackURL,errorCallbackURL,disableRedirect,const DeepCollectionEquality().hash(_scopes),idToken,requestSignUp,loginHint);
 
 @override
 String toString() {
@@ -275,7 +283,7 @@ abstract mixin class _$SignInSocialRequestCopyWith<$Res> implements $SignInSocia
   factory _$SignInSocialRequestCopyWith(_SignInSocialRequest value, $Res Function(_SignInSocialRequest) _then) = __$SignInSocialRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String provider, String? callbackUrl, String? newUserCallbackURL, String? errorCallbackURL, bool? disableRedirect, String? scopes, SocialIdTokenBody? idToken, String? requestSignUp, String? loginHint
+ SocialProvider provider, String? callbackUrl, String? newUserCallbackURL, String? errorCallbackURL, bool? disableRedirect, List<String>? scopes, SocialIdTokenBody? idToken, String? requestSignUp, String? loginHint
 });
 
 
@@ -295,12 +303,12 @@ class __$SignInSocialRequestCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? provider = null,Object? callbackUrl = freezed,Object? newUserCallbackURL = freezed,Object? errorCallbackURL = freezed,Object? disableRedirect = freezed,Object? scopes = freezed,Object? idToken = freezed,Object? requestSignUp = freezed,Object? loginHint = freezed,}) {
   return _then(_SignInSocialRequest(
 provider: null == provider ? _self.provider : provider // ignore: cast_nullable_to_non_nullable
-as String,callbackUrl: freezed == callbackUrl ? _self.callbackUrl : callbackUrl // ignore: cast_nullable_to_non_nullable
+as SocialProvider,callbackUrl: freezed == callbackUrl ? _self.callbackUrl : callbackUrl // ignore: cast_nullable_to_non_nullable
 as String?,newUserCallbackURL: freezed == newUserCallbackURL ? _self.newUserCallbackURL : newUserCallbackURL // ignore: cast_nullable_to_non_nullable
 as String?,errorCallbackURL: freezed == errorCallbackURL ? _self.errorCallbackURL : errorCallbackURL // ignore: cast_nullable_to_non_nullable
 as String?,disableRedirect: freezed == disableRedirect ? _self.disableRedirect : disableRedirect // ignore: cast_nullable_to_non_nullable
-as bool?,scopes: freezed == scopes ? _self.scopes : scopes // ignore: cast_nullable_to_non_nullable
-as String?,idToken: freezed == idToken ? _self.idToken : idToken // ignore: cast_nullable_to_non_nullable
+as bool?,scopes: freezed == scopes ? _self._scopes : scopes // ignore: cast_nullable_to_non_nullable
+as List<String>?,idToken: freezed == idToken ? _self.idToken : idToken // ignore: cast_nullable_to_non_nullable
 as SocialIdTokenBody?,requestSignUp: freezed == requestSignUp ? _self.requestSignUp : requestSignUp // ignore: cast_nullable_to_non_nullable
 as String?,loginHint: freezed == loginHint ? _self.loginHint : loginHint // ignore: cast_nullable_to_non_nullable
 as String?,

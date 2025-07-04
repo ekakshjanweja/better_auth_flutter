@@ -1,12 +1,19 @@
 import "package:better_auth_flutter/src/core/api/adapter.dart";
+import "package:better_auth_flutter/src/core/models/change_email/request/change_email_request.dart";
+import "package:better_auth_flutter/src/core/models/change_password/request/change_password_request.dart";
+import "package:better_auth_flutter/src/core/models/delete_user/request/delete_user_request.dart";
+import "package:better_auth_flutter/src/core/models/forget_password/request/forget_password_request.dart";
+import "package:better_auth_flutter/src/core/models/reset_password/request/reset_password_request.dart";
+import "package:better_auth_flutter/src/core/models/result/response/status_response.dart";
+import "package:better_auth_flutter/src/core/models/result/response/success_response.dart";
 import "package:better_auth_flutter/src/core/models/result/result.dart";
-import "package:better_auth_flutter/src/core/models/result/status_response.dart";
-import "package:better_auth_flutter/src/core/models/result/success_response.dart";
+import "package:better_auth_flutter/src/core/models/send_verification_email/request/send_verification_email_request.dart";
 import "package:better_auth_flutter/src/core/models/session/session.dart";
-import "package:better_auth_flutter/src/core/models/session_response/session_response.dart";
-import "package:better_auth_flutter/src/core/models/sign_out/sign_out_response.dart";
-import "package:better_auth_flutter/src/core/models/verify_email/verify_email_response.dart";
-import "package:better_auth_flutter/src/modules/sign_up/models/sign_up_response.dart";
+import "package:better_auth_flutter/src/core/models/session_response/response/session_response.dart";
+import "package:better_auth_flutter/src/core/models/sign_out/response/sign_out_response.dart";
+import "package:better_auth_flutter/src/core/models/update_user/request/update_user_request.dart";
+import "package:better_auth_flutter/src/core/models/verify_email/response/verify_email_response.dart";
+import "package:better_auth_flutter/src/modules/sign_up/models/response/sign_up_response.dart";
 import "package:dio/dio.dart";
 import "package:retrofit/retrofit.dart";
 
@@ -28,14 +35,12 @@ abstract class BetterAuthClient {
 
   @POST("/forget-password")
   Future<Result<StatusResponse>> forgetPassword({
-    @BodyExtra("email") required String email,
-    @BodyExtra("redirectTo") String? redirectTo,
+    @Body() required ForgetPasswordRequest request,
   });
 
   @POST("/reset-password")
   Future<Result<StatusResponse>> resetPassword({
-    @BodyExtra("newPassword") required String newPassword,
-    @BodyExtra("token") String? token,
+    @Body() required ResetPasswordRequest request,
   });
 
   @GET("/verify-email")
@@ -46,34 +51,27 @@ abstract class BetterAuthClient {
 
   @POST("/send-verification-email")
   Future<Result<StatusResponse>> sendVerificationEmail({
-    @BodyExtra("email") required String email,
-    @BodyExtra("callbackURL") String? callbackURL,
+    @Body() required SendVerificationEmailRequest request,
   });
 
   @POST("/change-email")
   Future<Result<StatusResponse>> changeEmail({
-    @BodyExtra("newEmail") required String newEmail,
-    @BodyExtra("callbackURL") String? callbackURL,
+    @Body() required ChangeEmailRequest request,
   });
 
   @POST("/change-password")
   Future<Result<SignUpResponse>> changePassword({
-    @BodyExtra("newPassword") required String newPassword,
-    @BodyExtra("currentPassword") required String currentPassword,
-    @BodyExtra("revokeOtherSessions") String? revokeOtherSessions,
+    @Body() required ChangePasswordRequest request,
   });
 
   @POST("/update-user")
   Future<Result<StatusResponse>> updateUser({
-    @BodyExtra("name") String? name,
-    @BodyExtra("image") String? image,
+    @Body() required UpdateUserRequest request,
   });
 
   @POST("/delete-user")
   Future<Result<SuccessResponse>> deleteUser({
-    @BodyExtra("callbackURL") String? callbackURL,
-    @BodyExtra("password") String? password,
-    @BodyExtra("token") String? token,
+    @Body() required DeleteUserRequest request,
   });
 
   @GET("/list-sessions")

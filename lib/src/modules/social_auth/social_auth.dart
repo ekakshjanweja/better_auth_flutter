@@ -1,10 +1,14 @@
 import "package:better_auth_flutter/src/core/api/adapter.dart";
 import "package:better_auth_flutter/src/core/models/result/result.dart";
-import "package:better_auth_flutter/src/core/models/result/status_response.dart";
-import "package:better_auth_flutter/src/core/models/session_response/session_response.dart";
-import "package:better_auth_flutter/src/modules/social_auth/models/link/social_link_response.dart";
-import "package:better_auth_flutter/src/modules/social_auth/models/list_account/social_account_response.dart";
-import "package:better_auth_flutter/src/modules/social_auth/models/token/token_response.dart";
+import "package:better_auth_flutter/src/core/models/result/response/status_response.dart";
+import "package:better_auth_flutter/src/core/models/session_response/response/session_response.dart";
+import "package:better_auth_flutter/src/modules/social_auth/models/callback/request/social_callback_request.dart";
+import "package:better_auth_flutter/src/modules/social_auth/models/link/request/social_link_request.dart";
+import "package:better_auth_flutter/src/modules/social_auth/models/link/response/social_link_response.dart";
+import "package:better_auth_flutter/src/modules/social_auth/models/list_account/response/social_account_response.dart";
+import "package:better_auth_flutter/src/modules/social_auth/models/token/request/social_token_request.dart";
+import "package:better_auth_flutter/src/modules/social_auth/models/token/response/token_response.dart";
+import "package:better_auth_flutter/src/modules/social_auth/models/unlink/request/social_unlink_request.dart";
 import "package:dio/dio.dart";
 import "package:retrofit/retrofit.dart";
 
@@ -21,15 +25,12 @@ abstract class SocialAuth {
   @POST("/callback/{id}")
   Future<Result<SessionResponse>> callback({
     @Path("id") required String provider,
-    @BodyExtra("code") String? code,
-    @BodyExtra("state") String? state,
+    @Body() required SocialCallbackRequest request,
   });
 
   @POST("/link-social")
   Future<Result<SocialLinkResponse>> link({
-    @BodyExtra('callbackURL') String? callbackURL,
-    @BodyExtra('scopes') String? scopes,
-    @BodyExtra('provider') required String provider,
+    @Body() required SocialLinkRequest request,
   });
 
   @GET("/list-accounts")
@@ -37,21 +38,16 @@ abstract class SocialAuth {
 
   @GET("/unlink-account")
   Future<Result<StatusResponse>> unlink({
-    @BodyExtra("providerId") required String providerId,
-    @BodyExtra("accountId") String? accountId,
+    @Body() required SocialUnlinkRequest request,
   });
 
   @POST("/refresh-token")
   Future<Result<TokenResponse>> refreshToken({
-    @BodyExtra("providerId") required String providerId,
-    @BodyExtra("accountId") String? accountId,
-    @BodyExtra("userId") String? userId,
+    @Body() required SocialTokenRequest request,
   });
 
   @POST("/get-access-token")
   Future<Result<TokenResponse>> getAccessToken({
-    @BodyExtra("providerId") required String providerId,
-    @BodyExtra("accountId") String? accountId,
-    @BodyExtra("userId") String? userId,
+    @Body() required SocialTokenRequest request,
   });
 }

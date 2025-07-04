@@ -7,10 +7,7 @@ part "sign_in_id_token_body.g.dart";
 abstract class SocialIdTokenBody with _$SocialIdTokenBody {
   const factory SocialIdTokenBody({
     required String token,
-    String? nonce,
     String? accessToken,
-    String? refreshToken,
-    int? expiresAt,
   }) = _SocialIdTokenBody;
 
   factory SocialIdTokenBody.fromJson(Map<String, dynamic> json) =>
