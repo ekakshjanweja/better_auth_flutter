@@ -16,10 +16,25 @@ class BetterAuthCallAdapter<T>
       final res = e.response;
       logger.e("DioException", error: e, stackTrace: s);
       logger.e("Status: ${res?.statusCode}, Body: ${res?.data}");
+
+      // Safely extract error information from response
+      String? code;
+      String? message;
+
+      try {
+        final data = res?.data;
+        if (data is Map<String, dynamic>) {
+          code = data["code"]?.toString();
+          message = data["message"]?.toString();
+        }
+      } catch (_) {
+        // Ignore any errors while parsing response data
+      }
+
       return Result.err(
         BetterError(
-          code: res?.data?["code"] ?? "ERROR",
-          message: res?.data?["message"] ?? e.message,
+          code: code ?? "ERROR",
+          message: message ?? e.message ?? "Unknown error occurred",
           stack: s.toString(),
         ),
       );
