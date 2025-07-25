@@ -5,6 +5,7 @@ class User {
   final String email;
   final String name;
   final String? image;
+  final bool? isAnonymous;
   final bool emailVerified;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -14,6 +15,7 @@ class User {
     required this.email,
     required this.name,
     this.image,
+    this.isAnonymous,
     required this.emailVerified,
     required this.createdAt,
     required this.updatedAt,
@@ -26,6 +28,7 @@ class User {
       "name": name,
       "image": image,
       "emailVerified": emailVerified,
+      "isAnonymous": isAnonymous,
       "createdAt": createdAt.toIso8601String(),
       "updatedAt": updatedAt.toIso8601String(),
     };
@@ -37,6 +40,8 @@ class User {
       email: map["email"] as String,
       name: map["name"] as String,
       image: map["image"] != null ? map["image"] as String : null,
+      isAnonymous:
+          map["isAnonymous"] != null ? map["isAnonymous"] as bool : null,
       emailVerified: map["emailVerified"] as bool,
       createdAt: DateTime.parse(map["createdAt"] as String),
       updatedAt: DateTime.parse(map["updatedAt"] as String),

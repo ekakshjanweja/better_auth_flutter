@@ -30,6 +30,65 @@ class Auth {
     }
   }
 
+  static Future<(User?, BetterAuthFailure?)> signInAnonymous() async {
+    try {
+      final (result, error) = await Api.sendRequest(
+        AppEndpoints.signInAnonymous,
+        method: MethodType.post,
+      );
+
+      if (error != null) return (null, error);
+
+      if (result is! Map<String, dynamic>) {
+        return (null, BetterAuthFailure(code: BetterAuthError.unKnownError));
+      }
+
+      final user = User.fromMap(result["user"] as Map<String, dynamic>);
+      await KVStore.set(KVStoreKeys.user, user.toJson());
+
+      return (user, null);
+    } catch (e) {
+      return (
+        null,
+        BetterAuthFailure(
+          code: BetterAuthError.unKnownError,
+          message: e.toString(),
+        ),
+      );
+    }
+  }
+
+  static Future<(User?, BetterAuthFailure?)> signInEmailOtp({
+    required String email,
+    required String otp,
+  }) async {
+    try {
+      final (result, error) = await Api.sendRequest(
+        AppEndpoints.signInEmailOtp,
+        method: MethodType.post,
+        body: {"email": email, "otp": otp},
+      );
+
+      if (error != null) return (null, error);
+
+      if (result is! Map<String, dynamic>) {
+        return (null, BetterAuthFailure(code: BetterAuthError.unKnownError));
+      }
+
+      final user = User.fromMap(result["user"] as Map<String, dynamic>);
+
+      return (user, null);
+    } catch (e) {
+      return (
+        null,
+        BetterAuthFailure(
+          code: BetterAuthError.unKnownError,
+          message: e.toString(),
+        ),
+      );
+    }
+  }
+
   static Future<(User?, BetterAuthFailure?)> signInWithEmailAndPassword({
     required String email,
     required String password,

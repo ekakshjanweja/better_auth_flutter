@@ -1,5 +1,4 @@
 import "package:better_auth_flutter/better_auth_flutter.dart";
-import "package:better_auth_flutter/src/core/api/data/models/account.dart";
 
 class Accounts {
   static Future<(List<Account>?, BetterAuthFailure?)> listAccounts() async {

@@ -60,4 +60,31 @@ class Verification {
       );
     }
   }
+
+  static Future<BetterAuthFailure?> sendVerificationOtp({
+    required String email,
+  }) async {
+    try {
+      final (result, error) = await Api.sendRequest(
+        AppEndpoints.sendVerificationOtp,
+        method: MethodType.post,
+        body: {"email": email, "type": "sign-in"},
+      );
+
+      if (error != null) return error;
+
+      final status = result["success"] as bool;
+
+      if (!status) {
+        return BetterAuthFailure(code: BetterAuthError.unKnownError);
+      }
+
+      return null;
+    } catch (e) {
+      return BetterAuthFailure(
+        code: BetterAuthError.unKnownError,
+        message: e.toString(),
+      );
+    }
+  }
 }
