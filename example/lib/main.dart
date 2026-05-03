@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:better_auth_flutter/better_auth_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 void main() async {
@@ -59,10 +58,9 @@ class Home extends StatelessWidget {
               child: Text("Send Verification Email"),
             ),
             ElevatedButton(
-              onPressed:
-                  () => Repo.verifyEmail(
-                    "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Impla2Frc2hAZ21haWwuY29tIiwiaWF0IjoxNzQ3MzIzNjg0LCJleHAiOjE3NDczMjcyODR9.xzJO-ElQReO97i_jnpIzND-jLgLCqNM5_WQXqebqF3k",
-                  ),
+              onPressed: () => Repo.verifyEmail(
+                "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Impla2Frc2hAZ21haWwuY29tIiwiaWF0IjoxNzQ3MzIzNjg0LCJleHAiOjE3NDczMjcyODR9.xzJO-ElQReO97i_jnpIzND-jLgLCqNM5_WQXqebqF3k",
+              ),
               child: Text("Verify Email"),
             ),
             ElevatedButton(
@@ -162,29 +160,37 @@ class Repo {
         try {
           final List<String> scopes = <String>["openid", "email", "profile"];
 
-          final GoogleSignInServerAuthorization? serverAuthorization =
-              await user.authorizationClient.authorizeServer(scopes);
-
-          if (serverAuthorization != null) {
-            final String serverAuthCode = serverAuthorization.serverAuthCode;
-
-            final (result, error) = await BetterAuth.instance.client
-                .signInWithIdToken(
-                  provider: SocialProvider.google,
-                  idToken: serverAuthCode,
-                );
-
-            if (error != null) {
-              log("Error: ${error.message}");
-            }
-
-            log("Sign in result: ${result?.toString()}");
-          } else {
-            log("Server authorization is null");
+          final String? idToken = user.authentication.idToken;
+          if (idToken == null || idToken.isEmpty) {
+            log("Google idToken is null or empty");
+            return;
           }
+
+          final GoogleSignInClientAuthorization clientAuth = await user
+              .authorizationClient
+              .authorizeScopes(scopes);
+
+          final (result, error) = await BetterAuth.instance.client
+              .signInWithIdToken(
+                provider: SocialProvider.google,
+                idToken: idToken,
+                accessToken: clientAuth.accessToken,
+              );
+
+          if (error != null) {
+            log("Error: ${error.message}");
+          }
+
+          log("Sign in result: ${result?.toString()}");
         } on GoogleSignInException catch (e) {
           log("Google Sign In Exception: ${e.toString()}");
-        } catch (e) {}
+        } catch (e, st) {
+          log(
+            "Unexpected error during Google sign-in",
+            error: e,
+            stackTrace: st,
+          );
+        }
       }
     });
   }
