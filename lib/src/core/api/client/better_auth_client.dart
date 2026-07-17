@@ -1,5 +1,6 @@
 import "package:better_auth_flutter/src/core/api/default/sign_up/sign_up_response.dart";
 import "package:better_auth_flutter/src/core/api/default/sign_in/models/email/sign_in_email_response.dart";
+import "package:better_auth_flutter/src/core/api/default/sign_in/models/social/body/sign_in_social_body.dart";
 import "package:better_auth_flutter/src/core/api/default/sign_in/models/social/response/social_sign_in_response.dart";
 import "package:better_auth_flutter/src/core/models/account/account.dart";
 import "package:better_auth_flutter/src/core/models/session/session.dart";
@@ -56,8 +57,17 @@ abstract class BetterAuthClient {
     @BodyExtra("callbackURL") String? callbackURL,
   });
 
+  /// Typed social sign-in. For native ID-token flows set `body.idToken`; for a
+  /// web-redirect flow read `url` from the response.
   @POST("/sign-in/social")
   Future<Result<SignInSocialResponse>> signInSocial({
+    @Body() required SignInSocialBody body,
+  });
+
+  /// Untyped social sign-in for providers not in [SocialProvider] (for example
+  /// `genericOAuth`). Prefer [signInSocial].
+  @POST("/sign-in/social")
+  Future<Result<SignInSocialResponse>> signInSocialRaw({
     @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
   });
 

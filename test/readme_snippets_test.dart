@@ -22,7 +22,9 @@ Widget _authGate() => BetterAuthProvider(
 
 // README: "Results"
 String _describe(Result<SignInEmailResponse> result) => switch (result) {
-  Success(:final data) => "Welcome ${data.user.name}",
+  Success(:final data) when data.twoFactorRedirect == true =>
+    "Enter your 2FA code",
+  Success(:final data) => "Welcome ${data.user?.name}",
   Failure(:final error) => "${error.code}: ${error.message}",
 };
 

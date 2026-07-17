@@ -8,9 +8,14 @@ part "sign_in_email_response.g.dart";
 abstract class SignInEmailResponse with _$SignInEmailResponse {
   const factory SignInEmailResponse({
     @Default(false) bool redirect,
-    required String token,
+    @Default("") String token,
     String? url,
-    required User user,
+    User? user,
+
+    /// True when the server returned a two-factor challenge instead of a
+    /// session. When set, [user] and [token] are absent and the caller must
+    /// complete the second factor via the `twoFactor` plugin.
+    bool? twoFactorRedirect,
   }) = _SignInEmailResponse;
   factory SignInEmailResponse.fromJson(Map<String, dynamic> json) =>
       _$SignInEmailResponseFromJson(json);

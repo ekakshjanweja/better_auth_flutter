@@ -9,9 +9,12 @@ part of 'sign_in_email_response.dart';
 _SignInEmailResponse _$SignInEmailResponseFromJson(Map<String, dynamic> json) =>
     _SignInEmailResponse(
       redirect: json['redirect'] as bool? ?? false,
-      token: json['token'] as String,
+      token: json['token'] as String? ?? "",
       url: json['url'] as String?,
-      user: User.fromJson(json['user'] as Map<String, dynamic>),
+      user: json['user'] == null
+          ? null
+          : User.fromJson(json['user'] as Map<String, dynamic>),
+      twoFactorRedirect: json['twoFactorRedirect'] as bool?,
     );
 
 Map<String, dynamic> _$SignInEmailResponseToJson(
@@ -21,4 +24,5 @@ Map<String, dynamic> _$SignInEmailResponseToJson(
   'token': instance.token,
   'url': instance.url,
   'user': instance.user,
+  'twoFactorRedirect': instance.twoFactorRedirect,
 };

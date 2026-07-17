@@ -63,11 +63,15 @@ final result = await BetterAuthFlutter.client.signInEmail(
 
 switch (result) {
   case Success(:final data):
-    print("Welcome ${data.user.name}");
+    print("Welcome ${data.user?.name}");
   case Failure(:final error):
     print("${error.code}: ${error.message}");
 }
 ```
+
+> `user` is nullable: with two-factor enabled, a successful sign-in returns
+> `twoFactorRedirect: true` and no user until the second factor is verified via
+> the [two_factor plugin](#plugins).
 
 `BetterError` carries Better Auth's own code (`USER_NOT_FOUND`,
 `INVALID_EMAIL_OR_PASSWORD`, …) verbatim. When a request fails without a
@@ -226,6 +230,8 @@ final token = await BetterAuthFlutter.client.jwt.token();
 | `plugins/email_otp.dart` | `client.emailOtp` | `emailOTP()` |
 | `plugins/jwt.dart` | `client.jwt` | `jwt()` |
 | `plugins/phone.dart` | `client.phone` | `phoneNumber()` |
+| `plugins/two_factor.dart` | `client.twoFactor` | `twoFactor()` |
+| `plugins/anonymous.dart` | `client.anonymous` | `anonymous()` |
 | `plugins/bearer.dart` | — | `bearer()` |
 
 ## Storage

@@ -60,6 +60,10 @@ export "src/core/api/default/sign_in/models/social/response/social_sign_in_respo
     show SignInSocialResponse;
 export "src/core/api/default/sign_in/models/social/id_token/social_id_token_body.dart"
     show SocialIdTokenBody;
+export "src/core/api/default/sign_in/models/social/social_provider.dart"
+    show SocialProvider;
+export "src/core/api/default/sign_in/models/social/body/sign_in_social_body.dart"
+    show SignInSocialBody;
 export "src/core/api/models/session/session_response.dart" show SessionResponse;
 export "src/core/api/models/common/sign_out/sign_out_response.dart"
     show SignOutResponse;

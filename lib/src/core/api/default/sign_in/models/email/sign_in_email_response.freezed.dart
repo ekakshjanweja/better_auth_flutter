@@ -15,7 +15,10 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SignInEmailResponse {
 
- bool get redirect; String get token; String? get url; User get user;
+ bool get redirect; String get token; String? get url; User? get user;/// True when the server returned a two-factor challenge instead of a
+/// session. When set, [user] and [token] are absent and the caller must
+/// complete the second factor via the `twoFactor` plugin.
+ bool? get twoFactorRedirect;
 /// Create a copy of SignInEmailResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +31,16 @@ $SignInEmailResponseCopyWith<SignInEmailResponse> get copyWith => _$SignInEmailR
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInEmailResponse&&(identical(other.redirect, redirect) || other.redirect == redirect)&&(identical(other.token, token) || other.token == token)&&(identical(other.url, url) || other.url == url)&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInEmailResponse&&(identical(other.redirect, redirect) || other.redirect == redirect)&&(identical(other.token, token) || other.token == token)&&(identical(other.url, url) || other.url == url)&&(identical(other.user, user) || other.user == user)&&(identical(other.twoFactorRedirect, twoFactorRedirect) || other.twoFactorRedirect == twoFactorRedirect));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,redirect,token,url,user);
+int get hashCode => Object.hash(runtimeType,redirect,token,url,user,twoFactorRedirect);
 
 @override
 String toString() {
-  return 'SignInEmailResponse(redirect: $redirect, token: $token, url: $url, user: $user)';
+  return 'SignInEmailResponse(redirect: $redirect, token: $token, url: $url, user: $user, twoFactorRedirect: $twoFactorRedirect)';
 }
 
 
@@ -48,11 +51,11 @@ abstract mixin class $SignInEmailResponseCopyWith<$Res>  {
   factory $SignInEmailResponseCopyWith(SignInEmailResponse value, $Res Function(SignInEmailResponse) _then) = _$SignInEmailResponseCopyWithImpl;
 @useResult
 $Res call({
- bool redirect, String token, String? url, User user
+ bool redirect, String token, String? url, User? user, bool? twoFactorRedirect
 });
 
 
-$UserCopyWith<$Res> get user;
+$UserCopyWith<$Res>? get user;
 
 }
 /// @nodoc
@@ -65,22 +68,26 @@ class _$SignInEmailResponseCopyWithImpl<$Res>
 
 /// Create a copy of SignInEmailResponse
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? redirect = null,Object? token = null,Object? url = freezed,Object? user = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? redirect = null,Object? token = null,Object? url = freezed,Object? user = freezed,Object? twoFactorRedirect = freezed,}) {
   return _then(_self.copyWith(
 redirect: null == redirect ? _self.redirect : redirect // ignore: cast_nullable_to_non_nullable
 as bool,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
-as String?,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as User,
+as String?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as User?,twoFactorRedirect: freezed == twoFactorRedirect ? _self.twoFactorRedirect : twoFactorRedirect // ignore: cast_nullable_to_non_nullable
+as bool?,
   ));
 }
 /// Create a copy of SignInEmailResponse
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$UserCopyWith<$Res> get user {
-  
-  return $UserCopyWith<$Res>(_self.user, (value) {
+$UserCopyWith<$Res>? get user {
+    if (_self.user == null) {
+    return null;
+  }
+
+  return $UserCopyWith<$Res>(_self.user!, (value) {
     return _then(_self.copyWith(user: value));
   });
 }
@@ -165,10 +172,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool redirect,  String token,  String? url,  User user)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool redirect,  String token,  String? url,  User? user,  bool? twoFactorRedirect)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SignInEmailResponse() when $default != null:
-return $default(_that.redirect,_that.token,_that.url,_that.user);case _:
+return $default(_that.redirect,_that.token,_that.url,_that.user,_that.twoFactorRedirect);case _:
   return orElse();
 
 }
@@ -186,10 +193,10 @@ return $default(_that.redirect,_that.token,_that.url,_that.user);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool redirect,  String token,  String? url,  User user)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool redirect,  String token,  String? url,  User? user,  bool? twoFactorRedirect)  $default,) {final _that = this;
 switch (_that) {
 case _SignInEmailResponse():
-return $default(_that.redirect,_that.token,_that.url,_that.user);case _:
+return $default(_that.redirect,_that.token,_that.url,_that.user,_that.twoFactorRedirect);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -206,10 +213,10 @@ return $default(_that.redirect,_that.token,_that.url,_that.user);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool redirect,  String token,  String? url,  User user)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool redirect,  String token,  String? url,  User? user,  bool? twoFactorRedirect)?  $default,) {final _that = this;
 switch (_that) {
 case _SignInEmailResponse() when $default != null:
-return $default(_that.redirect,_that.token,_that.url,_that.user);case _:
+return $default(_that.redirect,_that.token,_that.url,_that.user,_that.twoFactorRedirect);case _:
   return null;
 
 }
@@ -221,13 +228,17 @@ return $default(_that.redirect,_that.token,_that.url,_that.user);case _:
 @JsonSerializable()
 
 class _SignInEmailResponse implements SignInEmailResponse {
-  const _SignInEmailResponse({this.redirect = false, required this.token, this.url, required this.user});
+  const _SignInEmailResponse({this.redirect = false, this.token = "", this.url, this.user, this.twoFactorRedirect});
   factory _SignInEmailResponse.fromJson(Map<String, dynamic> json) => _$SignInEmailResponseFromJson(json);
 
 @override@JsonKey() final  bool redirect;
-@override final  String token;
+@override@JsonKey() final  String token;
 @override final  String? url;
-@override final  User user;
+@override final  User? user;
+/// True when the server returned a two-factor challenge instead of a
+/// session. When set, [user] and [token] are absent and the caller must
+/// complete the second factor via the `twoFactor` plugin.
+@override final  bool? twoFactorRedirect;
 
 /// Create a copy of SignInEmailResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -242,16 +253,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInEmailResponse&&(identical(other.redirect, redirect) || other.redirect == redirect)&&(identical(other.token, token) || other.token == token)&&(identical(other.url, url) || other.url == url)&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInEmailResponse&&(identical(other.redirect, redirect) || other.redirect == redirect)&&(identical(other.token, token) || other.token == token)&&(identical(other.url, url) || other.url == url)&&(identical(other.user, user) || other.user == user)&&(identical(other.twoFactorRedirect, twoFactorRedirect) || other.twoFactorRedirect == twoFactorRedirect));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,redirect,token,url,user);
+int get hashCode => Object.hash(runtimeType,redirect,token,url,user,twoFactorRedirect);
 
 @override
 String toString() {
-  return 'SignInEmailResponse(redirect: $redirect, token: $token, url: $url, user: $user)';
+  return 'SignInEmailResponse(redirect: $redirect, token: $token, url: $url, user: $user, twoFactorRedirect: $twoFactorRedirect)';
 }
 
 
@@ -262,11 +273,11 @@ abstract mixin class _$SignInEmailResponseCopyWith<$Res> implements $SignInEmail
   factory _$SignInEmailResponseCopyWith(_SignInEmailResponse value, $Res Function(_SignInEmailResponse) _then) = __$SignInEmailResponseCopyWithImpl;
 @override @useResult
 $Res call({
- bool redirect, String token, String? url, User user
+ bool redirect, String token, String? url, User? user, bool? twoFactorRedirect
 });
 
 
-@override $UserCopyWith<$Res> get user;
+@override $UserCopyWith<$Res>? get user;
 
 }
 /// @nodoc
@@ -279,13 +290,14 @@ class __$SignInEmailResponseCopyWithImpl<$Res>
 
 /// Create a copy of SignInEmailResponse
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? redirect = null,Object? token = null,Object? url = freezed,Object? user = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? redirect = null,Object? token = null,Object? url = freezed,Object? user = freezed,Object? twoFactorRedirect = freezed,}) {
   return _then(_SignInEmailResponse(
 redirect: null == redirect ? _self.redirect : redirect // ignore: cast_nullable_to_non_nullable
 as bool,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
-as String?,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as User,
+as String?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as User?,twoFactorRedirect: freezed == twoFactorRedirect ? _self.twoFactorRedirect : twoFactorRedirect // ignore: cast_nullable_to_non_nullable
+as bool?,
   ));
 }
 
@@ -293,9 +305,12 @@ as User,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$UserCopyWith<$Res> get user {
-  
-  return $UserCopyWith<$Res>(_self.user, (value) {
+$UserCopyWith<$Res>? get user {
+    if (_self.user == null) {
+    return null;
+  }
+
+  return $UserCopyWith<$Res>(_self.user!, (value) {
     return _then(_self.copyWith(user: value));
   });
 }

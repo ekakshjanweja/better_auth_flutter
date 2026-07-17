@@ -250,6 +250,44 @@ class _BetterAuthClient implements BetterAuthClient {
   }
 
   Future<HttpResponse<SignInSocialResponse>> _signInSocial({
+    required SignInSocialBody body,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = body;
+    final _options = _setStreamType<Result<SignInSocialResponse>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/sign-in/social',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late SignInSocialResponse _value;
+    try {
+      _value = SignInSocialResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<SignInSocialResponse>> signInSocial({
+    required SignInSocialBody body,
+  }) {
+    return BetterAuthCallAdapter<SignInSocialResponse>().adapt(
+      () => _signInSocial(body: body),
+    );
+  }
+
+  Future<HttpResponse<SignInSocialResponse>> _signInSocialRaw({
     Map<String, dynamic> body = const {},
   }) async {
     final _extra = <String, dynamic>{};
@@ -281,11 +319,11 @@ class _BetterAuthClient implements BetterAuthClient {
   }
 
   @override
-  Future<Result<SignInSocialResponse>> signInSocial({
+  Future<Result<SignInSocialResponse>> signInSocialRaw({
     Map<String, dynamic> body = const {},
   }) {
     return BetterAuthCallAdapter<SignInSocialResponse>().adapt(
-      () => _signInSocial(body: body),
+      () => _signInSocialRaw(body: body),
     );
   }
 
