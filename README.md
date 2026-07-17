@@ -13,7 +13,9 @@ Suggestions or contributions welcome — reach out at [@ekaksh_janweja](https://
 - Reactive auth state: `authStateChanges`, `onAuthChange`, `BetterAuthBuilder`
 - Persistent cookie sessions that survive restarts
 - Every call returns a sealed `Result<T>` — no thrown exceptions
-- Plugins: admin, bearer, email OTP, JWT, phone
+- Encrypted session storage by default (keychain/keystore)
+- Plugins: admin, anonymous, api key, bearer, email OTP, JWT, magic link,
+  multi-session, one-time token, organization, phone, two-factor
 
 ## Install
 
@@ -46,7 +48,7 @@ void main() async {
 | --- | --- | --- |
 | `url` | — | Better Auth base URL (usually `…/api/auth`) |
 | `dio` | new `Dio` | Supply your own configured Dio |
-| `store` | `HiveStorage` | Custom `StorageInterface` for cookie persistence |
+| `store` | `SecureStorage` | Custom `StorageInterface` for cookie persistence |
 | `enableLogging` | `false` | Internal diagnostics. Never logs cookies or headers |
 | `hydrateOnInit` | `true` | Look up the stored session in the background on startup |
 
@@ -277,7 +279,7 @@ await BetterAuthFlutter.initialize(url: "…", store: MyStorage());
 
 ### Sharing the session with your own HTTP client
 
-See [docs/cookie-sharing.md](docs/cookie-sharing.md).
+See [doc/cookie-sharing.md](doc/cookie-sharing.md).
 
 ```dart
 final headers = await BetterAuthFlutter.getAuthHeaders();
