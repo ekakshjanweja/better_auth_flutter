@@ -75,6 +75,7 @@ export "src/core/auth_mode.dart" show AuthMode;
 
 // Storage: the contract plus the backends we ship.
 export "src/core/storage/storage.dart" show StorageInterface;
+export "src/core/storage/secure_storage.dart" show SecureStorage;
 export "src/core/storage/hive_storage.dart" show HiveStorage;
 export "src/core/storage/shared_preferences_storage.dart"
     show SharedPreferencesStorage;

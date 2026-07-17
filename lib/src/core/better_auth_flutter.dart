@@ -11,8 +11,8 @@ import "package:better_auth_flutter/src/core/auth/auth_state_interceptor.dart";
 import "package:better_auth_flutter/src/core/auth_mode.dart";
 import "package:better_auth_flutter/src/core/models/user/user.dart";
 import "package:better_auth_flutter/src/core/storage/custom_persist_cookie_jar.dart";
-import "package:better_auth_flutter/src/core/storage/hive_storage.dart";
 import "package:better_auth_flutter/src/core/storage/memory_storage.dart";
+import "package:better_auth_flutter/src/core/storage/secure_storage.dart";
 import "package:better_auth_flutter/src/core/storage/storage.dart";
 import "package:better_auth_flutter/src/core/storage/token_storage.dart";
 import "package:better_auth_flutter/src/core/utils/logger.dart";
@@ -142,11 +142,14 @@ class BetterAuthFlutter {
     baseUrl = url;
     _mode = mode;
 
-    if (store == null && !kIsWeb) {
-      await HiveStorage.init();
-      storage = HiveStorage();
-    } else {
+    if (store != null) {
       storage = store;
+    } else if (!kIsWeb) {
+      // Encrypted keychain/keystore by default: session cookies are credentials.
+      // Opt into HiveStorage/SharedPreferencesStorage explicitly via [store].
+      storage = SecureStorage();
+    } else {
+      storage = null;
     }
 
     dioClient =

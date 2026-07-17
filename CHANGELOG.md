@@ -20,6 +20,15 @@ migrate once. See the migration table at the end.
   automatic refresh on app resume via `BetterAuthProvider` (throttled;
   `refreshOnResume: false` to opt out), and transparent `deferSessionRefresh`
   handling (`SessionResponse.needsRefresh` → follow-up POST).
+* **`SecureStorage`**, backed by `flutter_secure_storage` with iOS keychain
+  chunking — now the default cookie store on native platforms. Hive and
+  SharedPreferences remain available as opt-in backends.
+* **Typed social sign-in.** `SocialProvider` enum and `SignInSocialBody`;
+  `signInSocial` now takes the typed body, with `signInSocialRaw` for providers
+  outside the enum (e.g. `genericOAuth`).
+* **New plugins:** `two_factor` (typed TOTP / OTP / backup codes) and
+  `anonymous`. `SignInEmailResponse` gained `twoFactorRedirect` (and `user` is
+  now nullable) so callers can branch on a 2FA challenge.
 
 
 * **A barrel file.** `import "package:better_auth_flutter/better_auth_flutter.dart"`
@@ -98,6 +107,7 @@ migrate once. See the migration table at the end.
 | deep `source/plugins/...` imports | `import "package:better_auth_flutter/plugins/jwt.dart";` |
 | `BetterAuthConsumer(builder: (context, client) => …)` | `BetterAuthConsumer(builder: (context, client, state) => …)` |
 | `StorageInterface` with 2 methods | 4 methods — add `deleteCookies` and `deleteAll` |
+| default store `HiveStorage` (plaintext) | `SecureStorage` (keychain) — existing users sign in once after upgrade |
 | `createDioWithBearer(...)` / `dio.useBearerAuth(...)` | `initialize(mode: AuthMode.bearer, tokenStorage: …)` |
 | logging always on | off unless `initialize(enableLogging: true)` |
 | polling `getSession()` for auth state | `authStateChanges` / `BetterAuthBuilder` |

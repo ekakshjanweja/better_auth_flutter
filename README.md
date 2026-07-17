@@ -236,12 +236,21 @@ final token = await BetterAuthFlutter.client.jwt.token();
 
 ## Storage
 
-Session cookies persist through a `StorageInterface`. `HiveStorage` is the
-default on native platforms.
+Session cookies persist through a `StorageInterface`. `SecureStorage`
+(keychain/keystore, via `flutter_secure_storage`) is the default on native
+platforms — session cookies are credentials, so they are encrypted at rest and
+chunked to fit iOS keychain limits.
 
-> Both bundled backends store cookies **unencrypted**. Session cookies are
-> credentials — if that matters for your threat model, implement
-> `StorageInterface` against `flutter_secure_storage`.
+`HiveStorage` and `SharedPreferencesStorage` are also bundled (both
+**unencrypted**) for cases where the secure backend is inconvenient — for
+example desktop platforms, where `flutter_secure_storage` needs native
+dependencies such as `libsecret`:
+
+```dart
+await BetterAuthFlutter.initialize(url: "…", store: SharedPreferencesStorage());
+```
+
+Or implement `StorageInterface` yourself:
 
 ```dart
 class MyStorage implements StorageInterface {
