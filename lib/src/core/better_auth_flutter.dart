@@ -9,7 +9,9 @@ import "package:better_auth_flutter/src/core/auth/auth_state.dart";
 import "package:better_auth_flutter/src/core/auth/auth_state_controller.dart";
 import "package:better_auth_flutter/src/core/auth/auth_state_interceptor.dart";
 import "package:better_auth_flutter/src/core/auth_mode.dart";
+import "package:better_auth_flutter/src/core/api/default/sign_in/models/social/social_provider.dart";
 import "package:better_auth_flutter/src/core/models/user/user.dart";
+import "package:better_auth_flutter/src/core/oauth/oauth_handler.dart";
 import "package:better_auth_flutter/src/core/storage/custom_persist_cookie_jar.dart";
 import "package:better_auth_flutter/src/core/storage/memory_storage.dart";
 import "package:better_auth_flutter/src/core/storage/secure_storage.dart";
@@ -34,6 +36,27 @@ class BetterAuthFlutter {
   static final AuthStateController _authState = AuthStateController();
   static late final AuthMode _mode;
   static TokenStorage<String>? _tokenStorage;
+  static String? _callbackUrlScheme;
+
+  /// Starts a browser-redirect social sign-in for providers without a native
+  /// SDK. Requires `callbackUrlScheme` to have been passed to [initialize].
+  ///
+  /// Google and Apple should use the native ID-token flow instead
+  /// (`client.signInSocial(body: SignInSocialBody.of(idToken: …))`), which
+  /// avoids the browser and its separate cookie store.
+  ///
+  /// Returns the parsed callback. In a token-handoff setup, exchange
+  /// `callback.token` via the `one_time_token` plugin — see [OAuthHandler].
+  static Future<Result<SocialCallback>> signInWithProvider({
+    required SocialProvider provider,
+    List<String>? scopes,
+    String? callbackURL,
+  }) {
+    return OAuthHandler(
+      client: client,
+      scheme: _callbackUrlScheme,
+    ).signIn(provider: provider, scopes: scopes, callbackURL: callbackURL);
+  }
 
   /// The authentication mode this client was initialized with.
   static AuthMode get mode => _mode;
@@ -133,6 +156,7 @@ class BetterAuthFlutter {
     AuthMode mode = AuthMode.cookie,
     TokenStorage<String>? tokenStorage,
     BearerOptions bearerOptions = const BearerOptions(),
+    String? callbackUrlScheme,
     bool enableLogging = false,
     bool hydrateOnInit = true,
   }) async {
@@ -141,6 +165,7 @@ class BetterAuthFlutter {
     BetterAuthLog.enabled = enableLogging;
     baseUrl = url;
     _mode = mode;
+    _callbackUrlScheme = callbackUrlScheme;
 
     if (store != null) {
       storage = store;
@@ -157,8 +182,10 @@ class BetterAuthFlutter {
         Dio(
           BaseOptions(
             headers: {
-              HttpHeaders.contentTypeHeader: "application/json",
-              HttpHeaders.userAgentHeader: "BetterAuthFlutter/1.0.0",
+              // String literals rather than HttpHeaders.* constants, which come
+              // from dart:io and are unavailable on web.
+              "content-type": "application/json",
+              "user-agent": "BetterAuthFlutter/1.0.0",
               "flutter-origin": "flutter://",
               "expo-origin": "exp://",
               "x-skip-oauth-proxy": true,
@@ -256,6 +283,6 @@ class BetterAuthFlutter {
     final cookies = await getCookies(uri: uri);
     if (cookies.isEmpty) return const {};
     final header = cookies.map((c) => "${c.name}=${c.value}").join("; ");
-    return {HttpHeaders.cookieHeader: header};
+    return {"cookie": header};
   }
 }

@@ -26,6 +26,10 @@ migrate once. See the migration table at the end.
 * **Typed social sign-in.** `SocialProvider` enum and `SignInSocialBody`;
   `signInSocial` now takes the typed body, with `signInSocialRaw` for providers
   outside the enum (e.g. `genericOAuth`).
+* **Browser-redirect social sign-in.** `initialize(callbackUrlScheme:)` and
+  `BetterAuthFlutter.signInWithProvider(...)` drive the `flutter_web_auth_2`
+  flow and return a parsed `SocialCallback` (with the one-time-token handoff for
+  cookie-mode sessions). The dependency was declared but unused before.
 * **New plugins:** `two_factor` (typed TOTP / OTP / backup codes),
   `anonymous`, `magic_link`, `api_key`, `organization`, `multi_session`, and
   `one_time_token`. `SignInEmailResponse` gained `twoFactorRedirect` (and `user`

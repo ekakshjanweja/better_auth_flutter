@@ -51,6 +51,8 @@ void main() async {
 | `store` | `SecureStorage` | Custom `StorageInterface` for cookie persistence |
 | `enableLogging` | `false` | Internal diagnostics. Never logs cookies or headers |
 | `hydrateOnInit` | `true` | Look up the stored session in the background on startup |
+| `mode` | `AuthMode.cookie` | Cookie or bearer authentication |
+| `callbackUrlScheme` | `null` | Custom URL scheme for browser-redirect social sign-in |
 
 ## Results
 
@@ -170,15 +172,31 @@ await BetterAuthFlutter.client.signInSocial(
 
 #### Web redirect
 
-Other providers require a browser redirect. `signInSocial` returns a `url` to
-open; you handle the redirect and callback yourself, for example with
-[flutter_web_auth_2](https://pub.dev/packages/flutter_web_auth_2).
+Other providers use a browser redirect. Pass `callbackUrlScheme` to
+`initialize`, register the matching scheme in your platform config (see below),
+then:
 
-> **Note:** the browser used for a redirect flow (`ASWebAuthenticationSession`,
+```dart
+final result = await BetterAuthFlutter.signInWithProvider(
+  provider: SocialProvider.github,
+);
+
+if (result case Success(:final data) when data.token != null) {
+  // Exchange the one-time token for a session in this package's jar.
+  await BetterAuthFlutter.client.oneTimeToken.verify(
+    body: {"token": data.token},
+  );
+  await BetterAuthFlutter.refreshSession();
+}
+```
+
+> **The cookie caveat.** The system browser (`ASWebAuthenticationSession`,
 > Chrome Custom Tabs) keeps its own cookie store, so a session cookie set during
-> the redirect does not reach this package's cookie jar. Redirect-based social
-> sign-in therefore needs a token handoff rather than a plain cookie flow.
-> Native ID-token sign-in has no such issue.
+> the redirect does **not** reach this package's Dio jar. A plain cookie flow
+> can't pick the session up afterward. The reliable path is the token handoff
+> above: point `callbackURL` at a server route that mints a one-time token and
+> redirects to `<scheme>://callback?token=…`; `signInWithProvider` returns that
+> token. Native ID-token sign-in (Google/Apple) has no such issue.
 
 ### Sessions
 
@@ -318,6 +336,27 @@ the server extends them on access, so this package needs no refresh machinery.
 
 Android, iOS, macOS, Windows, and Linux are supported. Web is not currently
 supported.
+
+Browser-redirect social sign-in (`signInWithProvider`) uses
+[flutter_web_auth_2](https://pub.dev/packages/flutter_web_auth_2), which needs a
+callback activity registered for your scheme in
+`android/app/src/main/AndroidManifest.xml`:
+
+```xml
+<activity
+    android:name="com.linusu.flutter_web_auth_2.CallbackActivity"
+    android:exported="true">
+  <intent-filter android:label="flutter_web_auth_2">
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="YOUR_SCHEME" />
+  </intent-filter>
+</activity>
+```
+
+The scheme must match `callbackUrlScheme` in `initialize`. The native ID-token
+flow needs none of this.
 
 ## Contributing
 
