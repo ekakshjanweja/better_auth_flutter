@@ -234,6 +234,9 @@ final token = await BetterAuthFlutter.client.jwt.token();
 | `plugins/anonymous.dart` | `client.anonymous` | `anonymous()` |
 | `plugins/magic_link.dart` | `client.magicLink` | `magicLink()` |
 | `plugins/api_key.dart` | `client.apiKey` | `apiKey()` |
+| `plugins/organization.dart` | `client.organization` | `organization()` |
+| `plugins/multi_session.dart` | `client.multiSession` | `multiSession()` |
+| `plugins/one_time_token.dart` | `client.oneTimeToken` | `oneTimeToken()` |
 | `plugins/bearer.dart` | — | `bearer()` |
 
 ## Storage
