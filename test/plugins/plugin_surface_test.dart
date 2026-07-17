@@ -3,6 +3,8 @@
 // the expected types and the client extension getters exist.
 import "package:better_auth_flutter/better_auth_flutter.dart";
 import "package:better_auth_flutter/plugins/anonymous.dart";
+import "package:better_auth_flutter/plugins/api_key.dart";
+import "package:better_auth_flutter/plugins/magic_link.dart";
 import "package:better_auth_flutter/plugins/two_factor.dart";
 import "package:flutter_test/flutter_test.dart";
 
@@ -23,6 +25,25 @@ void main() {
   group("anonymous plugin", () {
     test("exposes its client type", () {
       expect(BetterAuthAnonymous, isNotNull);
+    });
+  });
+
+  group("magic_link plugin", () {
+    test("exposes a typed request body", () {
+      const body = MagicLinkBody(email: "a@b.c", callbackURL: "app://cb");
+      expect(body.toJson()["email"], "a@b.c");
+      expect(BetterAuthMagicLink, isNotNull);
+    });
+  });
+
+  group("api_key plugin", () {
+    test("models the create-only key field as nullable", () {
+      const created = ApiKey(id: "1", key: "secret");
+      expect(created.key, "secret");
+      // On list/get the secret is absent.
+      const listed = ApiKey(id: "1", start: "sk_ab");
+      expect(listed.key, isNull);
+      expect(listed.start, "sk_ab");
     });
   });
 

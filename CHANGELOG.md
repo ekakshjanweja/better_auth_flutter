@@ -26,9 +26,10 @@ migrate once. See the migration table at the end.
 * **Typed social sign-in.** `SocialProvider` enum and `SignInSocialBody`;
   `signInSocial` now takes the typed body, with `signInSocialRaw` for providers
   outside the enum (e.g. `genericOAuth`).
-* **New plugins:** `two_factor` (typed TOTP / OTP / backup codes) and
-  `anonymous`. `SignInEmailResponse` gained `twoFactorRedirect` (and `user` is
-  now nullable) so callers can branch on a 2FA challenge.
+* **New plugins:** `two_factor` (typed TOTP / OTP / backup codes),
+  `anonymous`, `magic_link`, and `api_key`. `SignInEmailResponse` gained
+  `twoFactorRedirect` (and `user` is now nullable) so callers can branch on a
+  2FA challenge.
 
 
 * **A barrel file.** `import "package:better_auth_flutter/better_auth_flutter.dart"`

@@ -232,6 +232,8 @@ final token = await BetterAuthFlutter.client.jwt.token();
 | `plugins/phone.dart` | `client.phone` | `phoneNumber()` |
 | `plugins/two_factor.dart` | `client.twoFactor` | `twoFactor()` |
 | `plugins/anonymous.dart` | `client.anonymous` | `anonymous()` |
+| `plugins/magic_link.dart` | `client.magicLink` | `magicLink()` |
+| `plugins/api_key.dart` | `client.apiKey` | `apiKey()` |
 | `plugins/bearer.dart` | — | `bearer()` |
 
 ## Storage
