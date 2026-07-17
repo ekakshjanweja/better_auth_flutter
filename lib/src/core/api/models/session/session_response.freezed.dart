@@ -15,7 +15,10 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SessionResponse {
 
- Session get session; User get user; String? get error; bool? get isRegister;
+ Session get session; User get user; String? get error; bool? get isRegister;/// Set by a server running `deferSessionRefresh`: the read-only GET could
+/// not extend the session, so the client must POST to refresh it. Handled
+/// transparently by [BetterAuthFlutter.refreshSession].
+ bool? get needsRefresh;
 /// Create a copy of SessionResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +31,16 @@ $SessionResponseCopyWith<SessionResponse> get copyWith => _$SessionResponseCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionResponse&&(identical(other.session, session) || other.session == session)&&(identical(other.user, user) || other.user == user)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRegister, isRegister) || other.isRegister == isRegister));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionResponse&&(identical(other.session, session) || other.session == session)&&(identical(other.user, user) || other.user == user)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRegister, isRegister) || other.isRegister == isRegister)&&(identical(other.needsRefresh, needsRefresh) || other.needsRefresh == needsRefresh));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,session,user,error,isRegister);
+int get hashCode => Object.hash(runtimeType,session,user,error,isRegister,needsRefresh);
 
 @override
 String toString() {
-  return 'SessionResponse(session: $session, user: $user, error: $error, isRegister: $isRegister)';
+  return 'SessionResponse(session: $session, user: $user, error: $error, isRegister: $isRegister, needsRefresh: $needsRefresh)';
 }
 
 
@@ -48,7 +51,7 @@ abstract mixin class $SessionResponseCopyWith<$Res>  {
   factory $SessionResponseCopyWith(SessionResponse value, $Res Function(SessionResponse) _then) = _$SessionResponseCopyWithImpl;
 @useResult
 $Res call({
- Session session, User user, String? error, bool? isRegister
+ Session session, User user, String? error, bool? isRegister, bool? needsRefresh
 });
 
 
@@ -65,12 +68,13 @@ class _$SessionResponseCopyWithImpl<$Res>
 
 /// Create a copy of SessionResponse
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? session = null,Object? user = null,Object? error = freezed,Object? isRegister = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? session = null,Object? user = null,Object? error = freezed,Object? isRegister = freezed,Object? needsRefresh = freezed,}) {
   return _then(_self.copyWith(
 session: null == session ? _self.session : session // ignore: cast_nullable_to_non_nullable
 as Session,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,isRegister: freezed == isRegister ? _self.isRegister : isRegister // ignore: cast_nullable_to_non_nullable
+as bool?,needsRefresh: freezed == needsRefresh ? _self.needsRefresh : needsRefresh // ignore: cast_nullable_to_non_nullable
 as bool?,
   ));
 }
@@ -174,10 +178,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Session session,  User user,  String? error,  bool? isRegister)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Session session,  User user,  String? error,  bool? isRegister,  bool? needsRefresh)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SessionResponse() when $default != null:
-return $default(_that.session,_that.user,_that.error,_that.isRegister);case _:
+return $default(_that.session,_that.user,_that.error,_that.isRegister,_that.needsRefresh);case _:
   return orElse();
 
 }
@@ -195,10 +199,10 @@ return $default(_that.session,_that.user,_that.error,_that.isRegister);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Session session,  User user,  String? error,  bool? isRegister)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Session session,  User user,  String? error,  bool? isRegister,  bool? needsRefresh)  $default,) {final _that = this;
 switch (_that) {
 case _SessionResponse():
-return $default(_that.session,_that.user,_that.error,_that.isRegister);case _:
+return $default(_that.session,_that.user,_that.error,_that.isRegister,_that.needsRefresh);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -215,10 +219,10 @@ return $default(_that.session,_that.user,_that.error,_that.isRegister);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Session session,  User user,  String? error,  bool? isRegister)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Session session,  User user,  String? error,  bool? isRegister,  bool? needsRefresh)?  $default,) {final _that = this;
 switch (_that) {
 case _SessionResponse() when $default != null:
-return $default(_that.session,_that.user,_that.error,_that.isRegister);case _:
+return $default(_that.session,_that.user,_that.error,_that.isRegister,_that.needsRefresh);case _:
   return null;
 
 }
@@ -230,13 +234,17 @@ return $default(_that.session,_that.user,_that.error,_that.isRegister);case _:
 @JsonSerializable()
 
 class _SessionResponse implements SessionResponse {
-  const _SessionResponse({required this.session, required this.user, this.error, this.isRegister});
+  const _SessionResponse({required this.session, required this.user, this.error, this.isRegister, this.needsRefresh});
   factory _SessionResponse.fromJson(Map<String, dynamic> json) => _$SessionResponseFromJson(json);
 
 @override final  Session session;
 @override final  User user;
 @override final  String? error;
 @override final  bool? isRegister;
+/// Set by a server running `deferSessionRefresh`: the read-only GET could
+/// not extend the session, so the client must POST to refresh it. Handled
+/// transparently by [BetterAuthFlutter.refreshSession].
+@override final  bool? needsRefresh;
 
 /// Create a copy of SessionResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -251,16 +259,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SessionResponse&&(identical(other.session, session) || other.session == session)&&(identical(other.user, user) || other.user == user)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRegister, isRegister) || other.isRegister == isRegister));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SessionResponse&&(identical(other.session, session) || other.session == session)&&(identical(other.user, user) || other.user == user)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRegister, isRegister) || other.isRegister == isRegister)&&(identical(other.needsRefresh, needsRefresh) || other.needsRefresh == needsRefresh));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,session,user,error,isRegister);
+int get hashCode => Object.hash(runtimeType,session,user,error,isRegister,needsRefresh);
 
 @override
 String toString() {
-  return 'SessionResponse(session: $session, user: $user, error: $error, isRegister: $isRegister)';
+  return 'SessionResponse(session: $session, user: $user, error: $error, isRegister: $isRegister, needsRefresh: $needsRefresh)';
 }
 
 
@@ -271,7 +279,7 @@ abstract mixin class _$SessionResponseCopyWith<$Res> implements $SessionResponse
   factory _$SessionResponseCopyWith(_SessionResponse value, $Res Function(_SessionResponse) _then) = __$SessionResponseCopyWithImpl;
 @override @useResult
 $Res call({
- Session session, User user, String? error, bool? isRegister
+ Session session, User user, String? error, bool? isRegister, bool? needsRefresh
 });
 
 
@@ -288,12 +296,13 @@ class __$SessionResponseCopyWithImpl<$Res>
 
 /// Create a copy of SessionResponse
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? session = null,Object? user = null,Object? error = freezed,Object? isRegister = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? session = null,Object? user = null,Object? error = freezed,Object? isRegister = freezed,Object? needsRefresh = freezed,}) {
   return _then(_SessionResponse(
 session: null == session ? _self.session : session // ignore: cast_nullable_to_non_nullable
 as Session,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,isRegister: freezed == isRegister ? _self.isRegister : isRegister // ignore: cast_nullable_to_non_nullable
+as bool?,needsRefresh: freezed == needsRefresh ? _self.needsRefresh : needsRefresh // ignore: cast_nullable_to_non_nullable
 as bool?,
   ));
 }

@@ -66,11 +66,16 @@ export "src/core/api/models/common/sign_out/sign_out_response.dart"
 export "src/core/api/models/common/verify_email/verify_email_response.dart"
     show VerifyEmailResponse;
 
+// Auth mode.
+export "src/core/auth_mode.dart" show AuthMode;
+
 // Storage: the contract plus the backends we ship.
 export "src/core/storage/storage.dart" show StorageInterface;
 export "src/core/storage/hive_storage.dart" show HiveStorage;
 export "src/core/storage/shared_preferences_storage.dart"
     show SharedPreferencesStorage;
+export "src/core/storage/token_storage.dart"
+    show TokenStorage, InMemoryTokenStorage;
 
 // Widgets.
 export "src/presentation/better_auth_provider.dart" show BetterAuthProvider;

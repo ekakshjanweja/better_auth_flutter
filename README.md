@@ -183,6 +183,32 @@ await client.revokeSession(...);
 await client.revokeOtherSessions();
 ```
 
+`BetterAuthFlutter.refreshSession()` re-fetches the session and updates auth
+state. `BetterAuthProvider` calls it automatically when the app returns to the
+foreground (pass `refreshOnResume: false` to opt out). If your server runs
+`deferSessionRefresh`, the required follow-up POST is handled transparently.
+
+## Bearer authentication
+
+By default the SDK uses session cookies. For backends that cannot rely on
+cookies, switch to bearer mode — the token is captured from the `set-auth-token`
+response header after sign-in and sent as `Authorization: Bearer <token>`.
+Requires the `bearer()` plugin on your server.
+
+```dart
+await BetterAuthFlutter.initialize(
+  url: "https://example.com/api/auth",
+  mode: AuthMode.bearer,
+  // Optional: persist the token across restarts (in-memory by default).
+  tokenStorage: MySecureTokenStorage(),
+);
+```
+
+> With the default `InMemoryTokenStorage`, bearer sessions do **not** survive an
+> app restart. Supply a `TokenStorage<String>` backed by secure storage to
+> persist them. Keep `BearerOptions.requireSignature` in sync with your server's
+> `bearer({ requireSignature })` — a mismatch produces bare 401s.
+
 ## Plugins
 
 Plugins live in their own libraries, so you only pay for what you import. Each

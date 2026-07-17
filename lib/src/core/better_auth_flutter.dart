@@ -8,12 +8,16 @@ import "package:better_auth_flutter/src/core/api/models/session/session_response
 import "package:better_auth_flutter/src/core/auth/auth_state.dart";
 import "package:better_auth_flutter/src/core/auth/auth_state_controller.dart";
 import "package:better_auth_flutter/src/core/auth/auth_state_interceptor.dart";
+import "package:better_auth_flutter/src/core/auth_mode.dart";
 import "package:better_auth_flutter/src/core/models/user/user.dart";
 import "package:better_auth_flutter/src/core/storage/custom_persist_cookie_jar.dart";
 import "package:better_auth_flutter/src/core/storage/hive_storage.dart";
 import "package:better_auth_flutter/src/core/storage/memory_storage.dart";
 import "package:better_auth_flutter/src/core/storage/storage.dart";
+import "package:better_auth_flutter/src/core/storage/token_storage.dart";
 import "package:better_auth_flutter/src/core/utils/logger.dart";
+import "package:better_auth_flutter/src/plugins/bearer/bearer_interceptor.dart";
+import "package:better_auth_flutter/src/plugins/bearer/bearer_options.dart";
 import "package:dio/dio.dart";
 import "package:dio_cookie_manager/dio_cookie_manager.dart";
 import "package:flutter/foundation.dart";
@@ -28,6 +32,17 @@ class BetterAuthFlutter {
   static late final StorageInterface? storage;
   static late final CustomPersistCookieJar _cookieJar;
   static final AuthStateController _authState = AuthStateController();
+  static late final AuthMode _mode;
+  static TokenStorage<String>? _tokenStorage;
+
+  /// The authentication mode this client was initialized with.
+  static AuthMode get mode => _mode;
+
+  /// Reads the current bearer token; null in cookie mode or when signed out.
+  static Future<String?> readBearerToken() async => _tokenStorage?.read();
+
+  /// Clears the stored bearer token, if any.
+  static Future<void> clearBearerToken() async => _tokenStorage?.delete();
 
   BetterAuthFlutter._() {
     _client = BetterAuthClient(dioClient, baseUrl: baseUrl);
@@ -61,13 +76,33 @@ class BetterAuthFlutter {
   static Stream<User?> get onAuthChange =>
       authStateChanges.map((s) => s.user).distinct();
 
+  static Future<Result<SessionResponse>>? _inFlightRefresh;
+
   /// Fetches the current session and updates [authState] to match.
   ///
   /// Safe to call at any time; it is what [initialize] runs to hydrate state
   /// and what the app-resume refresh uses.
-  static Future<Result<SessionResponse>> refreshSession() async {
+  ///
+  /// Concurrent callers share one in-flight request. Without this, a screen
+  /// with several widgets each calling `refreshSession` on resume would fire a
+  /// burst of identical `/get-session` requests.
+  static Future<Result<SessionResponse>> refreshSession() {
+    return _inFlightRefresh ??= _refreshSession().whenComplete(() {
+      _inFlightRefresh = null;
+    });
+  }
+
+  static Future<Result<SessionResponse>> _refreshSession() async {
     if (_authState.current is AuthInitial) _authState.setLoading();
-    final result = await client.getSession();
+
+    var result = await client.getSession();
+
+    // deferSessionRefresh: the read-only GET couldn't extend the session and
+    // asked us to POST. Do it here so callers never see the two-step dance.
+    if (result case Success(:final data) when data.needsRefresh == true) {
+      result = await client.getSessionPost();
+    }
+
     // The interceptor derives state from the response itself, so success needs
     // no handling here. A failure is different: a network blip must not be
     // reported as "signed out", or an offline app logs everyone out.
@@ -87,10 +122,17 @@ class BetterAuthFlutter {
   /// in the background and delivered via [authStateChanges]. This deliberately
   /// is not awaited: blocking `main()` on a network call would stall app
   /// startup on a slow connection. Gate your UI on [authStateChanges] instead.
+  /// [mode] selects cookie (default) or bearer authentication. In bearer mode
+  /// the token is captured from the `set-auth-token` response header and stored
+  /// in [tokenStorage] (in-memory by default, so it does not survive a restart
+  /// unless you supply persistent storage).
   static Future<void> initialize({
     required String url,
     Dio? dio,
     StorageInterface? store,
+    AuthMode mode = AuthMode.cookie,
+    TokenStorage<String>? tokenStorage,
+    BearerOptions bearerOptions = const BearerOptions(),
     bool enableLogging = false,
     bool hydrateOnInit = true,
   }) async {
@@ -98,6 +140,7 @@ class BetterAuthFlutter {
 
     BetterAuthLog.enabled = enableLogging;
     baseUrl = url;
+    _mode = mode;
 
     if (store == null && !kIsWeb) {
       await HiveStorage.init();
@@ -126,7 +169,16 @@ class BetterAuthFlutter {
       storage: MemoryStorage(),
     );
 
-    dioClient.interceptors.add(CookieManager(_cookieJar));
+    // Cookie xor bearer for auth transport; both share the null-stripping and
+    // auth-state interceptors.
+    if (mode == AuthMode.bearer) {
+      _tokenStorage = tokenStorage ?? InMemoryTokenStorage<String>();
+      dioClient.interceptors.add(
+        BearerInterceptor(storage: _tokenStorage!, options: bearerOptions),
+      );
+    } else {
+      dioClient.interceptors.add(CookieManager(_cookieJar));
+    }
     dioClient.interceptors.add(RemoveNullsInterceptor());
     dioClient.interceptors.add(AuthStateInterceptor(_authState));
     _initialized = true;
@@ -156,6 +208,7 @@ class BetterAuthFlutter {
       "BetterAuthFlutter not initialized. Call initialize() first.",
     );
     await _cookieJar.deleteAll();
+    await _tokenStorage?.delete();
     _authState.setUnauthenticated();
   }
 

@@ -12,6 +12,11 @@ abstract class SessionResponse with _$SessionResponse {
     required User user,
     String? error,
     bool? isRegister,
+
+    /// Set by a server running `deferSessionRefresh`: the read-only GET could
+    /// not extend the session, so the client must POST to refresh it. Handled
+    /// transparently by [BetterAuthFlutter.refreshSession].
+    bool? needsRefresh,
   }) = _SessionResponse;
 
   factory SessionResponse.fromJson(Map<String, dynamic> json) =>

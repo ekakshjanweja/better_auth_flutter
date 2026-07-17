@@ -2,6 +2,7 @@ import "dart:async";
 
 import "package:better_auth_flutter/src/core/auth/auth_state.dart";
 import "package:better_auth_flutter/src/core/better_auth_flutter.dart";
+import "package:better_auth_flutter/src/core/session/session_lifecycle_observer.dart";
 import "package:better_auth_flutter/src/presentation/better_auth_inherit.dart";
 import "package:flutter/material.dart";
 
@@ -16,9 +17,18 @@ import "package:flutter/material.dart";
 /// )
 /// ```
 class BetterAuthProvider extends StatefulWidget {
-  const BetterAuthProvider({super.key, required this.child});
+  const BetterAuthProvider({
+    super.key,
+    required this.child,
+    this.refreshOnResume = true,
+  });
 
   final Widget child;
+
+  /// Whether to refresh the session when the app returns to the foreground.
+  /// On by default; returning to a backgrounded app is when the session is
+  /// most likely stale.
+  final bool refreshOnResume;
 
   @override
   State<BetterAuthProvider> createState() => _BetterAuthProviderState();
@@ -27,6 +37,7 @@ class BetterAuthProvider extends StatefulWidget {
 class _BetterAuthProviderState extends State<BetterAuthProvider> {
   late AuthState _state = BetterAuthFlutter.authState;
   StreamSubscription<AuthState>? _subscription;
+  SessionLifecycleObserver? _lifecycle;
 
   @override
   void initState() {
@@ -35,11 +46,17 @@ class _BetterAuthProviderState extends State<BetterAuthProvider> {
       if (!mounted) return;
       setState(() => _state = state);
     });
+    if (widget.refreshOnResume) {
+      _lifecycle = SessionLifecycleObserver(
+        onResume: BetterAuthFlutter.refreshSession,
+      )..attach();
+    }
   }
 
   @override
   void dispose() {
     _subscription?.cancel();
+    _lifecycle?.detach();
     super.dispose();
   }
 

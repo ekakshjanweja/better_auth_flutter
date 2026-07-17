@@ -12,6 +12,7 @@ _SessionResponse _$SessionResponseFromJson(Map<String, dynamic> json) =>
       user: User.fromJson(json['user'] as Map<String, dynamic>),
       error: json['error'] as String?,
       isRegister: json['isRegister'] as bool?,
+      needsRefresh: json['needsRefresh'] as bool?,
     );
 
 Map<String, dynamic> _$SessionResponseToJson(_SessionResponse instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$SessionResponseToJson(_SessionResponse instance) =>
       'user': instance.user,
       'error': instance.error,
       'isRegister': instance.isRegister,
+      'needsRefresh': instance.needsRefresh,
     };

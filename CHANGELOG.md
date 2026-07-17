@@ -2,12 +2,25 @@
 
 ## 0.1.0
 
-Security fixes, a reachable public API, and reactive auth state.
+Security fixes, a reachable public API, reactive auth state, and working bearer
+mode.
 
 **This release is breaking.** Every breaking change is bundled here so you
 migrate once. See the migration table at the end.
 
 ### Added
+
+* **Bearer authentication that actually works.**
+  `initialize(mode: AuthMode.bearer)` captures the token from the
+  `set-auth-token` response header and sends it as `Authorization: Bearer`.
+  Previously nothing read that header, so bearer mode could not obtain a token
+  at all. `TokenStorage<String>` (default `InMemoryTokenStorage`) controls
+  persistence, and `BearerOptions.requireSignature` is now honored.
+* **Session refresh.** `BetterAuthFlutter.refreshSession()` (single-flight),
+  automatic refresh on app resume via `BetterAuthProvider` (throttled;
+  `refreshOnResume: false` to opt out), and transparent `deferSessionRefresh`
+  handling (`SessionResponse.needsRefresh` → follow-up POST).
+
 
 * **A barrel file.** `import "package:better_auth_flutter/better_auth_flutter.dart"`
   now resolves. It previously did not exist, so every snippet in the README and
@@ -85,6 +98,7 @@ migrate once. See the migration table at the end.
 | deep `source/plugins/...` imports | `import "package:better_auth_flutter/plugins/jwt.dart";` |
 | `BetterAuthConsumer(builder: (context, client) => …)` | `BetterAuthConsumer(builder: (context, client, state) => …)` |
 | `StorageInterface` with 2 methods | 4 methods — add `deleteCookies` and `deleteAll` |
+| `createDioWithBearer(...)` / `dio.useBearerAuth(...)` | `initialize(mode: AuthMode.bearer, tokenStorage: …)` |
 | logging always on | off unless `initialize(enableLogging: true)` |
 | polling `getSession()` for auth state | `authStateChanges` / `BetterAuthBuilder` |
 
