@@ -71,11 +71,14 @@ abstract class BetterAuthClient {
     @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
   });
 
+  /// Null data is a successful "no session", not a failure: Better Auth
+  /// answers with a `null` body when nobody is signed in. The response type
+  /// must stay nullable so that case deserializes instead of throwing.
   @GET("/get-session")
-  Future<Result<SessionResponse>> getSession();
+  Future<Result<SessionResponse?>> getSession();
 
   @POST("/get-session")
-  Future<Result<SessionResponse>> getSessionPost({
+  Future<Result<SessionResponse?>> getSessionPost({
     @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
   });
 

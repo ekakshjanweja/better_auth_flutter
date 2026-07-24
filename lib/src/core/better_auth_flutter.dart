@@ -99,7 +99,7 @@ class BetterAuthFlutter {
   static Stream<User?> get onAuthChange =>
       authStateChanges.map((s) => s.user).distinct();
 
-  static Future<Result<SessionResponse>>? _inFlightRefresh;
+  static Future<Result<SessionResponse?>>? _inFlightRefresh;
 
   /// Fetches the current session and updates [authState] to match.
   ///
@@ -109,20 +109,20 @@ class BetterAuthFlutter {
   /// Concurrent callers share one in-flight request. Without this, a screen
   /// with several widgets each calling `refreshSession` on resume would fire a
   /// burst of identical `/get-session` requests.
-  static Future<Result<SessionResponse>> refreshSession() {
+  static Future<Result<SessionResponse?>> refreshSession() {
     return _inFlightRefresh ??= _refreshSession().whenComplete(() {
       _inFlightRefresh = null;
     });
   }
 
-  static Future<Result<SessionResponse>> _refreshSession() async {
+  static Future<Result<SessionResponse?>> _refreshSession() async {
     if (_authState.current is AuthInitial) _authState.setLoading();
 
     var result = await client.getSession();
 
     // deferSessionRefresh: the read-only GET couldn't extend the session and
     // asked us to POST. Do it here so callers never see the two-step dance.
-    if (result case Success(:final data) when data.needsRefresh == true) {
+    if (result case Success(:final data) when data?.needsRefresh == true) {
       result = await client.getSessionPost();
     }
 

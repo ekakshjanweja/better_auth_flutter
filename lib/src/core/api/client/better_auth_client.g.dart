@@ -327,12 +327,12 @@ class _BetterAuthClient implements BetterAuthClient {
     );
   }
 
-  Future<HttpResponse<SessionResponse>> _getSession() async {
+  Future<HttpResponse<SessionResponse?>> _getSession() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<Result<SessionResponse>>(
+    final _options = _setStreamType<Result<SessionResponse?>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -342,10 +342,12 @@ class _BetterAuthClient implements BetterAuthClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SessionResponse _value;
+    final _result = await _dio.fetch<Map<String, dynamic>?>(_options);
+    late SessionResponse? _value;
     try {
-      _value = SessionResponse.fromJson(_result.data!);
+      _value = _result.data == null
+          ? null
+          : SessionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -355,11 +357,11 @@ class _BetterAuthClient implements BetterAuthClient {
   }
 
   @override
-  Future<Result<SessionResponse>> getSession() {
-    return BetterAuthCallAdapter<SessionResponse>().adapt(() => _getSession());
+  Future<Result<SessionResponse?>> getSession() {
+    return BetterAuthCallAdapter<SessionResponse?>().adapt(() => _getSession());
   }
 
-  Future<HttpResponse<SessionResponse>> _getSessionPost({
+  Future<HttpResponse<SessionResponse?>> _getSessionPost({
     Map<String, dynamic> body = const {},
   }) async {
     final _extra = <String, dynamic>{};
@@ -368,7 +370,7 @@ class _BetterAuthClient implements BetterAuthClient {
     final _data = <String, dynamic>{};
     _data.addAll(body);
     _data.removeWhere((k, v) => v == null);
-    final _options = _setStreamType<Result<SessionResponse>>(
+    final _options = _setStreamType<Result<SessionResponse?>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -378,10 +380,12 @@ class _BetterAuthClient implements BetterAuthClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SessionResponse _value;
+    final _result = await _dio.fetch<Map<String, dynamic>?>(_options);
+    late SessionResponse? _value;
     try {
-      _value = SessionResponse.fromJson(_result.data!);
+      _value = _result.data == null
+          ? null
+          : SessionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -391,10 +395,10 @@ class _BetterAuthClient implements BetterAuthClient {
   }
 
   @override
-  Future<Result<SessionResponse>> getSessionPost({
+  Future<Result<SessionResponse?>> getSessionPost({
     Map<String, dynamic> body = const {},
   }) {
-    return BetterAuthCallAdapter<SessionResponse>().adapt(
+    return BetterAuthCallAdapter<SessionResponse?>().adapt(
       () => _getSessionPost(body: body),
     );
   }
