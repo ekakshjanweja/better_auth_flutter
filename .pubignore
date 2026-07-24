@@ -1,1 +1,13 @@
+# A .pubignore replaces .gitignore for publishing, so the standard build
+# artifacts must be repeated here or they get packaged.
 vigilant-spoon
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.github/
+example/build/
+example/.dart_tool/
+example/.flutter-plugins
+example/.flutter-plugins-dependencies
+example/pubspec.lock

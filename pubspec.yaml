@@ -1,35 +1,46 @@
 name: better_auth_flutter
 description: "A Flutter client package for integrating with Better Auth - a
   secure authentication platform."
-version: 0.0.7
+version: 0.1.0
 homepage: https://www.better-auth.com/
 repository: https://github.com/ekakshjanweja/better_auth_flutter
 issue_tracker: https://github.com/ekakshjanweja/better_auth_flutter/issues
 
 environment:
-  sdk: ^3.7.0
-  flutter: ">=1.17.0"
+  sdk: ^3.8.0
+  flutter: ">=3.27.0"
 
 dependencies:
-  auto_exporter_annotation: ^1.0.3
   cookie_jar: ^4.0.8
+  dio: ^5.9.2
+  dio_cookie_manager: ^3.4.0
   flutter:
     sdk: flutter
-  flutter_web_auth_2: ^4.1.0
-  http: ^1.3.0
+  flutter_secure_storage: ^10.3.1
+  flutter_web_auth_2: ^5.0.2
+  freezed_annotation: ^3.1.0
+  hive: ^2.2.3
+  http: ^1.6.0
+  json_annotation: ^4.11.0
+  logger: ^2.7.0
   path_provider: ^2.1.5
-  shared_preferences: ^2.5.3
+  retrofit: ^4.9.2
+  shared_preferences: ^2.5.5
 
 dev_dependencies:
-  auto_exporter: 3.5.1
-  build_runner: 2.5.4
-  flutter_lints: 6.0.0
+  build_runner: ^2.7.2
+  flutter_lints: ^6.0.0
+  flutter_secure_storage_platform_interface: ^2.0.1
   flutter_test:
     sdk: flutter
+  freezed: ^3.2.5
+  http_mock_adapter: ^0.6.1
+  json_serializable: ^6.11.2
+  retrofit_generator: ^10.2.5
 
 platforms:
-  android:
-  ios:
-  macos:
-  windows:
-  linux:
+  ? android
+  ? ios
+  ? macos
+  ? windows
+  ? linux

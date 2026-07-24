@@ -1,7 +1,0 @@
-targets:
-  $default:
-    builders:
-      auto_exporter:
-        options:
-          default_export_all: true
-          project_name: better_auth_flutter
