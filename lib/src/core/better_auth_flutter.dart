@@ -194,6 +194,21 @@ class BetterAuthFlutter {
           ),
         );
 
+    // Better Auth rejects any cookie-bearing non-GET request that arrives
+    // without an `Origin` header (403 MISSING_OR_NULL_ORIGIN). It reads only
+    // the standard header — `flutter-origin` above is for the Expo-style
+    // proxy, not the origin check. Browsers set `Origin` themselves; native
+    // HTTP clients never do, so derive it from [url]. Better Auth always
+    // trusts its own `baseURL` origin, so this needs no `trustedOrigins`
+    // entry. Skipped on web, where the header is forbidden to scripts.
+    // putIfAbsent so a caller-supplied [dio] keeps its own value.
+    if (!kIsWeb) {
+      final origin = _originOf(url);
+      if (origin != null) {
+        dioClient.options.headers.putIfAbsent("origin", () => origin);
+      }
+    }
+
     _cookieJar = CustomPersistCookieJar(
       store: storage,
       storage: MemoryStorage(),
@@ -216,6 +231,23 @@ class BetterAuthFlutter {
     if (hydrateOnInit) {
       // Intentionally not awaited — see [hydrateOnInit].
       unawaited(refreshSession());
+    }
+  }
+
+  /// The `scheme://host[:port]` of [url], or null when it has none to give.
+  ///
+  /// `Uri.origin` throws for a relative URL or a non-http(s) scheme. Those are
+  /// misconfigurations, but they must not take down [initialize] — a request
+  /// with no `Origin` still succeeds against a server that doesn't check it.
+  static String? _originOf(String url) {
+    try {
+      return Uri.parse(url).origin;
+    } on StateError {
+      BetterAuthLog.warning("no origin derivable from base url: $url");
+      return null;
+    } on FormatException {
+      BetterAuthLog.warning("unparseable base url: $url");
+      return null;
     }
   }
 

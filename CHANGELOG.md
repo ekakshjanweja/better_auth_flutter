@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+* **Authenticated writes no longer fail with 403 `MISSING_OR_NULL_ORIGIN`.**
+  Better Auth rejects any cookie-bearing non-GET request that arrives without an
+  `Origin` header, and it reads only that standard header — the `flutter-origin`
+  header this package sends is for the Expo-style proxy and is not consulted by
+  the origin check. Native HTTP clients never set `Origin` on their own, so
+  every mutating call made with a session cookie (`update-user`, `delete-user`,
+  `change-password`, …) was refused, while sign-in kept working because it
+  carries no cookie yet. `initialize` now derives `Origin` from the `url` you
+  pass it. Better Auth always trusts its own `baseURL` origin, so this needs no
+  `trustedOrigins` change on the server. Skipped on web, where the browser owns
+  the header; a caller-supplied `dio` keeps its own value if it sets one.
+
 ## 0.1.0
 
 Security fixes, a reachable public API, reactive auth state, and working bearer
