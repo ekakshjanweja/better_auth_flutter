@@ -22,7 +22,7 @@ Suggestions or contributions welcome — reach out at [@ekaksh_janweja](https://
 
 ```yaml
 dependencies:
-  better_auth_flutter: ^0.2.0
+  better_auth_flutter: ^0.1.1
 ```
 
 ## Getting started
