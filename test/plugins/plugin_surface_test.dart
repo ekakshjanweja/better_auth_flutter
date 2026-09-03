@@ -8,6 +8,7 @@ import "package:better_auth_flutter/plugins/magic_link.dart";
 import "package:better_auth_flutter/plugins/multi_session.dart";
 import "package:better_auth_flutter/plugins/one_time_token.dart";
 import "package:better_auth_flutter/plugins/organization.dart";
+import "package:better_auth_flutter/plugins/passkey.dart";
 import "package:better_auth_flutter/plugins/two_factor.dart";
 import "package:flutter_test/flutter_test.dart";
 
@@ -60,6 +61,26 @@ void main() {
       expect(org.invitations, isEmpty);
 
       expect(BetterAuthOrganization, isNotNull);
+    });
+  });
+
+  group("passkey plugin", () {
+    test("exposes typed models and the client type", () {
+      expect(BetterAuthPasskey, isNotNull);
+
+      const record = PasskeyRecord(
+        id: "pk_1",
+        userId: "1",
+        credentialID: "cred",
+        publicKey: "pk",
+        counter: 0,
+        deviceType: "platform",
+        backedUp: false,
+      );
+      expect(record.name, isNull);
+
+      const updated = PasskeyUpdateResponse(passkey: record);
+      expect(updated.passkey.id, "pk_1");
     });
   });
 

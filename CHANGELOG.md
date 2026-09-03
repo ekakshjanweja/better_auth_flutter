@@ -14,6 +14,20 @@
   3.x, `flutter_secure_storage` 11.x, `freezed` 4.x (generated code
   regenerated), `build_runner`, `retrofit_generator`, `json_annotation`.
   This raises the minimum toolchain to Dart `^3.13.0` / Flutter `>=3.47.0`.
+* **Passkey (WebAuthn) plugin** (`package:better_auth_flutter/plugins/passkey.dart`,
+  `client.passkey`): registration/authentication options + verification,
+  passkey listing, rename, and deletion, with typed `PasskeyRecord` models.
+* **Custom user & session fields.** `User`/`Session` collect unknown server
+  keys into `additionalFields` instead of dropping them, with a typed
+  `field<T>()` accessor; the raw sign-up/sign-in/update variants
+  (`signUpEmailRaw`, `signInEmailRaw`, `signInUsernameRaw`, `updateUserRaw`)
+  accept flat-merged custom keys for writing.
+* **Username availability** (`isUsernameAvailable`), **password verification**
+  (`verifyPassword`), and **`Result.data`/`Result.error` getters** (`ResultX`).
+* **Refresh on reconnect.** `BetterAuthProvider` re-fetches the session when
+  the device regains connectivity (`refreshOnReconnect: false` to opt out).
+* **Web helpers**: `enableWebCredentials` (browser cookie handling for
+  cross-origin requests), `redirectToUrl`, and `currentOrigin`.
 
 ### Fixed
 

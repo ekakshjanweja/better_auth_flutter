@@ -61,6 +61,13 @@ class _RiverpodGate extends ConsumerWidget {
   }
 }
 
+// README: "Additional fields"
+String _greet(User? user) =>
+    "Hi ${user?.field<String>("firstName") ?? user?.name ?? "there"}";
+
+// README: "Results" getters
+String? _userId(Result<SessionResponse?> result) => result.data?.user.id;
+
 // README: switching on AuthState
 String _route(AuthState state) => switch (state) {
   AuthInitial() || AuthLoading() => "splash",
@@ -76,6 +83,39 @@ void main() {
 
   test("the Riverpod gate snippet builds", () {
     expect(_riverpodGate, returnsNormally);
+  });
+
+  test("the additional-fields snippet reads typed custom fields", () {
+    final user = User.fromJson({
+      "id": "1",
+      "name": "Ada",
+      "email": "ada@example.com",
+      "firstName": "Addie",
+    });
+
+    expect(_greet(user), "Hi Addie");
+    expect(_greet(null), "Hi there");
+  });
+
+  test("the Result data getter reaches the session user", () {
+    const user = User(id: "1", name: "Ada", email: "ada@example.com");
+    final result = Result<SessionResponse?>.ok(
+      SessionResponse(
+        session: Session(
+          id: "s1",
+          token: "t",
+          expiresAt: DateTime(2030),
+          userId: "1",
+        ),
+        user: user,
+      ),
+    );
+
+    expect(_userId(result), "1");
+    expect(
+      _userId(const Result.err(BetterError(message: "x", stack: null))),
+      isNull,
+    );
   });
 
   test("the Result snippet handles both branches", () {
