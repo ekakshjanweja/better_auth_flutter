@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Populate the vigilant-spoon submodule: an empty submodule dir
+          # makes `dart pub publish --dry-run` warn about a checked-in file
+          # ignored by `.gitignore`.
+          submodules: recurse
 
       - uses: subosito/flutter-action@v2
         with:
