@@ -30,6 +30,10 @@ _User _$UserFromJson(Map<String, dynamic> json) => _User(
   banExpires: json['banExpires'] == null
       ? null
       : DateTime.parse(json['banExpires'] as String),
+  additionalFields:
+      _readUserAdditionalFields(json, 'additionalFields')
+          as Map<String, dynamic>? ??
+      const <String, dynamic>{},
 );
 
 Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{

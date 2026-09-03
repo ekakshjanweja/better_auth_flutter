@@ -16,7 +16,7 @@ Suggestions or contributions welcome — reach out at [@ekaksh_janweja](https://
 - Every call returns a sealed `Result<T>` — no thrown exceptions
 - Encrypted session storage by default (keychain/keystore)
 - Plugins: admin, anonymous, api key, bearer, email OTP, JWT, magic link,
-  multi-session, one-time token, organization, phone, two-factor
+  multi-session, one-time token, organization, passkey, phone, two-factor
 
 ## Install
 
@@ -77,6 +77,15 @@ switch (result) {
 > `user` is nullable: with two-factor enabled, a successful sign-in returns
 > `twoFactorRedirect: true` and no user until the second factor is verified via
 > the [two_factor plugin](#plugins).
+
+For the common "grab the value or bail" shape, `ResultX` adds `.data` and
+`.error` getters (null for the other branch) — prefer exhaustive `switch`
+matching when both branches need handling:
+
+```dart
+final user = (await client.getSession()).data?.user;
+if (user == null) return goToSignIn();
+```
 
 `BetterError` carries Better Auth's own code (`USER_NOT_FOUND`,
 `INVALID_EMAIL_OR_PASSWORD`, …) verbatim. When a request fails without a
@@ -199,6 +208,46 @@ await client.signOut();
 await BetterAuthFlutter.clearCookies(); // clears the persisted session too
 ```
 
+With the `username()` server plugin, sign in with a username instead, and
+check availability before sign-up:
+
+```dart
+await client.signInUsername(username: "ada", password: "hunter2");
+
+final free = await client.isUsernameAvailable(username: "ada");
+if (free.data?.available == true) print("username is free");
+```
+
+### Additional fields
+
+Better Auth lets you add custom columns to the `user` and `session` tables.
+The server merges them as flat top-level keys into the JSON, so this client
+collects every key the static models don't own into an `additionalFields` map
+rather than dropping it:
+
+```dart
+final session = await client.getSession();
+final user = session.data?.user;
+
+user?.additionalFields["firstName"];      // dynamic
+user?.field<String>("firstName");         // typed, or null if absent
+user?.field<String>("role") ?? "user";    // with a default
+```
+
+To *write* custom fields, flat-merge them as top-level keys through the raw
+variants (Better Auth's wire format):
+
+```dart
+await client.signUpEmailRaw({
+  "name": "Ada Lovelace",
+  "email": "ada@example.com",
+  "password": "hunter2",
+  "firstName": "Ada",
+});
+
+await client.updateUserRaw({"firstName": "Ada", "lang": "fr"});
+```
+
 ### Social sign-in
 
 #### ID token (recommended for Google and Apple)
@@ -246,6 +295,12 @@ if (result case Success(:final data) when data.token != null) {
 > redirects to `<scheme>://callback?token=…`; `signInWithProvider` returns that
 > token. Native ID-token sign-in (Google/Apple) has no such issue.
 
+On web, the browser owns cookies and navigation, so two helpers apply:
+`enableWebCredentials(BetterAuthFlutter.dioClient)` makes the browser
+attach/store cookies for cross-origin requests in cookie mode, and
+`redirectToUrl(url)` / `currentOrigin()` drive the full-page OAuth redirect
+(no-ops on native).
+
 ### Sessions
 
 ```dart
@@ -257,7 +312,9 @@ await client.revokeOtherSessions();
 
 `BetterAuthFlutter.refreshSession()` re-fetches the session and updates auth
 state. `BetterAuthProvider` calls it automatically when the app returns to the
-foreground (pass `refreshOnResume: false` to opt out). If your server runs
+foreground (pass `refreshOnResume: false` to opt out) and when the device
+regains connectivity (pass `refreshOnReconnect: false` to opt out; skipped on
+web, where the browser owns connectivity). If your server runs
 `deferSessionRefresh`, the required follow-up POST is handled transparently.
 
 ## Bearer authentication
@@ -305,7 +362,34 @@ final token = await BetterAuthFlutter.client.jwt.token();
 | `plugins/organization.dart` | `client.organization` | `organization()` |
 | `plugins/multi_session.dart` | `client.multiSession` | `multiSession()` |
 | `plugins/one_time_token.dart` | `client.oneTimeToken` | `oneTimeToken()` |
+| `plugins/passkey.dart` | `client.passkey` | `passkey()` |
 | `plugins/bearer.dart` | — | `bearer()` |
+
+### Passkey (WebAuthn)
+
+Register and authenticate with platform credentials instead of passwords.
+Combine with [`passkeys`](https://pub.dev/packages/passkeys) or platform Web
+APIs for the ceremony itself — the plugin handles the server legs:
+
+```dart
+import "package:better_auth_flutter/plugins/passkey.dart";
+
+final passkey = BetterAuthFlutter.client.passkey;
+
+// Registration: options → WebAuthn create → verify.
+final options = await passkey.generateRegistrationOptions(name: "ada");
+final credential = await createWebAuthnCredential(options);
+await passkey.verifyRegistration({"response": credential, "name": "ada"});
+
+// Authentication: options → WebAuthn get → verify (sets the session).
+final authOptions = await passkey.generateAuthenticationOptions();
+final assertion = await getWebAuthnAssertion(authOptions);
+await passkey.verifyAuthentication({"response": assertion});
+await BetterAuthFlutter.refreshSession();
+```
+
+Manage existing passkeys with `listUserPasskeys()`, `updatePasskey(id:name:)`,
+and `deletePasskey(id:)`.
 
 ## Storage
 

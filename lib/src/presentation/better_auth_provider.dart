@@ -4,6 +4,8 @@ import "package:better_auth_flutter/src/core/auth/auth_state.dart";
 import "package:better_auth_flutter/src/core/better_auth_flutter.dart";
 import "package:better_auth_flutter/src/core/session/session_lifecycle_observer.dart";
 import "package:better_auth_flutter/src/presentation/better_auth_inherit.dart";
+import "package:connectivity_plus/connectivity_plus.dart";
+import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 
 /// Subscribes to `BetterAuthFlutter.authStateChanges` and republishes it to the
@@ -21,6 +23,7 @@ class BetterAuthProvider extends StatefulWidget {
     super.key,
     required this.child,
     this.refreshOnResume = true,
+    this.refreshOnReconnect = true,
   });
 
   final Widget child;
@@ -30,6 +33,11 @@ class BetterAuthProvider extends StatefulWidget {
   /// most likely stale.
   final bool refreshOnResume;
 
+  /// Whether to refresh the session when the device regains connectivity.
+  /// On by default; coming back online is the other moment the session is
+  /// most likely stale. Skipped on web, where the browser owns connectivity.
+  final bool refreshOnReconnect;
+
   @override
   State<BetterAuthProvider> createState() => _BetterAuthProviderState();
 }
@@ -38,6 +46,7 @@ class _BetterAuthProviderState extends State<BetterAuthProvider> {
   late AuthState _state = BetterAuthFlutter.authState;
   StreamSubscription<AuthState>? _subscription;
   SessionLifecycleObserver? _lifecycle;
+  StreamSubscription<List<ConnectivityResult>>? _connectivity;
 
   @override
   void initState() {
@@ -51,12 +60,22 @@ class _BetterAuthProviderState extends State<BetterAuthProvider> {
         onResume: BetterAuthFlutter.refreshSession,
       )..attach();
     }
+    if (widget.refreshOnReconnect && !kIsWeb) {
+      // refreshSession is single-flight, so a burst of connectivity events
+      // shares one in-flight request instead of stampeding /get-session.
+      _connectivity = Connectivity().onConnectivityChanged.listen((results) {
+        if (results.any((result) => result != ConnectivityResult.none)) {
+          BetterAuthFlutter.refreshSession();
+        }
+      });
+    }
   }
 
   @override
   void dispose() {
     _subscription?.cancel();
     _lifecycle?.detach();
+    _connectivity?.cancel();
     super.dispose();
   }
 
