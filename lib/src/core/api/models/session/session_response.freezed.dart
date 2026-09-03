@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'session_response.dart';
@@ -9,6 +9,7 @@ part of 'session_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -31,16 +32,21 @@ $SessionResponseCopyWith<SessionResponse> get copyWith => _$SessionResponseCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionResponse&&(identical(other.session, session) || other.session == session)&&(identical(other.user, user) || other.user == user)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRegister, isRegister) || other.isRegister == isRegister)&&(identical(other.needsRefresh, needsRefresh) || other.needsRefresh == needsRefresh));
+  final _this = this as SessionResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionResponse&&(identical(other.session, _this.session) || other.session == _this.session)&&(identical(other.user, _this.user) || other.user == _this.user)&&(identical(other.error, _this.error) || other.error == _this.error)&&(identical(other.isRegister, _this.isRegister) || other.isRegister == _this.isRegister)&&(identical(other.needsRefresh, _this.needsRefresh) || other.needsRefresh == _this.needsRefresh));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,session,user,error,isRegister,needsRefresh);
+int get hashCode {
+  final _this = this as SessionResponse;
+  return Object.hash(runtimeType,_this.session,_this.user,_this.error,_this.isRegister,_this.needsRefresh);
+}
 
 @override
 String toString() {
-  return 'SessionResponse(session: $session, user: $user, error: $error, isRegister: $isRegister, needsRefresh: $needsRefresh)';
+  final _this = this as SessionResponse;
+  return 'SessionResponse(session: ${_this.session}, user: ${_this.user}, error: ${_this.error}, isRegister: ${_this.isRegister}, needsRefresh: ${_this.needsRefresh})';
 }
 
 
@@ -69,7 +75,7 @@ class _$SessionResponseCopyWithImpl<$Res>
 /// Create a copy of SessionResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? session = null,Object? user = null,Object? error = freezed,Object? isRegister = freezed,Object? needsRefresh = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(SessionResponse(
 session: null == session ? _self.session : session // ignore: cast_nullable_to_non_nullable
 as Session,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
@@ -259,16 +265,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SessionResponse&&(identical(other.session, session) || other.session == session)&&(identical(other.user, user) || other.user == user)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRegister, isRegister) || other.isRegister == isRegister)&&(identical(other.needsRefresh, needsRefresh) || other.needsRefresh == needsRefresh));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SessionResponse&&(identical(other.session, session) || other.session == session)&&(identical(other.user, user) || other.user == user)&&(identical(other.error, error) || other.error == error)&&(identical(other.isRegister, isRegister) || other.isRegister == isRegister)&&(identical(other.needsRefresh, needsRefresh) || other.needsRefresh == needsRefresh));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,session,user,error,isRegister,needsRefresh);
+int get hashCode {
+    return Object.hash(runtimeType,session,user,error,isRegister,needsRefresh);
+}
 
 @override
 String toString() {
-  return 'SessionResponse(session: $session, user: $user, error: $error, isRegister: $isRegister, needsRefresh: $needsRefresh)';
+    return 'SessionResponse(session: $session, user: $user, error: $error, isRegister: $isRegister, needsRefresh: $needsRefresh)';
 }
 
 

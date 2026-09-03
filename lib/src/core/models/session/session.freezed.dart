@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'session.dart';
@@ -9,6 +9,7 @@ part of 'session.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $SessionCopyWith<Session> get copyWith => _$SessionCopyWithImpl<Session>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Session&&(identical(other.id, id) || other.id == id)&&(identical(other.token, token) || other.token == token)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.ipAddress, ipAddress) || other.ipAddress == ipAddress)&&(identical(other.userAgent, userAgent) || other.userAgent == userAgent)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.impersonatedBy, impersonatedBy) || other.impersonatedBy == impersonatedBy)&&(identical(other.activeOrganizationId, activeOrganizationId) || other.activeOrganizationId == activeOrganizationId));
+  final _this = this as Session;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Session&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.ipAddress, _this.ipAddress) || other.ipAddress == _this.ipAddress)&&(identical(other.userAgent, _this.userAgent) || other.userAgent == _this.userAgent)&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.impersonatedBy, _this.impersonatedBy) || other.impersonatedBy == _this.impersonatedBy)&&(identical(other.activeOrganizationId, _this.activeOrganizationId) || other.activeOrganizationId == _this.activeOrganizationId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,token,expiresAt,createdAt,updatedAt,ipAddress,userAgent,userId,impersonatedBy,activeOrganizationId);
+int get hashCode {
+  final _this = this as Session;
+  return Object.hash(runtimeType,_this.id,_this.token,_this.expiresAt,_this.createdAt,_this.updatedAt,_this.ipAddress,_this.userAgent,_this.userId,_this.impersonatedBy,_this.activeOrganizationId);
+}
 
 @override
 String toString() {
-  return 'Session(id: $id, token: $token, expiresAt: $expiresAt, createdAt: $createdAt, updatedAt: $updatedAt, ipAddress: $ipAddress, userAgent: $userAgent, userId: $userId, impersonatedBy: $impersonatedBy, activeOrganizationId: $activeOrganizationId)';
+  final _this = this as Session;
+  return 'Session(id: ${_this.id}, token: ${_this.token}, expiresAt: ${_this.expiresAt}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, ipAddress: ${_this.ipAddress}, userAgent: ${_this.userAgent}, userId: ${_this.userId}, impersonatedBy: ${_this.impersonatedBy}, activeOrganizationId: ${_this.activeOrganizationId})';
 }
 
 
@@ -66,7 +72,7 @@ class _$SessionCopyWithImpl<$Res>
 /// Create a copy of Session
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? token = null,Object? expiresAt = null,Object? createdAt = freezed,Object? updatedAt = freezed,Object? ipAddress = freezed,Object? userAgent = freezed,Object? userId = null,Object? impersonatedBy = freezed,Object? activeOrganizationId = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Session(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
@@ -245,16 +251,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Session&&(identical(other.id, id) || other.id == id)&&(identical(other.token, token) || other.token == token)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.ipAddress, ipAddress) || other.ipAddress == ipAddress)&&(identical(other.userAgent, userAgent) || other.userAgent == userAgent)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.impersonatedBy, impersonatedBy) || other.impersonatedBy == impersonatedBy)&&(identical(other.activeOrganizationId, activeOrganizationId) || other.activeOrganizationId == activeOrganizationId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Session&&(identical(other.id, id) || other.id == id)&&(identical(other.token, token) || other.token == token)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.ipAddress, ipAddress) || other.ipAddress == ipAddress)&&(identical(other.userAgent, userAgent) || other.userAgent == userAgent)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.impersonatedBy, impersonatedBy) || other.impersonatedBy == impersonatedBy)&&(identical(other.activeOrganizationId, activeOrganizationId) || other.activeOrganizationId == activeOrganizationId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,token,expiresAt,createdAt,updatedAt,ipAddress,userAgent,userId,impersonatedBy,activeOrganizationId);
+int get hashCode {
+    return Object.hash(runtimeType,id,token,expiresAt,createdAt,updatedAt,ipAddress,userAgent,userId,impersonatedBy,activeOrganizationId);
+}
 
 @override
 String toString() {
-  return 'Session(id: $id, token: $token, expiresAt: $expiresAt, createdAt: $createdAt, updatedAt: $updatedAt, ipAddress: $ipAddress, userAgent: $userAgent, userId: $userId, impersonatedBy: $impersonatedBy, activeOrganizationId: $activeOrganizationId)';
+    return 'Session(id: $id, token: $token, expiresAt: $expiresAt, createdAt: $createdAt, updatedAt: $updatedAt, ipAddress: $ipAddress, userAgent: $userAgent, userId: $userId, impersonatedBy: $impersonatedBy, activeOrganizationId: $activeOrganizationId)';
 }
 
 

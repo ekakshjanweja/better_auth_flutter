@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'jwt_key.dart';
@@ -9,6 +9,7 @@ part of 'jwt_key.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $JwtKeyCopyWith<JwtKey> get copyWith => _$JwtKeyCopyWithImpl<JwtKey>(this as Jwt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JwtKey&&(identical(other.kid, kid) || other.kid == kid)&&(identical(other.kty, kty) || other.kty == kty)&&(identical(other.alg, alg) || other.alg == alg)&&(identical(other.use, use) || other.use == use)&&(identical(other.n, n) || other.n == n)&&(identical(other.e, e) || other.e == e)&&(identical(other.crv, crv) || other.crv == crv)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y));
+  final _this = this as JwtKey;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JwtKey&&(identical(other.kid, _this.kid) || other.kid == _this.kid)&&(identical(other.kty, _this.kty) || other.kty == _this.kty)&&(identical(other.alg, _this.alg) || other.alg == _this.alg)&&(identical(other.use, _this.use) || other.use == _this.use)&&(identical(other.n, _this.n) || other.n == _this.n)&&(identical(other.e, _this.e) || other.e == _this.e)&&(identical(other.crv, _this.crv) || other.crv == _this.crv)&&(identical(other.x, _this.x) || other.x == _this.x)&&(identical(other.y, _this.y) || other.y == _this.y));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,kid,kty,alg,use,n,e,crv,x,y);
+int get hashCode {
+  final _this = this as JwtKey;
+  return Object.hash(runtimeType,_this.kid,_this.kty,_this.alg,_this.use,_this.n,_this.e,_this.crv,_this.x,_this.y);
+}
 
 @override
 String toString() {
-  return 'JwtKey(kid: $kid, kty: $kty, alg: $alg, use: $use, n: $n, e: $e, crv: $crv, x: $x, y: $y)';
+  final _this = this as JwtKey;
+  return 'JwtKey(kid: ${_this.kid}, kty: ${_this.kty}, alg: ${_this.alg}, use: ${_this.use}, n: ${_this.n}, e: ${_this.e}, crv: ${_this.crv}, x: ${_this.x}, y: ${_this.y})';
 }
 
 
@@ -66,7 +72,7 @@ class _$JwtKeyCopyWithImpl<$Res>
 /// Create a copy of JwtKey
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? kid = null,Object? kty = null,Object? alg = null,Object? use = freezed,Object? n = freezed,Object? e = freezed,Object? crv = freezed,Object? x = freezed,Object? y = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(JwtKey(
 kid: null == kid ? _self.kid : kid // ignore: cast_nullable_to_non_nullable
 as String,kty: null == kty ? _self.kty : kty // ignore: cast_nullable_to_non_nullable
 as String,alg: null == alg ? _self.alg : alg // ignore: cast_nullable_to_non_nullable
@@ -243,16 +249,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JwtKey&&(identical(other.kid, kid) || other.kid == kid)&&(identical(other.kty, kty) || other.kty == kty)&&(identical(other.alg, alg) || other.alg == alg)&&(identical(other.use, use) || other.use == use)&&(identical(other.n, n) || other.n == n)&&(identical(other.e, e) || other.e == e)&&(identical(other.crv, crv) || other.crv == crv)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _JwtKey&&(identical(other.kid, kid) || other.kid == kid)&&(identical(other.kty, kty) || other.kty == kty)&&(identical(other.alg, alg) || other.alg == alg)&&(identical(other.use, use) || other.use == use)&&(identical(other.n, n) || other.n == n)&&(identical(other.e, e) || other.e == e)&&(identical(other.crv, crv) || other.crv == crv)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,kid,kty,alg,use,n,e,crv,x,y);
+int get hashCode {
+    return Object.hash(runtimeType,kid,kty,alg,use,n,e,crv,x,y);
+}
 
 @override
 String toString() {
-  return 'JwtKey(kid: $kid, kty: $kty, alg: $alg, use: $use, n: $n, e: $e, crv: $crv, x: $x, y: $y)';
+    return 'JwtKey(kid: $kid, kty: $kty, alg: $alg, use: $use, n: $n, e: $e, crv: $crv, x: $x, y: $y)';
 }
 
 

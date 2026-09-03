@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'phone_body.dart';
@@ -9,6 +9,7 @@ part of 'phone_body.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $PhoneBodyCopyWith<PhoneBody> get copyWith => _$PhoneBodyCopyWithImpl<PhoneBody>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PhoneBody&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber));
+  final _this = this as PhoneBody;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PhoneBody&&(identical(other.phoneNumber, _this.phoneNumber) || other.phoneNumber == _this.phoneNumber));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,phoneNumber);
+int get hashCode {
+  final _this = this as PhoneBody;
+  return Object.hash(runtimeType,_this.phoneNumber);
+}
 
 @override
 String toString() {
-  return 'PhoneBody(phoneNumber: $phoneNumber)';
+  final _this = this as PhoneBody;
+  return 'PhoneBody(phoneNumber: ${_this.phoneNumber})';
 }
 
 
@@ -66,7 +72,7 @@ class _$PhoneBodyCopyWithImpl<$Res>
 /// Create a copy of PhoneBody
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? phoneNumber = null,}) {
-  return _then(_self.copyWith(
+  return _then(PhoneBody(
 phoneNumber: null == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -227,16 +233,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PhoneBody&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PhoneBody&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,phoneNumber);
+int get hashCode {
+    return Object.hash(runtimeType,phoneNumber);
+}
 
 @override
 String toString() {
-  return 'PhoneBody(phoneNumber: $phoneNumber)';
+    return 'PhoneBody(phoneNumber: $phoneNumber)';
 }
 
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'bearer_options.dart';
@@ -9,6 +9,7 @@ part of 'bearer_options.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $BearerOptionsCopyWith<BearerOptions> get copyWith => _$BearerOptionsCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BearerOptions&&(identical(other.requireSignature, requireSignature) || other.requireSignature == requireSignature));
+  final _this = this as BearerOptions;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BearerOptions&&(identical(other.requireSignature, _this.requireSignature) || other.requireSignature == _this.requireSignature));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,requireSignature);
+int get hashCode {
+  final _this = this as BearerOptions;
+  return Object.hash(runtimeType,_this.requireSignature);
+}
 
 @override
 String toString() {
-  return 'BearerOptions(requireSignature: $requireSignature)';
+  final _this = this as BearerOptions;
+  return 'BearerOptions(requireSignature: ${_this.requireSignature})';
 }
 
 
@@ -66,7 +72,7 @@ class _$BearerOptionsCopyWithImpl<$Res>
 /// Create a copy of BearerOptions
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? requireSignature = null,}) {
-  return _then(_self.copyWith(
+  return _then(BearerOptions(
 requireSignature: null == requireSignature ? _self.requireSignature : requireSignature // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -227,16 +233,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BearerOptions&&(identical(other.requireSignature, requireSignature) || other.requireSignature == requireSignature));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BearerOptions&&(identical(other.requireSignature, requireSignature) || other.requireSignature == requireSignature));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,requireSignature);
+int get hashCode {
+    return Object.hash(runtimeType,requireSignature);
+}
 
 @override
 String toString() {
-  return 'BearerOptions(requireSignature: $requireSignature)';
+    return 'BearerOptions(requireSignature: $requireSignature)';
 }
 
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'jwt_key_response.dart';
@@ -9,6 +9,7 @@ part of 'jwt_key_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $JwtKeyResponseCopyWith<JwtKeyResponse> get copyWith => _$JwtKeyResponseCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JwtKeyResponse&&const DeepCollectionEquality().equals(other.keys, keys));
+  final _this = this as JwtKeyResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JwtKeyResponse&&const DeepCollectionEquality().equals(other.keys, _this.keys));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(keys));
+int get hashCode {
+  final _this = this as JwtKeyResponse;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.keys));
+}
 
 @override
 String toString() {
-  return 'JwtKeyResponse(keys: $keys)';
+  final _this = this as JwtKeyResponse;
+  return 'JwtKeyResponse(keys: ${_this.keys})';
 }
 
 
@@ -66,7 +72,7 @@ class _$JwtKeyResponseCopyWithImpl<$Res>
 /// Create a copy of JwtKeyResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? keys = null,}) {
-  return _then(_self.copyWith(
+  return _then(JwtKeyResponse(
 keys: null == keys ? _self.keys : keys // ignore: cast_nullable_to_non_nullable
 as List<JwtKey>,
   ));
@@ -209,7 +215,7 @@ return $default(_that.keys);case _:
 @JsonSerializable()
 
 class _JwtKeyResponse implements JwtKeyResponse {
-  const _JwtKeyResponse({required final  List<JwtKey> keys}): _keys = keys;
+  const _JwtKeyResponse({required  List<JwtKey> keys}): _keys = keys;
   factory _JwtKeyResponse.fromJson(Map<String, dynamic> json) => _$JwtKeyResponseFromJson(json);
 
  final  List<JwtKey> _keys;
@@ -233,16 +239,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JwtKeyResponse&&const DeepCollectionEquality().equals(other._keys, _keys));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _JwtKeyResponse&&const DeepCollectionEquality().equals(other.keys, _keys));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_keys));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_keys));
+}
 
 @override
 String toString() {
-  return 'JwtKeyResponse(keys: $keys)';
+    return 'JwtKeyResponse(keys: $keys)';
 }
 
 

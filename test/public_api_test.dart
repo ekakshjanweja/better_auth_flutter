@@ -10,6 +10,7 @@ import "package:better_auth_flutter/plugins/bearer.dart";
 import "package:better_auth_flutter/plugins/email_otp.dart";
 import "package:better_auth_flutter/plugins/jwt.dart";
 import "package:better_auth_flutter/plugins/phone.dart";
+import "package:better_auth_flutter/riverpod.dart";
 import "package:flutter_test/flutter_test.dart";
 
 void main() {
@@ -48,6 +49,15 @@ void main() {
       expect(Verification, isNotNull);
       expect(BetterAuthProvider, isNotNull);
       expect(BetterAuthConsumer, isNotNull);
+    });
+
+    test("exposes the Riverpod 3 providers through their own library", () {
+      // Referencing the providers is the assertion: it only compiles if
+      // riverpod.dart exports them.
+      expect(betterAuthStateProvider, isNotNull);
+      expect(betterAuthClientProvider, isNotNull);
+      expect(currentUserProvider, isNotNull);
+      expect(isAuthenticatedProvider, isNotNull);
     });
 
     test("exposes each plugin through its own library", () {

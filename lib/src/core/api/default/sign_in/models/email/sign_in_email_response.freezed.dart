@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'sign_in_email_response.dart';
@@ -9,6 +9,7 @@ part of 'sign_in_email_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -31,16 +32,21 @@ $SignInEmailResponseCopyWith<SignInEmailResponse> get copyWith => _$SignInEmailR
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInEmailResponse&&(identical(other.redirect, redirect) || other.redirect == redirect)&&(identical(other.token, token) || other.token == token)&&(identical(other.url, url) || other.url == url)&&(identical(other.user, user) || other.user == user)&&(identical(other.twoFactorRedirect, twoFactorRedirect) || other.twoFactorRedirect == twoFactorRedirect));
+  final _this = this as SignInEmailResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInEmailResponse&&(identical(other.redirect, _this.redirect) || other.redirect == _this.redirect)&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.url, _this.url) || other.url == _this.url)&&(identical(other.user, _this.user) || other.user == _this.user)&&(identical(other.twoFactorRedirect, _this.twoFactorRedirect) || other.twoFactorRedirect == _this.twoFactorRedirect));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,redirect,token,url,user,twoFactorRedirect);
+int get hashCode {
+  final _this = this as SignInEmailResponse;
+  return Object.hash(runtimeType,_this.redirect,_this.token,_this.url,_this.user,_this.twoFactorRedirect);
+}
 
 @override
 String toString() {
-  return 'SignInEmailResponse(redirect: $redirect, token: $token, url: $url, user: $user, twoFactorRedirect: $twoFactorRedirect)';
+  final _this = this as SignInEmailResponse;
+  return 'SignInEmailResponse(redirect: ${_this.redirect}, token: ${_this.token}, url: ${_this.url}, user: ${_this.user}, twoFactorRedirect: ${_this.twoFactorRedirect})';
 }
 
 
@@ -69,7 +75,7 @@ class _$SignInEmailResponseCopyWithImpl<$Res>
 /// Create a copy of SignInEmailResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? redirect = null,Object? token = null,Object? url = freezed,Object? user = freezed,Object? twoFactorRedirect = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(SignInEmailResponse(
 redirect: null == redirect ? _self.redirect : redirect // ignore: cast_nullable_to_non_nullable
 as bool,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
@@ -253,16 +259,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInEmailResponse&&(identical(other.redirect, redirect) || other.redirect == redirect)&&(identical(other.token, token) || other.token == token)&&(identical(other.url, url) || other.url == url)&&(identical(other.user, user) || other.user == user)&&(identical(other.twoFactorRedirect, twoFactorRedirect) || other.twoFactorRedirect == twoFactorRedirect));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInEmailResponse&&(identical(other.redirect, redirect) || other.redirect == redirect)&&(identical(other.token, token) || other.token == token)&&(identical(other.url, url) || other.url == url)&&(identical(other.user, user) || other.user == user)&&(identical(other.twoFactorRedirect, twoFactorRedirect) || other.twoFactorRedirect == twoFactorRedirect));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,redirect,token,url,user,twoFactorRedirect);
+int get hashCode {
+    return Object.hash(runtimeType,redirect,token,url,user,twoFactorRedirect);
+}
 
 @override
 String toString() {
-  return 'SignInEmailResponse(redirect: $redirect, token: $token, url: $url, user: $user, twoFactorRedirect: $twoFactorRedirect)';
+    return 'SignInEmailResponse(redirect: $redirect, token: $token, url: $url, user: $user, twoFactorRedirect: $twoFactorRedirect)';
 }
 
 

@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+### Added
+
+* **Riverpod 3 support** via the opt-in `package:better_auth_flutter/riverpod.dart`
+  library (backed by `flutter_riverpod: ^3.0.0`): `betterAuthStateProvider`
+  (`StreamProvider<AuthState>`, mirroring `authStateChanges` with its immediate
+  replay), `betterAuthClientProvider`, `currentUserProvider`, and
+  `isAuthenticatedProvider`. Importing it is optional — apps that do not use
+  Riverpod pay nothing for it.
+* **All dependencies upgraded to their latest versions**: `flutter_riverpod`
+  3.x, `flutter_secure_storage` 11.x, `freezed` 4.x (generated code
+  regenerated), `build_runner`, `retrofit_generator`, `json_annotation`.
+  This raises the minimum toolchain to Dart `^3.13.0` / Flutter `>=3.47.0`.
+
 ### Fixed
 
 * **Authenticated writes no longer fail with 403 `MISSING_OR_NULL_ORIGIN`.**
