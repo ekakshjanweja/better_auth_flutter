@@ -16,7 +16,12 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Session {
 
- String get id; String get token; DateTime get expiresAt; DateTime? get createdAt; DateTime? get updatedAt; String? get ipAddress; String? get userAgent; String get userId; String? get impersonatedBy; String? get activeOrganizationId;
+ String get id; String get token; DateTime get expiresAt; DateTime? get createdAt; DateTime? get updatedAt; String? get ipAddress; String? get userAgent; String get userId; String? get impersonatedBy; String? get activeOrganizationId;/// Server-defined custom fields
+/// ([additionalFields](https://www.better-auth.com/docs/concepts/database#extending-core-schema))
+/// that aren't part of the static [Session] shape. Populated from
+/// unmapped JSON keys by [Session.fromJson]; never serialized back out.
+/// Read via the `field` extension, e.g. `session.field<String>('theme')`.
+@JsonKey(readValue: _readSessionAdditionalFields, includeToJson: false) Map<String, dynamic> get additionalFields;
 /// Create a copy of Session
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +35,20 @@ $SessionCopyWith<Session> get copyWith => _$SessionCopyWithImpl<Session>(this as
 @override
 bool operator ==(Object other) {
   final _this = this as Session;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Session&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.ipAddress, _this.ipAddress) || other.ipAddress == _this.ipAddress)&&(identical(other.userAgent, _this.userAgent) || other.userAgent == _this.userAgent)&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.impersonatedBy, _this.impersonatedBy) || other.impersonatedBy == _this.impersonatedBy)&&(identical(other.activeOrganizationId, _this.activeOrganizationId) || other.activeOrganizationId == _this.activeOrganizationId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Session&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.ipAddress, _this.ipAddress) || other.ipAddress == _this.ipAddress)&&(identical(other.userAgent, _this.userAgent) || other.userAgent == _this.userAgent)&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.impersonatedBy, _this.impersonatedBy) || other.impersonatedBy == _this.impersonatedBy)&&(identical(other.activeOrganizationId, _this.activeOrganizationId) || other.activeOrganizationId == _this.activeOrganizationId)&&const DeepCollectionEquality().equals(other.additionalFields, _this.additionalFields));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as Session;
-  return Object.hash(runtimeType,_this.id,_this.token,_this.expiresAt,_this.createdAt,_this.updatedAt,_this.ipAddress,_this.userAgent,_this.userId,_this.impersonatedBy,_this.activeOrganizationId);
+  return Object.hash(runtimeType,_this.id,_this.token,_this.expiresAt,_this.createdAt,_this.updatedAt,_this.ipAddress,_this.userAgent,_this.userId,_this.impersonatedBy,_this.activeOrganizationId,const DeepCollectionEquality().hash(_this.additionalFields));
 }
 
 @override
 String toString() {
   final _this = this as Session;
-  return 'Session(id: ${_this.id}, token: ${_this.token}, expiresAt: ${_this.expiresAt}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, ipAddress: ${_this.ipAddress}, userAgent: ${_this.userAgent}, userId: ${_this.userId}, impersonatedBy: ${_this.impersonatedBy}, activeOrganizationId: ${_this.activeOrganizationId})';
+  return 'Session(id: ${_this.id}, token: ${_this.token}, expiresAt: ${_this.expiresAt}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, ipAddress: ${_this.ipAddress}, userAgent: ${_this.userAgent}, userId: ${_this.userId}, impersonatedBy: ${_this.impersonatedBy}, activeOrganizationId: ${_this.activeOrganizationId}, additionalFields: ${_this.additionalFields})';
 }
 
 
@@ -54,7 +59,7 @@ abstract mixin class $SessionCopyWith<$Res>  {
   factory $SessionCopyWith(Session value, $Res Function(Session) _then) = _$SessionCopyWithImpl;
 @useResult
 $Res call({
- String id, String token, DateTime expiresAt, DateTime? createdAt, DateTime? updatedAt, String? ipAddress, String? userAgent, String userId, String? impersonatedBy, String? activeOrganizationId
+ String id, String token, DateTime expiresAt, DateTime? createdAt, DateTime? updatedAt, String? ipAddress, String? userAgent, String userId, String? impersonatedBy, String? activeOrganizationId,@JsonKey(readValue: _readSessionAdditionalFields, includeToJson: false) Map<String, dynamic> additionalFields
 });
 
 
@@ -71,7 +76,7 @@ class _$SessionCopyWithImpl<$Res>
 
 /// Create a copy of Session
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? token = null,Object? expiresAt = null,Object? createdAt = freezed,Object? updatedAt = freezed,Object? ipAddress = freezed,Object? userAgent = freezed,Object? userId = null,Object? impersonatedBy = freezed,Object? activeOrganizationId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? token = null,Object? expiresAt = null,Object? createdAt = freezed,Object? updatedAt = freezed,Object? ipAddress = freezed,Object? userAgent = freezed,Object? userId = null,Object? impersonatedBy = freezed,Object? activeOrganizationId = freezed,Object? additionalFields = null,}) {
   return _then(Session(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
@@ -83,7 +88,8 @@ as String?,userAgent: freezed == userAgent ? _self.userAgent : userAgent // igno
 as String?,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String,impersonatedBy: freezed == impersonatedBy ? _self.impersonatedBy : impersonatedBy // ignore: cast_nullable_to_non_nullable
 as String?,activeOrganizationId: freezed == activeOrganizationId ? _self.activeOrganizationId : activeOrganizationId // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,additionalFields: null == additionalFields ? _self.additionalFields : additionalFields // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
   ));
 }
 
@@ -168,10 +174,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String token,  DateTime expiresAt,  DateTime? createdAt,  DateTime? updatedAt,  String? ipAddress,  String? userAgent,  String userId,  String? impersonatedBy,  String? activeOrganizationId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String token,  DateTime expiresAt,  DateTime? createdAt,  DateTime? updatedAt,  String? ipAddress,  String? userAgent,  String userId,  String? impersonatedBy,  String? activeOrganizationId, @JsonKey(readValue: _readSessionAdditionalFields, includeToJson: false)  Map<String, dynamic> additionalFields)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Session() when $default != null:
-return $default(_that.id,_that.token,_that.expiresAt,_that.createdAt,_that.updatedAt,_that.ipAddress,_that.userAgent,_that.userId,_that.impersonatedBy,_that.activeOrganizationId);case _:
+return $default(_that.id,_that.token,_that.expiresAt,_that.createdAt,_that.updatedAt,_that.ipAddress,_that.userAgent,_that.userId,_that.impersonatedBy,_that.activeOrganizationId,_that.additionalFields);case _:
   return orElse();
 
 }
@@ -189,10 +195,10 @@ return $default(_that.id,_that.token,_that.expiresAt,_that.createdAt,_that.updat
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String token,  DateTime expiresAt,  DateTime? createdAt,  DateTime? updatedAt,  String? ipAddress,  String? userAgent,  String userId,  String? impersonatedBy,  String? activeOrganizationId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String token,  DateTime expiresAt,  DateTime? createdAt,  DateTime? updatedAt,  String? ipAddress,  String? userAgent,  String userId,  String? impersonatedBy,  String? activeOrganizationId, @JsonKey(readValue: _readSessionAdditionalFields, includeToJson: false)  Map<String, dynamic> additionalFields)  $default,) {final _that = this;
 switch (_that) {
 case _Session():
-return $default(_that.id,_that.token,_that.expiresAt,_that.createdAt,_that.updatedAt,_that.ipAddress,_that.userAgent,_that.userId,_that.impersonatedBy,_that.activeOrganizationId);case _:
+return $default(_that.id,_that.token,_that.expiresAt,_that.createdAt,_that.updatedAt,_that.ipAddress,_that.userAgent,_that.userId,_that.impersonatedBy,_that.activeOrganizationId,_that.additionalFields);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -209,10 +215,10 @@ return $default(_that.id,_that.token,_that.expiresAt,_that.createdAt,_that.updat
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String token,  DateTime expiresAt,  DateTime? createdAt,  DateTime? updatedAt,  String? ipAddress,  String? userAgent,  String userId,  String? impersonatedBy,  String? activeOrganizationId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String token,  DateTime expiresAt,  DateTime? createdAt,  DateTime? updatedAt,  String? ipAddress,  String? userAgent,  String userId,  String? impersonatedBy,  String? activeOrganizationId, @JsonKey(readValue: _readSessionAdditionalFields, includeToJson: false)  Map<String, dynamic> additionalFields)?  $default,) {final _that = this;
 switch (_that) {
 case _Session() when $default != null:
-return $default(_that.id,_that.token,_that.expiresAt,_that.createdAt,_that.updatedAt,_that.ipAddress,_that.userAgent,_that.userId,_that.impersonatedBy,_that.activeOrganizationId);case _:
+return $default(_that.id,_that.token,_that.expiresAt,_that.createdAt,_that.updatedAt,_that.ipAddress,_that.userAgent,_that.userId,_that.impersonatedBy,_that.activeOrganizationId,_that.additionalFields);case _:
   return null;
 
 }
@@ -224,7 +230,7 @@ return $default(_that.id,_that.token,_that.expiresAt,_that.createdAt,_that.updat
 @JsonSerializable()
 
 class _Session implements Session {
-  const _Session({required this.id, required this.token, required this.expiresAt, this.createdAt, this.updatedAt, this.ipAddress, this.userAgent, required this.userId, this.impersonatedBy, this.activeOrganizationId});
+  const _Session({required this.id, required this.token, required this.expiresAt, this.createdAt, this.updatedAt, this.ipAddress, this.userAgent, required this.userId, this.impersonatedBy, this.activeOrganizationId, @JsonKey(readValue: _readSessionAdditionalFields, includeToJson: false)  Map<String, dynamic> additionalFields = const <String, dynamic>{}}): _additionalFields = additionalFields;
   factory _Session.fromJson(Map<String, dynamic> json) => _$SessionFromJson(json);
 
 @override final  String id;
@@ -237,6 +243,23 @@ class _Session implements Session {
 @override final  String userId;
 @override final  String? impersonatedBy;
 @override final  String? activeOrganizationId;
+/// Server-defined custom fields
+/// ([additionalFields](https://www.better-auth.com/docs/concepts/database#extending-core-schema))
+/// that aren't part of the static [Session] shape. Populated from
+/// unmapped JSON keys by [Session.fromJson]; never serialized back out.
+/// Read via the `field` extension, e.g. `session.field<String>('theme')`.
+ final  Map<String, dynamic> _additionalFields;
+/// Server-defined custom fields
+/// ([additionalFields](https://www.better-auth.com/docs/concepts/database#extending-core-schema))
+/// that aren't part of the static [Session] shape. Populated from
+/// unmapped JSON keys by [Session.fromJson]; never serialized back out.
+/// Read via the `field` extension, e.g. `session.field<String>('theme')`.
+@override@JsonKey(readValue: _readSessionAdditionalFields, includeToJson: false) Map<String, dynamic> get additionalFields {
+  if (_additionalFields is EqualUnmodifiableMapView) return _additionalFields;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_additionalFields);
+}
+
 
 /// Create a copy of Session
 /// with the given fields replaced by the non-null parameter values.
@@ -251,18 +274,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Session&&(identical(other.id, id) || other.id == id)&&(identical(other.token, token) || other.token == token)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.ipAddress, ipAddress) || other.ipAddress == ipAddress)&&(identical(other.userAgent, userAgent) || other.userAgent == userAgent)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.impersonatedBy, impersonatedBy) || other.impersonatedBy == impersonatedBy)&&(identical(other.activeOrganizationId, activeOrganizationId) || other.activeOrganizationId == activeOrganizationId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Session&&(identical(other.id, id) || other.id == id)&&(identical(other.token, token) || other.token == token)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.ipAddress, ipAddress) || other.ipAddress == ipAddress)&&(identical(other.userAgent, userAgent) || other.userAgent == userAgent)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.impersonatedBy, impersonatedBy) || other.impersonatedBy == impersonatedBy)&&(identical(other.activeOrganizationId, activeOrganizationId) || other.activeOrganizationId == activeOrganizationId)&&const DeepCollectionEquality().equals(other.additionalFields, _additionalFields));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,token,expiresAt,createdAt,updatedAt,ipAddress,userAgent,userId,impersonatedBy,activeOrganizationId);
+    return Object.hash(runtimeType,id,token,expiresAt,createdAt,updatedAt,ipAddress,userAgent,userId,impersonatedBy,activeOrganizationId,const DeepCollectionEquality().hash(_additionalFields));
 }
 
 @override
 String toString() {
-    return 'Session(id: $id, token: $token, expiresAt: $expiresAt, createdAt: $createdAt, updatedAt: $updatedAt, ipAddress: $ipAddress, userAgent: $userAgent, userId: $userId, impersonatedBy: $impersonatedBy, activeOrganizationId: $activeOrganizationId)';
+    return 'Session(id: $id, token: $token, expiresAt: $expiresAt, createdAt: $createdAt, updatedAt: $updatedAt, ipAddress: $ipAddress, userAgent: $userAgent, userId: $userId, impersonatedBy: $impersonatedBy, activeOrganizationId: $activeOrganizationId, additionalFields: $additionalFields)';
 }
 
 
@@ -273,7 +296,7 @@ abstract mixin class _$SessionCopyWith<$Res> implements $SessionCopyWith<$Res> {
   factory _$SessionCopyWith(_Session value, $Res Function(_Session) _then) = __$SessionCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String token, DateTime expiresAt, DateTime? createdAt, DateTime? updatedAt, String? ipAddress, String? userAgent, String userId, String? impersonatedBy, String? activeOrganizationId
+ String id, String token, DateTime expiresAt, DateTime? createdAt, DateTime? updatedAt, String? ipAddress, String? userAgent, String userId, String? impersonatedBy, String? activeOrganizationId,@JsonKey(readValue: _readSessionAdditionalFields, includeToJson: false) Map<String, dynamic> additionalFields
 });
 
 
@@ -290,7 +313,7 @@ class __$SessionCopyWithImpl<$Res>
 
 /// Create a copy of Session
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? token = null,Object? expiresAt = null,Object? createdAt = freezed,Object? updatedAt = freezed,Object? ipAddress = freezed,Object? userAgent = freezed,Object? userId = null,Object? impersonatedBy = freezed,Object? activeOrganizationId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? token = null,Object? expiresAt = null,Object? createdAt = freezed,Object? updatedAt = freezed,Object? ipAddress = freezed,Object? userAgent = freezed,Object? userId = null,Object? impersonatedBy = freezed,Object? activeOrganizationId = freezed,Object? additionalFields = null,}) {
   return _then(_Session(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
@@ -302,7 +325,8 @@ as String?,userAgent: freezed == userAgent ? _self.userAgent : userAgent // igno
 as String?,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String,impersonatedBy: freezed == impersonatedBy ? _self.impersonatedBy : impersonatedBy // ignore: cast_nullable_to_non_nullable
 as String?,activeOrganizationId: freezed == activeOrganizationId ? _self.activeOrganizationId : activeOrganizationId // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,additionalFields: null == additionalFields ? _self._additionalFields : additionalFields // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
   ));
 }
 

@@ -137,6 +137,46 @@ class _BetterAuthClient implements BetterAuthClient {
     );
   }
 
+  Future<HttpResponse<SignUpResponse>> _signUpEmailRaw({
+    Map<String, dynamic> body = const {},
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    _data.removeWhere((k, v) => v == null);
+    final _options = _setStreamType<Result<SignUpResponse>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/sign-up/email',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late SignUpResponse _value;
+    try {
+      _value = SignUpResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<SignUpResponse>> signUpEmailRaw({
+    Map<String, dynamic> body = const {},
+  }) {
+    return BetterAuthCallAdapter<SignUpResponse>().adapt(
+      () => _signUpEmailRaw(body: body),
+    );
+  }
+
   Future<HttpResponse<SignInEmailResponse>> _signInEmail({
     required String email,
     required String password,
@@ -193,6 +233,46 @@ class _BetterAuthClient implements BetterAuthClient {
     );
   }
 
+  Future<HttpResponse<SignInEmailResponse>> _signInEmailRaw({
+    Map<String, dynamic> body = const {},
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    _data.removeWhere((k, v) => v == null);
+    final _options = _setStreamType<Result<SignInEmailResponse>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/sign-in/email',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late SignInEmailResponse _value;
+    try {
+      _value = SignInEmailResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<SignInEmailResponse>> signInEmailRaw({
+    Map<String, dynamic> body = const {},
+  }) {
+    return BetterAuthCallAdapter<SignInEmailResponse>().adapt(
+      () => _signInEmailRaw(body: body),
+    );
+  }
+
   Future<HttpResponse<SignInEmailResponse>> _signInUsername({
     required String username,
     required String password,
@@ -246,6 +326,84 @@ class _BetterAuthClient implements BetterAuthClient {
         rememberMe: rememberMe,
         callbackURL: callbackURL,
       ),
+    );
+  }
+
+  Future<HttpResponse<SignInEmailResponse>> _signInUsernameRaw({
+    Map<String, dynamic> body = const {},
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    _data.removeWhere((k, v) => v == null);
+    final _options = _setStreamType<Result<SignInEmailResponse>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/sign-in/username',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late SignInEmailResponse _value;
+    try {
+      _value = SignInEmailResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<SignInEmailResponse>> signInUsernameRaw({
+    Map<String, dynamic> body = const {},
+  }) {
+    return BetterAuthCallAdapter<SignInEmailResponse>().adapt(
+      () => _signInUsernameRaw(body: body),
+    );
+  }
+
+  Future<HttpResponse<UsernameAvailableResponse>> _isUsernameAvailable({
+    required String username,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{'username': username};
+    final _options = _setStreamType<Result<UsernameAvailableResponse>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/is-username-available',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late UsernameAvailableResponse _value;
+    try {
+      _value = UsernameAvailableResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<UsernameAvailableResponse>> isUsernameAvailable({
+    required String username,
+  }) {
+    return BetterAuthCallAdapter<UsernameAvailableResponse>().adapt(
+      () => _isUsernameAvailable(username: username),
     );
   }
 
@@ -821,6 +979,82 @@ class _BetterAuthClient implements BetterAuthClient {
   Future<Result<StatusResponse>> updateUser({String? name, String? image}) {
     return BetterAuthCallAdapter<StatusResponse>().adapt(
       () => _updateUser(name: name, image: image),
+    );
+  }
+
+  Future<HttpResponse<StatusResponse>> _updateUserRaw({
+    Map<String, dynamic> body = const {},
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    _data.removeWhere((k, v) => v == null);
+    final _options = _setStreamType<Result<StatusResponse>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/update-user',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late StatusResponse _value;
+    try {
+      _value = StatusResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<StatusResponse>> updateUserRaw({
+    Map<String, dynamic> body = const {},
+  }) {
+    return BetterAuthCallAdapter<StatusResponse>().adapt(
+      () => _updateUserRaw(body: body),
+    );
+  }
+
+  Future<HttpResponse<StatusResponse>> _verifyPassword({
+    required String password,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{'password': password};
+    final _options = _setStreamType<Result<StatusResponse>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/verify-password',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late StatusResponse _value;
+    try {
+      _value = StatusResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<StatusResponse>> verifyPassword({required String password}) {
+    return BetterAuthCallAdapter<StatusResponse>().adapt(
+      () => _verifyPassword(password: password),
     );
   }
 

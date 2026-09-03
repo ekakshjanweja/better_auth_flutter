@@ -24,6 +24,21 @@ void main() {
       );
     });
 
+    test("exposes Result getters and custom-field accessors", () {
+      // Extensions can't be referenced as values; calling the members is the
+      // assertion — it only compiles if the barrel exports the extensions.
+      expect(const Result<int>.ok(1).data, 1);
+      const user = User(id: "1", name: "Ada", email: "ada@example.com");
+      expect(user.field<String>("missing"), isNull);
+      expect(UsernameAvailableResponse, isNotNull);
+    });
+
+    test("exposes web helpers", () {
+      expect(redirectToUrl, isA<Function>());
+      expect(currentOrigin, isA<Function>());
+      expect(enableWebCredentials, isA<Function>());
+    });
+
     test("exposes error codes and helpers", () {
       const error = BetterError(
         code: BetterErrorCodes.unauthorized,

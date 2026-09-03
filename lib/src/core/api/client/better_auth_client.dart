@@ -1,5 +1,6 @@
 import "package:better_auth_flutter/src/core/api/default/sign_up/sign_up_response.dart";
 import "package:better_auth_flutter/src/core/api/default/sign_in/models/email/sign_in_email_response.dart";
+import "package:better_auth_flutter/src/core/api/default/sign_in/models/username/username_available_response.dart";
 import "package:better_auth_flutter/src/core/api/default/sign_in/models/social/body/sign_in_social_body.dart";
 import "package:better_auth_flutter/src/core/api/default/sign_in/models/social/response/social_sign_in_response.dart";
 import "package:better_auth_flutter/src/core/models/account/account.dart";
@@ -41,6 +42,22 @@ abstract class BetterAuthClient {
     @BodyExtra("callbackURL") String? callbackURL,
   });
 
+  /// Raw `POST /sign-up/email` body. Use this to send `additionalFields` —
+  /// flat-merge them as top-level keys, which is Better Auth's wire format:
+  ///
+  /// ```dart
+  /// await client.signUpEmailRaw({
+  ///   "name": "Jane Doe",
+  ///   "email": "j@x.io",
+  ///   "password": "hunter2",
+  ///   "firstName": "Jane",
+  /// });
+  /// ```
+  @POST("/sign-up/email")
+  Future<Result<SignUpResponse>> signUpEmailRaw({
+    @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
+  });
+
   @POST("/sign-in/email")
   Future<Result<SignInEmailResponse>> signInEmail({
     @BodyExtra("email") required String email,
@@ -49,12 +66,33 @@ abstract class BetterAuthClient {
     @BodyExtra("callbackURL") String? callbackURL,
   });
 
+  /// Raw `POST /sign-in/email` body. Prefer [signInEmail]; use this for
+  /// `additionalFields` or other keys the typed method doesn't cover.
+  @POST("/sign-in/email")
+  Future<Result<SignInEmailResponse>> signInEmailRaw({
+    @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
+  });
+
   @POST("/sign-in/username")
   Future<Result<SignInEmailResponse>> signInUsername({
     @BodyExtra("username") required String username,
     @BodyExtra("password") required String password,
     @BodyExtra("rememberMe") bool? rememberMe,
     @BodyExtra("callbackURL") String? callbackURL,
+  });
+
+  /// Raw `POST /sign-in/username` body. Prefer [signInUsername]; use this for
+  /// `additionalFields` or other keys the typed method doesn't cover.
+  @POST("/sign-in/username")
+  Future<Result<SignInEmailResponse>> signInUsernameRaw({
+    @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
+  });
+
+  /// Better Auth `username` plugin: checks whether [username] is free.
+  /// Requires the `username()` plugin on the server.
+  @POST("/is-username-available")
+  Future<Result<UsernameAvailableResponse>> isUsernameAvailable({
+    @BodyExtra("username") required String username,
   });
 
   /// Typed social sign-in. For native ID-token flows set `body.idToken`; for a
@@ -138,6 +176,23 @@ abstract class BetterAuthClient {
   Future<Result<StatusResponse>> updateUser({
     @BodyExtra("name") String? name,
     @BodyExtra("image") String? image,
+  });
+
+  /// Raw `POST /update-user` body. Prefer [updateUser]; use this for
+  /// `additionalFields` — flat-merge them as top-level keys:
+  ///
+  /// ```dart
+  /// await client.updateUserRaw({"firstName": "Jane", "lang": "fr"});
+  /// ```
+  @POST("/update-user")
+  Future<Result<StatusResponse>> updateUserRaw({
+    @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
+  });
+
+  /// Verifies the current user's password (e.g. before a sensitive action).
+  @POST("/verify-password")
+  Future<Result<StatusResponse>> verifyPassword({
+    @BodyExtra("password") required String password,
   });
 
   @POST("/delete-user")
