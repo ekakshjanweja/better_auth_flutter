@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'two_factor_models.dart';
@@ -9,6 +9,7 @@ part of 'two_factor_models.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $TwoFactorEnableBodyCopyWith<TwoFactorEnableBody> get copyWith => _$TwoFactorEna
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TwoFactorEnableBody&&(identical(other.password, password) || other.password == password)&&(identical(other.issuer, issuer) || other.issuer == issuer));
+  final _this = this as TwoFactorEnableBody;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TwoFactorEnableBody&&(identical(other.password, _this.password) || other.password == _this.password)&&(identical(other.issuer, _this.issuer) || other.issuer == _this.issuer));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,password,issuer);
+int get hashCode {
+  final _this = this as TwoFactorEnableBody;
+  return Object.hash(runtimeType,_this.password,_this.issuer);
+}
 
 @override
 String toString() {
-  return 'TwoFactorEnableBody(password: $password, issuer: $issuer)';
+  final _this = this as TwoFactorEnableBody;
+  return 'TwoFactorEnableBody(password: ${_this.password}, issuer: ${_this.issuer})';
 }
 
 
@@ -66,7 +72,7 @@ class _$TwoFactorEnableBodyCopyWithImpl<$Res>
 /// Create a copy of TwoFactorEnableBody
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? password = null,Object? issuer = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(TwoFactorEnableBody(
 password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,issuer: freezed == issuer ? _self.issuer : issuer // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -229,16 +235,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TwoFactorEnableBody&&(identical(other.password, password) || other.password == password)&&(identical(other.issuer, issuer) || other.issuer == issuer));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TwoFactorEnableBody&&(identical(other.password, password) || other.password == password)&&(identical(other.issuer, issuer) || other.issuer == issuer));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,password,issuer);
+int get hashCode {
+    return Object.hash(runtimeType,password,issuer);
+}
 
 @override
 String toString() {
-  return 'TwoFactorEnableBody(password: $password, issuer: $issuer)';
+    return 'TwoFactorEnableBody(password: $password, issuer: $issuer)';
 }
 
 
@@ -294,16 +302,21 @@ $TwoFactorPasswordBodyCopyWith<TwoFactorPasswordBody> get copyWith => _$TwoFacto
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TwoFactorPasswordBody&&(identical(other.password, password) || other.password == password));
+  final _this = this as TwoFactorPasswordBody;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TwoFactorPasswordBody&&(identical(other.password, _this.password) || other.password == _this.password));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,password);
+int get hashCode {
+  final _this = this as TwoFactorPasswordBody;
+  return Object.hash(runtimeType,_this.password);
+}
 
 @override
 String toString() {
-  return 'TwoFactorPasswordBody(password: $password)';
+  final _this = this as TwoFactorPasswordBody;
+  return 'TwoFactorPasswordBody(password: ${_this.password})';
 }
 
 
@@ -332,7 +345,7 @@ class _$TwoFactorPasswordBodyCopyWithImpl<$Res>
 /// Create a copy of TwoFactorPasswordBody
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? password = null,}) {
-  return _then(_self.copyWith(
+  return _then(TwoFactorPasswordBody(
 password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -493,16 +506,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TwoFactorPasswordBody&&(identical(other.password, password) || other.password == password));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TwoFactorPasswordBody&&(identical(other.password, password) || other.password == password));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,password);
+int get hashCode {
+    return Object.hash(runtimeType,password);
+}
 
 @override
 String toString() {
-  return 'TwoFactorPasswordBody(password: $password)';
+    return 'TwoFactorPasswordBody(password: $password)';
 }
 
 
@@ -557,16 +572,21 @@ $TwoFactorVerifyBodyCopyWith<TwoFactorVerifyBody> get copyWith => _$TwoFactorVer
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TwoFactorVerifyBody&&(identical(other.code, code) || other.code == code)&&(identical(other.trustDevice, trustDevice) || other.trustDevice == trustDevice));
+  final _this = this as TwoFactorVerifyBody;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TwoFactorVerifyBody&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.trustDevice, _this.trustDevice) || other.trustDevice == _this.trustDevice));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,trustDevice);
+int get hashCode {
+  final _this = this as TwoFactorVerifyBody;
+  return Object.hash(runtimeType,_this.code,_this.trustDevice);
+}
 
 @override
 String toString() {
-  return 'TwoFactorVerifyBody(code: $code, trustDevice: $trustDevice)';
+  final _this = this as TwoFactorVerifyBody;
+  return 'TwoFactorVerifyBody(code: ${_this.code}, trustDevice: ${_this.trustDevice})';
 }
 
 
@@ -595,7 +615,7 @@ class _$TwoFactorVerifyBodyCopyWithImpl<$Res>
 /// Create a copy of TwoFactorVerifyBody
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? trustDevice = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(TwoFactorVerifyBody(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,trustDevice: freezed == trustDevice ? _self.trustDevice : trustDevice // ignore: cast_nullable_to_non_nullable
 as bool?,
@@ -758,16 +778,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TwoFactorVerifyBody&&(identical(other.code, code) || other.code == code)&&(identical(other.trustDevice, trustDevice) || other.trustDevice == trustDevice));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TwoFactorVerifyBody&&(identical(other.code, code) || other.code == code)&&(identical(other.trustDevice, trustDevice) || other.trustDevice == trustDevice));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,trustDevice);
+int get hashCode {
+    return Object.hash(runtimeType,code,trustDevice);
+}
 
 @override
 String toString() {
-  return 'TwoFactorVerifyBody(code: $code, trustDevice: $trustDevice)';
+    return 'TwoFactorVerifyBody(code: $code, trustDevice: $trustDevice)';
 }
 
 
@@ -823,16 +845,21 @@ $TwoFactorEnableResponseCopyWith<TwoFactorEnableResponse> get copyWith => _$TwoF
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TwoFactorEnableResponse&&(identical(other.totpURI, totpURI) || other.totpURI == totpURI)&&const DeepCollectionEquality().equals(other.backupCodes, backupCodes));
+  final _this = this as TwoFactorEnableResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TwoFactorEnableResponse&&(identical(other.totpURI, _this.totpURI) || other.totpURI == _this.totpURI)&&const DeepCollectionEquality().equals(other.backupCodes, _this.backupCodes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,totpURI,const DeepCollectionEquality().hash(backupCodes));
+int get hashCode {
+  final _this = this as TwoFactorEnableResponse;
+  return Object.hash(runtimeType,_this.totpURI,const DeepCollectionEquality().hash(_this.backupCodes));
+}
 
 @override
 String toString() {
-  return 'TwoFactorEnableResponse(totpURI: $totpURI, backupCodes: $backupCodes)';
+  final _this = this as TwoFactorEnableResponse;
+  return 'TwoFactorEnableResponse(totpURI: ${_this.totpURI}, backupCodes: ${_this.backupCodes})';
 }
 
 
@@ -861,7 +888,7 @@ class _$TwoFactorEnableResponseCopyWithImpl<$Res>
 /// Create a copy of TwoFactorEnableResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? totpURI = null,Object? backupCodes = null,}) {
-  return _then(_self.copyWith(
+  return _then(TwoFactorEnableResponse(
 totpURI: null == totpURI ? _self.totpURI : totpURI // ignore: cast_nullable_to_non_nullable
 as String,backupCodes: null == backupCodes ? _self.backupCodes : backupCodes // ignore: cast_nullable_to_non_nullable
 as List<String>,
@@ -1005,7 +1032,7 @@ return $default(_that.totpURI,_that.backupCodes);case _:
 @JsonSerializable()
 
 class _TwoFactorEnableResponse implements TwoFactorEnableResponse {
-  const _TwoFactorEnableResponse({required this.totpURI, final  List<String> backupCodes = const <String>[]}): _backupCodes = backupCodes;
+  const _TwoFactorEnableResponse({required this.totpURI,  List<String> backupCodes = const <String>[]}): _backupCodes = backupCodes;
   factory _TwoFactorEnableResponse.fromJson(Map<String, dynamic> json) => _$TwoFactorEnableResponseFromJson(json);
 
 @override final  String totpURI;
@@ -1030,16 +1057,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TwoFactorEnableResponse&&(identical(other.totpURI, totpURI) || other.totpURI == totpURI)&&const DeepCollectionEquality().equals(other._backupCodes, _backupCodes));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TwoFactorEnableResponse&&(identical(other.totpURI, totpURI) || other.totpURI == totpURI)&&const DeepCollectionEquality().equals(other.backupCodes, _backupCodes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,totpURI,const DeepCollectionEquality().hash(_backupCodes));
+int get hashCode {
+    return Object.hash(runtimeType,totpURI,const DeepCollectionEquality().hash(_backupCodes));
+}
 
 @override
 String toString() {
-  return 'TwoFactorEnableResponse(totpURI: $totpURI, backupCodes: $backupCodes)';
+    return 'TwoFactorEnableResponse(totpURI: $totpURI, backupCodes: $backupCodes)';
 }
 
 
@@ -1095,16 +1124,21 @@ $TotpUriResponseCopyWith<TotpUriResponse> get copyWith => _$TotpUriResponseCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TotpUriResponse&&(identical(other.totpURI, totpURI) || other.totpURI == totpURI));
+  final _this = this as TotpUriResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TotpUriResponse&&(identical(other.totpURI, _this.totpURI) || other.totpURI == _this.totpURI));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,totpURI);
+int get hashCode {
+  final _this = this as TotpUriResponse;
+  return Object.hash(runtimeType,_this.totpURI);
+}
 
 @override
 String toString() {
-  return 'TotpUriResponse(totpURI: $totpURI)';
+  final _this = this as TotpUriResponse;
+  return 'TotpUriResponse(totpURI: ${_this.totpURI})';
 }
 
 
@@ -1133,7 +1167,7 @@ class _$TotpUriResponseCopyWithImpl<$Res>
 /// Create a copy of TotpUriResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? totpURI = null,}) {
-  return _then(_self.copyWith(
+  return _then(TotpUriResponse(
 totpURI: null == totpURI ? _self.totpURI : totpURI // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -1294,16 +1328,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TotpUriResponse&&(identical(other.totpURI, totpURI) || other.totpURI == totpURI));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TotpUriResponse&&(identical(other.totpURI, totpURI) || other.totpURI == totpURI));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,totpURI);
+int get hashCode {
+    return Object.hash(runtimeType,totpURI);
+}
 
 @override
 String toString() {
-  return 'TotpUriResponse(totpURI: $totpURI)';
+    return 'TotpUriResponse(totpURI: $totpURI)';
 }
 
 
@@ -1358,16 +1394,21 @@ $BackupCodesResponseCopyWith<BackupCodesResponse> get copyWith => _$BackupCodesR
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupCodesResponse&&const DeepCollectionEquality().equals(other.backupCodes, backupCodes)&&(identical(other.status, status) || other.status == status));
+  final _this = this as BackupCodesResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupCodesResponse&&const DeepCollectionEquality().equals(other.backupCodes, _this.backupCodes)&&(identical(other.status, _this.status) || other.status == _this.status));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(backupCodes),status);
+int get hashCode {
+  final _this = this as BackupCodesResponse;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.backupCodes),_this.status);
+}
 
 @override
 String toString() {
-  return 'BackupCodesResponse(backupCodes: $backupCodes, status: $status)';
+  final _this = this as BackupCodesResponse;
+  return 'BackupCodesResponse(backupCodes: ${_this.backupCodes}, status: ${_this.status})';
 }
 
 
@@ -1396,7 +1437,7 @@ class _$BackupCodesResponseCopyWithImpl<$Res>
 /// Create a copy of BackupCodesResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? backupCodes = null,Object? status = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(BackupCodesResponse(
 backupCodes: null == backupCodes ? _self.backupCodes : backupCodes // ignore: cast_nullable_to_non_nullable
 as List<String>,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as bool?,
@@ -1540,7 +1581,7 @@ return $default(_that.backupCodes,_that.status);case _:
 @JsonSerializable()
 
 class _BackupCodesResponse implements BackupCodesResponse {
-  const _BackupCodesResponse({final  List<String> backupCodes = const <String>[], this.status}): _backupCodes = backupCodes;
+  const _BackupCodesResponse({ List<String> backupCodes = const <String>[], this.status}): _backupCodes = backupCodes;
   factory _BackupCodesResponse.fromJson(Map<String, dynamic> json) => _$BackupCodesResponseFromJson(json);
 
  final  List<String> _backupCodes;
@@ -1565,16 +1606,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BackupCodesResponse&&const DeepCollectionEquality().equals(other._backupCodes, _backupCodes)&&(identical(other.status, status) || other.status == status));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BackupCodesResponse&&const DeepCollectionEquality().equals(other.backupCodes, _backupCodes)&&(identical(other.status, status) || other.status == status));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_backupCodes),status);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_backupCodes),status);
+}
 
 @override
 String toString() {
-  return 'BackupCodesResponse(backupCodes: $backupCodes, status: $status)';
+    return 'BackupCodesResponse(backupCodes: $backupCodes, status: $status)';
 }
 
 

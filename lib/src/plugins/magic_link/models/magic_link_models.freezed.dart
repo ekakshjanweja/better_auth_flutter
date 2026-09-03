@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'magic_link_models.dart';
@@ -9,6 +9,7 @@ part of 'magic_link_models.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $MagicLinkBodyCopyWith<MagicLinkBody> get copyWith => _$MagicLinkBodyCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MagicLinkBody&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.callbackURL, callbackURL) || other.callbackURL == callbackURL)&&(identical(other.newUserCallbackURL, newUserCallbackURL) || other.newUserCallbackURL == newUserCallbackURL)&&(identical(other.errorCallbackURL, errorCallbackURL) || other.errorCallbackURL == errorCallbackURL));
+  final _this = this as MagicLinkBody;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MagicLinkBody&&(identical(other.email, _this.email) || other.email == _this.email)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.callbackURL, _this.callbackURL) || other.callbackURL == _this.callbackURL)&&(identical(other.newUserCallbackURL, _this.newUserCallbackURL) || other.newUserCallbackURL == _this.newUserCallbackURL)&&(identical(other.errorCallbackURL, _this.errorCallbackURL) || other.errorCallbackURL == _this.errorCallbackURL));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,email,name,callbackURL,newUserCallbackURL,errorCallbackURL);
+int get hashCode {
+  final _this = this as MagicLinkBody;
+  return Object.hash(runtimeType,_this.email,_this.name,_this.callbackURL,_this.newUserCallbackURL,_this.errorCallbackURL);
+}
 
 @override
 String toString() {
-  return 'MagicLinkBody(email: $email, name: $name, callbackURL: $callbackURL, newUserCallbackURL: $newUserCallbackURL, errorCallbackURL: $errorCallbackURL)';
+  final _this = this as MagicLinkBody;
+  return 'MagicLinkBody(email: ${_this.email}, name: ${_this.name}, callbackURL: ${_this.callbackURL}, newUserCallbackURL: ${_this.newUserCallbackURL}, errorCallbackURL: ${_this.errorCallbackURL})';
 }
 
 
@@ -66,7 +72,7 @@ class _$MagicLinkBodyCopyWithImpl<$Res>
 /// Create a copy of MagicLinkBody
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? name = freezed,Object? callbackURL = freezed,Object? newUserCallbackURL = freezed,Object? errorCallbackURL = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(MagicLinkBody(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,callbackURL: freezed == callbackURL ? _self.callbackURL : callbackURL // ignore: cast_nullable_to_non_nullable
@@ -235,16 +241,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MagicLinkBody&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.callbackURL, callbackURL) || other.callbackURL == callbackURL)&&(identical(other.newUserCallbackURL, newUserCallbackURL) || other.newUserCallbackURL == newUserCallbackURL)&&(identical(other.errorCallbackURL, errorCallbackURL) || other.errorCallbackURL == errorCallbackURL));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MagicLinkBody&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.callbackURL, callbackURL) || other.callbackURL == callbackURL)&&(identical(other.newUserCallbackURL, newUserCallbackURL) || other.newUserCallbackURL == newUserCallbackURL)&&(identical(other.errorCallbackURL, errorCallbackURL) || other.errorCallbackURL == errorCallbackURL));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,email,name,callbackURL,newUserCallbackURL,errorCallbackURL);
+int get hashCode {
+    return Object.hash(runtimeType,email,name,callbackURL,newUserCallbackURL,errorCallbackURL);
+}
 
 @override
 String toString() {
-  return 'MagicLinkBody(email: $email, name: $name, callbackURL: $callbackURL, newUserCallbackURL: $newUserCallbackURL, errorCallbackURL: $errorCallbackURL)';
+    return 'MagicLinkBody(email: $email, name: $name, callbackURL: $callbackURL, newUserCallbackURL: $newUserCallbackURL, errorCallbackURL: $errorCallbackURL)';
 }
 
 

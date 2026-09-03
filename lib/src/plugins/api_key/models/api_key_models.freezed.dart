@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'api_key_models.dart';
@@ -9,6 +9,7 @@ part of 'api_key_models.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -29,16 +30,21 @@ $ApiKeyCopyWith<ApiKey> get copyWith => _$ApiKeyCopyWithImpl<ApiKey>(this as Api
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ApiKey&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.start, start) || other.start == start)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.key, key) || other.key == key)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.remaining, remaining) || other.remaining == remaining)&&(identical(other.refillAmount, refillAmount) || other.refillAmount == refillAmount)&&(identical(other.refillInterval, refillInterval) || other.refillInterval == refillInterval)&&(identical(other.rateLimitEnabled, rateLimitEnabled) || other.rateLimitEnabled == rateLimitEnabled)&&(identical(other.rateLimitMax, rateLimitMax) || other.rateLimitMax == rateLimitMax)&&(identical(other.rateLimitTimeWindow, rateLimitTimeWindow) || other.rateLimitTimeWindow == rateLimitTimeWindow)&&(identical(other.requestCount, requestCount) || other.requestCount == requestCount)&&(identical(other.lastRequest, lastRequest) || other.lastRequest == lastRequest)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ApiKey;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ApiKey&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.start, _this.start) || other.start == _this.start)&&(identical(other.prefix, _this.prefix) || other.prefix == _this.prefix)&&(identical(other.key, _this.key) || other.key == _this.key)&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.remaining, _this.remaining) || other.remaining == _this.remaining)&&(identical(other.refillAmount, _this.refillAmount) || other.refillAmount == _this.refillAmount)&&(identical(other.refillInterval, _this.refillInterval) || other.refillInterval == _this.refillInterval)&&(identical(other.rateLimitEnabled, _this.rateLimitEnabled) || other.rateLimitEnabled == _this.rateLimitEnabled)&&(identical(other.rateLimitMax, _this.rateLimitMax) || other.rateLimitMax == _this.rateLimitMax)&&(identical(other.rateLimitTimeWindow, _this.rateLimitTimeWindow) || other.rateLimitTimeWindow == _this.rateLimitTimeWindow)&&(identical(other.requestCount, _this.requestCount) || other.requestCount == _this.requestCount)&&(identical(other.lastRequest, _this.lastRequest) || other.lastRequest == _this.lastRequest)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,start,prefix,key,userId,enabled,remaining,refillAmount,refillInterval,rateLimitEnabled,rateLimitMax,rateLimitTimeWindow,requestCount,lastRequest,expiresAt,createdAt,updatedAt,const DeepCollectionEquality().hash(metadata)]);
+int get hashCode {
+  final _this = this as ApiKey;
+  return Object.hashAll([runtimeType,_this.id,_this.name,_this.start,_this.prefix,_this.key,_this.userId,_this.enabled,_this.remaining,_this.refillAmount,_this.refillInterval,_this.rateLimitEnabled,_this.rateLimitMax,_this.rateLimitTimeWindow,_this.requestCount,_this.lastRequest,_this.expiresAt,_this.createdAt,_this.updatedAt,const DeepCollectionEquality().hash(_this.metadata)]);
+}
 
 @override
 String toString() {
-  return 'ApiKey(id: $id, name: $name, start: $start, prefix: $prefix, key: $key, userId: $userId, enabled: $enabled, remaining: $remaining, refillAmount: $refillAmount, refillInterval: $refillInterval, rateLimitEnabled: $rateLimitEnabled, rateLimitMax: $rateLimitMax, rateLimitTimeWindow: $rateLimitTimeWindow, requestCount: $requestCount, lastRequest: $lastRequest, expiresAt: $expiresAt, createdAt: $createdAt, updatedAt: $updatedAt, metadata: $metadata)';
+  final _this = this as ApiKey;
+  return 'ApiKey(id: ${_this.id}, name: ${_this.name}, start: ${_this.start}, prefix: ${_this.prefix}, key: ${_this.key}, userId: ${_this.userId}, enabled: ${_this.enabled}, remaining: ${_this.remaining}, refillAmount: ${_this.refillAmount}, refillInterval: ${_this.refillInterval}, rateLimitEnabled: ${_this.rateLimitEnabled}, rateLimitMax: ${_this.rateLimitMax}, rateLimitTimeWindow: ${_this.rateLimitTimeWindow}, requestCount: ${_this.requestCount}, lastRequest: ${_this.lastRequest}, expiresAt: ${_this.expiresAt}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, metadata: ${_this.metadata})';
 }
 
 
@@ -67,7 +73,7 @@ class _$ApiKeyCopyWithImpl<$Res>
 /// Create a copy of ApiKey
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = freezed,Object? start = freezed,Object? prefix = freezed,Object? key = freezed,Object? userId = freezed,Object? enabled = null,Object? remaining = freezed,Object? refillAmount = freezed,Object? refillInterval = freezed,Object? rateLimitEnabled = freezed,Object? rateLimitMax = freezed,Object? rateLimitTimeWindow = freezed,Object? requestCount = freezed,Object? lastRequest = freezed,Object? expiresAt = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? metadata = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ApiKey(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,start: freezed == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
@@ -228,7 +234,7 @@ return $default(_that.id,_that.name,_that.start,_that.prefix,_that.key,_that.use
 @JsonSerializable()
 
 class _ApiKey implements ApiKey {
-  const _ApiKey({required this.id, this.name, this.start, this.prefix, this.key, this.userId, this.enabled = true, this.remaining, this.refillAmount, this.refillInterval, this.rateLimitEnabled, this.rateLimitMax, this.rateLimitTimeWindow, this.requestCount, this.lastRequest, this.expiresAt, this.createdAt, this.updatedAt, final  Map<String, dynamic>? metadata}): _metadata = metadata;
+  const _ApiKey({required this.id, this.name, this.start, this.prefix, this.key, this.userId, this.enabled = true, this.remaining, this.refillAmount, this.refillInterval, this.rateLimitEnabled, this.rateLimitMax, this.rateLimitTimeWindow, this.requestCount, this.lastRequest, this.expiresAt, this.createdAt, this.updatedAt,  Map<String, dynamic>? metadata}): _metadata = metadata;
   factory _ApiKey.fromJson(Map<String, dynamic> json) => _$ApiKeyFromJson(json);
 
 @override final  String id;
@@ -273,16 +279,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ApiKey&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.start, start) || other.start == start)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.key, key) || other.key == key)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.remaining, remaining) || other.remaining == remaining)&&(identical(other.refillAmount, refillAmount) || other.refillAmount == refillAmount)&&(identical(other.refillInterval, refillInterval) || other.refillInterval == refillInterval)&&(identical(other.rateLimitEnabled, rateLimitEnabled) || other.rateLimitEnabled == rateLimitEnabled)&&(identical(other.rateLimitMax, rateLimitMax) || other.rateLimitMax == rateLimitMax)&&(identical(other.rateLimitTimeWindow, rateLimitTimeWindow) || other.rateLimitTimeWindow == rateLimitTimeWindow)&&(identical(other.requestCount, requestCount) || other.requestCount == requestCount)&&(identical(other.lastRequest, lastRequest) || other.lastRequest == lastRequest)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ApiKey&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.start, start) || other.start == start)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.key, key) || other.key == key)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.remaining, remaining) || other.remaining == remaining)&&(identical(other.refillAmount, refillAmount) || other.refillAmount == refillAmount)&&(identical(other.refillInterval, refillInterval) || other.refillInterval == refillInterval)&&(identical(other.rateLimitEnabled, rateLimitEnabled) || other.rateLimitEnabled == rateLimitEnabled)&&(identical(other.rateLimitMax, rateLimitMax) || other.rateLimitMax == rateLimitMax)&&(identical(other.rateLimitTimeWindow, rateLimitTimeWindow) || other.rateLimitTimeWindow == rateLimitTimeWindow)&&(identical(other.requestCount, requestCount) || other.requestCount == requestCount)&&(identical(other.lastRequest, lastRequest) || other.lastRequest == lastRequest)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,start,prefix,key,userId,enabled,remaining,refillAmount,refillInterval,rateLimitEnabled,rateLimitMax,rateLimitTimeWindow,requestCount,lastRequest,expiresAt,createdAt,updatedAt,const DeepCollectionEquality().hash(_metadata)]);
+int get hashCode {
+    return Object.hashAll([runtimeType,id,name,start,prefix,key,userId,enabled,remaining,refillAmount,refillInterval,rateLimitEnabled,rateLimitMax,rateLimitTimeWindow,requestCount,lastRequest,expiresAt,createdAt,updatedAt,const DeepCollectionEquality().hash(_metadata)]);
+}
 
 @override
 String toString() {
-  return 'ApiKey(id: $id, name: $name, start: $start, prefix: $prefix, key: $key, userId: $userId, enabled: $enabled, remaining: $remaining, refillAmount: $refillAmount, refillInterval: $refillInterval, rateLimitEnabled: $rateLimitEnabled, rateLimitMax: $rateLimitMax, rateLimitTimeWindow: $rateLimitTimeWindow, requestCount: $requestCount, lastRequest: $lastRequest, expiresAt: $expiresAt, createdAt: $createdAt, updatedAt: $updatedAt, metadata: $metadata)';
+    return 'ApiKey(id: $id, name: $name, start: $start, prefix: $prefix, key: $key, userId: $userId, enabled: $enabled, remaining: $remaining, refillAmount: $refillAmount, refillInterval: $refillInterval, rateLimitEnabled: $rateLimitEnabled, rateLimitMax: $rateLimitMax, rateLimitTimeWindow: $rateLimitTimeWindow, requestCount: $requestCount, lastRequest: $lastRequest, expiresAt: $expiresAt, createdAt: $createdAt, updatedAt: $updatedAt, metadata: $metadata)';
 }
 
 
@@ -355,16 +363,21 @@ $CreateApiKeyBodyCopyWith<CreateApiKeyBody> get copyWith => _$CreateApiKeyBodyCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateApiKeyBody&&(identical(other.name, name) || other.name == name)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn)&&(identical(other.remaining, remaining) || other.remaining == remaining)&&(identical(other.refillAmount, refillAmount) || other.refillAmount == refillAmount)&&(identical(other.refillInterval, refillInterval) || other.refillInterval == refillInterval)&&(identical(other.rateLimitMax, rateLimitMax) || other.rateLimitMax == rateLimitMax)&&(identical(other.rateLimitTimeWindow, rateLimitTimeWindow) || other.rateLimitTimeWindow == rateLimitTimeWindow)&&(identical(other.rateLimitEnabled, rateLimitEnabled) || other.rateLimitEnabled == rateLimitEnabled)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as CreateApiKeyBody;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateApiKeyBody&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.prefix, _this.prefix) || other.prefix == _this.prefix)&&(identical(other.expiresIn, _this.expiresIn) || other.expiresIn == _this.expiresIn)&&(identical(other.remaining, _this.remaining) || other.remaining == _this.remaining)&&(identical(other.refillAmount, _this.refillAmount) || other.refillAmount == _this.refillAmount)&&(identical(other.refillInterval, _this.refillInterval) || other.refillInterval == _this.refillInterval)&&(identical(other.rateLimitMax, _this.rateLimitMax) || other.rateLimitMax == _this.rateLimitMax)&&(identical(other.rateLimitTimeWindow, _this.rateLimitTimeWindow) || other.rateLimitTimeWindow == _this.rateLimitTimeWindow)&&(identical(other.rateLimitEnabled, _this.rateLimitEnabled) || other.rateLimitEnabled == _this.rateLimitEnabled)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,prefix,expiresIn,remaining,refillAmount,refillInterval,rateLimitMax,rateLimitTimeWindow,rateLimitEnabled,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as CreateApiKeyBody;
+  return Object.hash(runtimeType,_this.name,_this.prefix,_this.expiresIn,_this.remaining,_this.refillAmount,_this.refillInterval,_this.rateLimitMax,_this.rateLimitTimeWindow,_this.rateLimitEnabled,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'CreateApiKeyBody(name: $name, prefix: $prefix, expiresIn: $expiresIn, remaining: $remaining, refillAmount: $refillAmount, refillInterval: $refillInterval, rateLimitMax: $rateLimitMax, rateLimitTimeWindow: $rateLimitTimeWindow, rateLimitEnabled: $rateLimitEnabled, metadata: $metadata)';
+  final _this = this as CreateApiKeyBody;
+  return 'CreateApiKeyBody(name: ${_this.name}, prefix: ${_this.prefix}, expiresIn: ${_this.expiresIn}, remaining: ${_this.remaining}, refillAmount: ${_this.refillAmount}, refillInterval: ${_this.refillInterval}, rateLimitMax: ${_this.rateLimitMax}, rateLimitTimeWindow: ${_this.rateLimitTimeWindow}, rateLimitEnabled: ${_this.rateLimitEnabled}, metadata: ${_this.metadata})';
 }
 
 
@@ -393,7 +406,7 @@ class _$CreateApiKeyBodyCopyWithImpl<$Res>
 /// Create a copy of CreateApiKeyBody
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? prefix = freezed,Object? expiresIn = freezed,Object? remaining = freezed,Object? refillAmount = freezed,Object? refillInterval = freezed,Object? rateLimitMax = freezed,Object? rateLimitTimeWindow = freezed,Object? rateLimitEnabled = freezed,Object? metadata = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(CreateApiKeyBody(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,prefix: freezed == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
 as String?,expiresIn: freezed == expiresIn ? _self.expiresIn : expiresIn // ignore: cast_nullable_to_non_nullable
@@ -545,7 +558,7 @@ return $default(_that.name,_that.prefix,_that.expiresIn,_that.remaining,_that.re
 @JsonSerializable()
 
 class _CreateApiKeyBody implements CreateApiKeyBody {
-  const _CreateApiKeyBody({this.name, this.prefix, this.expiresIn, this.remaining, this.refillAmount, this.refillInterval, this.rateLimitMax, this.rateLimitTimeWindow, this.rateLimitEnabled, final  Map<String, dynamic>? metadata}): _metadata = metadata;
+  const _CreateApiKeyBody({this.name, this.prefix, this.expiresIn, this.remaining, this.refillAmount, this.refillInterval, this.rateLimitMax, this.rateLimitTimeWindow, this.rateLimitEnabled,  Map<String, dynamic>? metadata}): _metadata = metadata;
   factory _CreateApiKeyBody.fromJson(Map<String, dynamic> json) => _$CreateApiKeyBodyFromJson(json);
 
 @override final  String? name;
@@ -580,16 +593,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateApiKeyBody&&(identical(other.name, name) || other.name == name)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn)&&(identical(other.remaining, remaining) || other.remaining == remaining)&&(identical(other.refillAmount, refillAmount) || other.refillAmount == refillAmount)&&(identical(other.refillInterval, refillInterval) || other.refillInterval == refillInterval)&&(identical(other.rateLimitMax, rateLimitMax) || other.rateLimitMax == rateLimitMax)&&(identical(other.rateLimitTimeWindow, rateLimitTimeWindow) || other.rateLimitTimeWindow == rateLimitTimeWindow)&&(identical(other.rateLimitEnabled, rateLimitEnabled) || other.rateLimitEnabled == rateLimitEnabled)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateApiKeyBody&&(identical(other.name, name) || other.name == name)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn)&&(identical(other.remaining, remaining) || other.remaining == remaining)&&(identical(other.refillAmount, refillAmount) || other.refillAmount == refillAmount)&&(identical(other.refillInterval, refillInterval) || other.refillInterval == refillInterval)&&(identical(other.rateLimitMax, rateLimitMax) || other.rateLimitMax == rateLimitMax)&&(identical(other.rateLimitTimeWindow, rateLimitTimeWindow) || other.rateLimitTimeWindow == rateLimitTimeWindow)&&(identical(other.rateLimitEnabled, rateLimitEnabled) || other.rateLimitEnabled == rateLimitEnabled)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,prefix,expiresIn,remaining,refillAmount,refillInterval,rateLimitMax,rateLimitTimeWindow,rateLimitEnabled,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,name,prefix,expiresIn,remaining,refillAmount,refillInterval,rateLimitMax,rateLimitTimeWindow,rateLimitEnabled,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'CreateApiKeyBody(name: $name, prefix: $prefix, expiresIn: $expiresIn, remaining: $remaining, refillAmount: $refillAmount, refillInterval: $refillInterval, rateLimitMax: $rateLimitMax, rateLimitTimeWindow: $rateLimitTimeWindow, rateLimitEnabled: $rateLimitEnabled, metadata: $metadata)';
+    return 'CreateApiKeyBody(name: $name, prefix: $prefix, expiresIn: $expiresIn, remaining: $remaining, refillAmount: $refillAmount, refillInterval: $refillInterval, rateLimitMax: $rateLimitMax, rateLimitTimeWindow: $rateLimitTimeWindow, rateLimitEnabled: $rateLimitEnabled, metadata: $metadata)';
 }
 
 
@@ -653,16 +668,21 @@ $UpdateApiKeyBodyCopyWith<UpdateApiKeyBody> get copyWith => _$UpdateApiKeyBodyCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateApiKeyBody&&(identical(other.keyId, keyId) || other.keyId == keyId)&&(identical(other.name, name) || other.name == name)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.remaining, remaining) || other.remaining == remaining)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as UpdateApiKeyBody;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateApiKeyBody&&(identical(other.keyId, _this.keyId) || other.keyId == _this.keyId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.remaining, _this.remaining) || other.remaining == _this.remaining)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,keyId,name,enabled,remaining,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as UpdateApiKeyBody;
+  return Object.hash(runtimeType,_this.keyId,_this.name,_this.enabled,_this.remaining,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'UpdateApiKeyBody(keyId: $keyId, name: $name, enabled: $enabled, remaining: $remaining, metadata: $metadata)';
+  final _this = this as UpdateApiKeyBody;
+  return 'UpdateApiKeyBody(keyId: ${_this.keyId}, name: ${_this.name}, enabled: ${_this.enabled}, remaining: ${_this.remaining}, metadata: ${_this.metadata})';
 }
 
 
@@ -691,7 +711,7 @@ class _$UpdateApiKeyBodyCopyWithImpl<$Res>
 /// Create a copy of UpdateApiKeyBody
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? keyId = null,Object? name = freezed,Object? enabled = freezed,Object? remaining = freezed,Object? metadata = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(UpdateApiKeyBody(
 keyId: null == keyId ? _self.keyId : keyId // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,enabled: freezed == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
@@ -838,7 +858,7 @@ return $default(_that.keyId,_that.name,_that.enabled,_that.remaining,_that.metad
 @JsonSerializable()
 
 class _UpdateApiKeyBody implements UpdateApiKeyBody {
-  const _UpdateApiKeyBody({required this.keyId, this.name, this.enabled, this.remaining, final  Map<String, dynamic>? metadata}): _metadata = metadata;
+  const _UpdateApiKeyBody({required this.keyId, this.name, this.enabled, this.remaining,  Map<String, dynamic>? metadata}): _metadata = metadata;
   factory _UpdateApiKeyBody.fromJson(Map<String, dynamic> json) => _$UpdateApiKeyBodyFromJson(json);
 
 @override final  String keyId;
@@ -868,16 +888,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateApiKeyBody&&(identical(other.keyId, keyId) || other.keyId == keyId)&&(identical(other.name, name) || other.name == name)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.remaining, remaining) || other.remaining == remaining)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateApiKeyBody&&(identical(other.keyId, keyId) || other.keyId == keyId)&&(identical(other.name, name) || other.name == name)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.remaining, remaining) || other.remaining == remaining)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,keyId,name,enabled,remaining,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,keyId,name,enabled,remaining,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'UpdateApiKeyBody(keyId: $keyId, name: $name, enabled: $enabled, remaining: $remaining, metadata: $metadata)';
+    return 'UpdateApiKeyBody(keyId: $keyId, name: $name, enabled: $enabled, remaining: $remaining, metadata: $metadata)';
 }
 
 

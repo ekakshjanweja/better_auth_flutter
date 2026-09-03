@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'sign_in_social_body.dart';
@@ -9,6 +9,7 @@ part of 'sign_in_social_body.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $SignInSocialBodyCopyWith<SignInSocialBody> get copyWith => _$SignInSocialBodyCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInSocialBody&&(identical(other.provider, provider) || other.provider == provider)&&(identical(other.idToken, idToken) || other.idToken == idToken)&&(identical(other.callbackURL, callbackURL) || other.callbackURL == callbackURL)&&(identical(other.newUserCallbackURL, newUserCallbackURL) || other.newUserCallbackURL == newUserCallbackURL)&&(identical(other.errorCallbackURL, errorCallbackURL) || other.errorCallbackURL == errorCallbackURL)&&(identical(other.disableRedirect, disableRedirect) || other.disableRedirect == disableRedirect)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.requestSignUp, requestSignUp) || other.requestSignUp == requestSignUp)&&(identical(other.loginHint, loginHint) || other.loginHint == loginHint));
+  final _this = this as SignInSocialBody;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInSocialBody&&(identical(other.provider, _this.provider) || other.provider == _this.provider)&&(identical(other.idToken, _this.idToken) || other.idToken == _this.idToken)&&(identical(other.callbackURL, _this.callbackURL) || other.callbackURL == _this.callbackURL)&&(identical(other.newUserCallbackURL, _this.newUserCallbackURL) || other.newUserCallbackURL == _this.newUserCallbackURL)&&(identical(other.errorCallbackURL, _this.errorCallbackURL) || other.errorCallbackURL == _this.errorCallbackURL)&&(identical(other.disableRedirect, _this.disableRedirect) || other.disableRedirect == _this.disableRedirect)&&const DeepCollectionEquality().equals(other.scopes, _this.scopes)&&(identical(other.requestSignUp, _this.requestSignUp) || other.requestSignUp == _this.requestSignUp)&&(identical(other.loginHint, _this.loginHint) || other.loginHint == _this.loginHint));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,provider,idToken,callbackURL,newUserCallbackURL,errorCallbackURL,disableRedirect,const DeepCollectionEquality().hash(scopes),requestSignUp,loginHint);
+int get hashCode {
+  final _this = this as SignInSocialBody;
+  return Object.hash(runtimeType,_this.provider,_this.idToken,_this.callbackURL,_this.newUserCallbackURL,_this.errorCallbackURL,_this.disableRedirect,const DeepCollectionEquality().hash(_this.scopes),_this.requestSignUp,_this.loginHint);
+}
 
 @override
 String toString() {
-  return 'SignInSocialBody(provider: $provider, idToken: $idToken, callbackURL: $callbackURL, newUserCallbackURL: $newUserCallbackURL, errorCallbackURL: $errorCallbackURL, disableRedirect: $disableRedirect, scopes: $scopes, requestSignUp: $requestSignUp, loginHint: $loginHint)';
+  final _this = this as SignInSocialBody;
+  return 'SignInSocialBody(provider: ${_this.provider}, idToken: ${_this.idToken}, callbackURL: ${_this.callbackURL}, newUserCallbackURL: ${_this.newUserCallbackURL}, errorCallbackURL: ${_this.errorCallbackURL}, disableRedirect: ${_this.disableRedirect}, scopes: ${_this.scopes}, requestSignUp: ${_this.requestSignUp}, loginHint: ${_this.loginHint})';
 }
 
 
@@ -66,7 +72,7 @@ class _$SignInSocialBodyCopyWithImpl<$Res>
 /// Create a copy of SignInSocialBody
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? provider = null,Object? idToken = freezed,Object? callbackURL = freezed,Object? newUserCallbackURL = freezed,Object? errorCallbackURL = freezed,Object? disableRedirect = freezed,Object? scopes = freezed,Object? requestSignUp = freezed,Object? loginHint = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(SignInSocialBody(
 provider: null == provider ? _self.provider : provider // ignore: cast_nullable_to_non_nullable
 as String,idToken: freezed == idToken ? _self.idToken : idToken // ignore: cast_nullable_to_non_nullable
 as SocialIdTokenBody?,callbackURL: freezed == callbackURL ? _self.callbackURL : callbackURL // ignore: cast_nullable_to_non_nullable
@@ -229,7 +235,7 @@ return $default(_that.provider,_that.idToken,_that.callbackURL,_that.newUserCall
 @JsonSerializable()
 
 class _SignInSocialBody implements SignInSocialBody {
-  const _SignInSocialBody({required this.provider, this.idToken, this.callbackURL, this.newUserCallbackURL, this.errorCallbackURL, this.disableRedirect, final  List<String>? scopes, this.requestSignUp, this.loginHint}): _scopes = scopes;
+  const _SignInSocialBody({required this.provider, this.idToken, this.callbackURL, this.newUserCallbackURL, this.errorCallbackURL, this.disableRedirect,  List<String>? scopes, this.requestSignUp, this.loginHint}): _scopes = scopes;
   factory _SignInSocialBody.fromJson(Map<String, dynamic> json) => _$SignInSocialBodyFromJson(json);
 
 @override final  String provider;
@@ -263,16 +269,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInSocialBody&&(identical(other.provider, provider) || other.provider == provider)&&(identical(other.idToken, idToken) || other.idToken == idToken)&&(identical(other.callbackURL, callbackURL) || other.callbackURL == callbackURL)&&(identical(other.newUserCallbackURL, newUserCallbackURL) || other.newUserCallbackURL == newUserCallbackURL)&&(identical(other.errorCallbackURL, errorCallbackURL) || other.errorCallbackURL == errorCallbackURL)&&(identical(other.disableRedirect, disableRedirect) || other.disableRedirect == disableRedirect)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.requestSignUp, requestSignUp) || other.requestSignUp == requestSignUp)&&(identical(other.loginHint, loginHint) || other.loginHint == loginHint));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInSocialBody&&(identical(other.provider, provider) || other.provider == provider)&&(identical(other.idToken, idToken) || other.idToken == idToken)&&(identical(other.callbackURL, callbackURL) || other.callbackURL == callbackURL)&&(identical(other.newUserCallbackURL, newUserCallbackURL) || other.newUserCallbackURL == newUserCallbackURL)&&(identical(other.errorCallbackURL, errorCallbackURL) || other.errorCallbackURL == errorCallbackURL)&&(identical(other.disableRedirect, disableRedirect) || other.disableRedirect == disableRedirect)&&const DeepCollectionEquality().equals(other.scopes, _scopes)&&(identical(other.requestSignUp, requestSignUp) || other.requestSignUp == requestSignUp)&&(identical(other.loginHint, loginHint) || other.loginHint == loginHint));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,provider,idToken,callbackURL,newUserCallbackURL,errorCallbackURL,disableRedirect,const DeepCollectionEquality().hash(_scopes),requestSignUp,loginHint);
+int get hashCode {
+    return Object.hash(runtimeType,provider,idToken,callbackURL,newUserCallbackURL,errorCallbackURL,disableRedirect,const DeepCollectionEquality().hash(_scopes),requestSignUp,loginHint);
+}
 
 @override
 String toString() {
-  return 'SignInSocialBody(provider: $provider, idToken: $idToken, callbackURL: $callbackURL, newUserCallbackURL: $newUserCallbackURL, errorCallbackURL: $errorCallbackURL, disableRedirect: $disableRedirect, scopes: $scopes, requestSignUp: $requestSignUp, loginHint: $loginHint)';
+    return 'SignInSocialBody(provider: $provider, idToken: $idToken, callbackURL: $callbackURL, newUserCallbackURL: $newUserCallbackURL, errorCallbackURL: $errorCallbackURL, disableRedirect: $disableRedirect, scopes: $scopes, requestSignUp: $requestSignUp, loginHint: $loginHint)';
 }
 
 

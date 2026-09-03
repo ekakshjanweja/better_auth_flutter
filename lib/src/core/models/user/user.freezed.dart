@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'user.dart';
@@ -9,6 +9,7 @@ part of 'user.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $UserCopyWith<User> get copyWith => _$UserCopyWithImpl<User>(this as User, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.emailVerified, emailVerified) || other.emailVerified == emailVerified)&&(identical(other.image, image) || other.image == image)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.twoFactorEnabled, twoFactorEnabled) || other.twoFactorEnabled == twoFactorEnabled)&&(identical(other.username, username) || other.username == username)&&(identical(other.displayUsername, displayUsername) || other.displayUsername == displayUsername)&&(identical(other.isAnonymous, isAnonymous) || other.isAnonymous == isAnonymous)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.phoneNumberVerified, phoneNumberVerified) || other.phoneNumberVerified == phoneNumberVerified)&&(identical(other.role, role) || other.role == role)&&(identical(other.banned, banned) || other.banned == banned)&&(identical(other.banReason, banReason) || other.banReason == banReason)&&(identical(other.banExpires, banExpires) || other.banExpires == banExpires));
+  final _this = this as User;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.email, _this.email) || other.email == _this.email)&&(identical(other.emailVerified, _this.emailVerified) || other.emailVerified == _this.emailVerified)&&(identical(other.image, _this.image) || other.image == _this.image)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.twoFactorEnabled, _this.twoFactorEnabled) || other.twoFactorEnabled == _this.twoFactorEnabled)&&(identical(other.username, _this.username) || other.username == _this.username)&&(identical(other.displayUsername, _this.displayUsername) || other.displayUsername == _this.displayUsername)&&(identical(other.isAnonymous, _this.isAnonymous) || other.isAnonymous == _this.isAnonymous)&&(identical(other.phoneNumber, _this.phoneNumber) || other.phoneNumber == _this.phoneNumber)&&(identical(other.phoneNumberVerified, _this.phoneNumberVerified) || other.phoneNumberVerified == _this.phoneNumberVerified)&&(identical(other.role, _this.role) || other.role == _this.role)&&(identical(other.banned, _this.banned) || other.banned == _this.banned)&&(identical(other.banReason, _this.banReason) || other.banReason == _this.banReason)&&(identical(other.banExpires, _this.banExpires) || other.banExpires == _this.banExpires));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,emailVerified,image,createdAt,updatedAt,twoFactorEnabled,username,displayUsername,isAnonymous,phoneNumber,phoneNumberVerified,role,banned,banReason,banExpires);
+int get hashCode {
+  final _this = this as User;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.email,_this.emailVerified,_this.image,_this.createdAt,_this.updatedAt,_this.twoFactorEnabled,_this.username,_this.displayUsername,_this.isAnonymous,_this.phoneNumber,_this.phoneNumberVerified,_this.role,_this.banned,_this.banReason,_this.banExpires);
+}
 
 @override
 String toString() {
-  return 'User(id: $id, name: $name, email: $email, emailVerified: $emailVerified, image: $image, createdAt: $createdAt, updatedAt: $updatedAt, twoFactorEnabled: $twoFactorEnabled, username: $username, displayUsername: $displayUsername, isAnonymous: $isAnonymous, phoneNumber: $phoneNumber, phoneNumberVerified: $phoneNumberVerified, role: $role, banned: $banned, banReason: $banReason, banExpires: $banExpires)';
+  final _this = this as User;
+  return 'User(id: ${_this.id}, name: ${_this.name}, email: ${_this.email}, emailVerified: ${_this.emailVerified}, image: ${_this.image}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, twoFactorEnabled: ${_this.twoFactorEnabled}, username: ${_this.username}, displayUsername: ${_this.displayUsername}, isAnonymous: ${_this.isAnonymous}, phoneNumber: ${_this.phoneNumber}, phoneNumberVerified: ${_this.phoneNumberVerified}, role: ${_this.role}, banned: ${_this.banned}, banReason: ${_this.banReason}, banExpires: ${_this.banExpires})';
 }
 
 
@@ -66,7 +72,7 @@ class _$UserCopyWithImpl<$Res>
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? email = null,Object? emailVerified = null,Object? image = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? twoFactorEnabled = null,Object? username = freezed,Object? displayUsername = freezed,Object? isAnonymous = null,Object? phoneNumber = freezed,Object? phoneNumberVerified = null,Object? role = freezed,Object? banned = null,Object? banReason = freezed,Object? banExpires = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(User(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
@@ -259,16 +265,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.emailVerified, emailVerified) || other.emailVerified == emailVerified)&&(identical(other.image, image) || other.image == image)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.twoFactorEnabled, twoFactorEnabled) || other.twoFactorEnabled == twoFactorEnabled)&&(identical(other.username, username) || other.username == username)&&(identical(other.displayUsername, displayUsername) || other.displayUsername == displayUsername)&&(identical(other.isAnonymous, isAnonymous) || other.isAnonymous == isAnonymous)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.phoneNumberVerified, phoneNumberVerified) || other.phoneNumberVerified == phoneNumberVerified)&&(identical(other.role, role) || other.role == role)&&(identical(other.banned, banned) || other.banned == banned)&&(identical(other.banReason, banReason) || other.banReason == banReason)&&(identical(other.banExpires, banExpires) || other.banExpires == banExpires));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.emailVerified, emailVerified) || other.emailVerified == emailVerified)&&(identical(other.image, image) || other.image == image)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.twoFactorEnabled, twoFactorEnabled) || other.twoFactorEnabled == twoFactorEnabled)&&(identical(other.username, username) || other.username == username)&&(identical(other.displayUsername, displayUsername) || other.displayUsername == displayUsername)&&(identical(other.isAnonymous, isAnonymous) || other.isAnonymous == isAnonymous)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.phoneNumberVerified, phoneNumberVerified) || other.phoneNumberVerified == phoneNumberVerified)&&(identical(other.role, role) || other.role == role)&&(identical(other.banned, banned) || other.banned == banned)&&(identical(other.banReason, banReason) || other.banReason == banReason)&&(identical(other.banExpires, banExpires) || other.banExpires == banExpires));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,emailVerified,image,createdAt,updatedAt,twoFactorEnabled,username,displayUsername,isAnonymous,phoneNumber,phoneNumberVerified,role,banned,banReason,banExpires);
+int get hashCode {
+    return Object.hash(runtimeType,id,name,email,emailVerified,image,createdAt,updatedAt,twoFactorEnabled,username,displayUsername,isAnonymous,phoneNumber,phoneNumberVerified,role,banned,banReason,banExpires);
+}
 
 @override
 String toString() {
-  return 'User(id: $id, name: $name, email: $email, emailVerified: $emailVerified, image: $image, createdAt: $createdAt, updatedAt: $updatedAt, twoFactorEnabled: $twoFactorEnabled, username: $username, displayUsername: $displayUsername, isAnonymous: $isAnonymous, phoneNumber: $phoneNumber, phoneNumberVerified: $phoneNumberVerified, role: $role, banned: $banned, banReason: $banReason, banExpires: $banExpires)';
+    return 'User(id: $id, name: $name, email: $email, emailVerified: $emailVerified, image: $image, createdAt: $createdAt, updatedAt: $updatedAt, twoFactorEnabled: $twoFactorEnabled, username: $username, displayUsername: $displayUsername, isAnonymous: $isAnonymous, phoneNumber: $phoneNumber, phoneNumberVerified: $phoneNumberVerified, role: $role, banned: $banned, banReason: $banReason, banExpires: $banExpires)';
 }
 
 

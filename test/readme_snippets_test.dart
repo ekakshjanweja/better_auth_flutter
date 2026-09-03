@@ -7,7 +7,9 @@
 // examples at least typecheck against the real surface.
 import "package:better_auth_flutter/better_auth_flutter.dart";
 import "package:better_auth_flutter/plugins/jwt.dart";
+import "package:better_auth_flutter/riverpod.dart";
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:flutter_test/flutter_test.dart";
 
 // README: "Reactive auth state"
@@ -35,6 +37,30 @@ String _classify(BetterError error) {
   return error.message;
 }
 
+// README: "Riverpod 3"
+Widget _riverpodGate() =>
+    const ProviderScope(child: MaterialApp(home: _RiverpodGate()));
+
+class _RiverpodGate extends ConsumerWidget {
+  const _RiverpodGate();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final auth = ref.watch(betterAuthStateProvider);
+
+    return auth.when(
+      data: (state) => switch (state) {
+        AuthInitial() || AuthLoading() => const Text("Splash"),
+        Authenticated(:final user) => Text("Welcome ${user.name}"),
+        Unauthenticated() => const Text("Sign in"),
+        AuthError(:final error) => Text("Retry: ${error.message}"),
+      },
+      loading: () => const Text("Splash"),
+      error: (error, _) => Text("Retry: $error"),
+    );
+  }
+}
+
 // README: switching on AuthState
 String _route(AuthState state) => switch (state) {
   AuthInitial() || AuthLoading() => "splash",
@@ -46,6 +72,10 @@ String _route(AuthState state) => switch (state) {
 void main() {
   test("the auth gate snippet builds", () {
     expect(_authGate, returnsNormally);
+  });
+
+  test("the Riverpod gate snippet builds", () {
+    expect(_riverpodGate, returnsNormally);
   });
 
   test("the Result snippet handles both branches", () {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'better_error.dart';
@@ -9,6 +9,7 @@ part of 'better_error.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -33,16 +34,21 @@ $BetterErrorCopyWith<BetterError> get copyWith => _$BetterErrorCopyWithImpl<Bett
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BetterError&&(identical(other.code, code) || other.code == code)&&(identical(other.message, message) || other.message == message)&&(identical(other.stack, stack) || other.stack == stack)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode));
+  final _this = this as BetterError;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BetterError&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.message, _this.message) || other.message == _this.message)&&(identical(other.stack, _this.stack) || other.stack == _this.stack)&&(identical(other.statusCode, _this.statusCode) || other.statusCode == _this.statusCode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,message,stack,statusCode);
+int get hashCode {
+  final _this = this as BetterError;
+  return Object.hash(runtimeType,_this.code,_this.message,_this.stack,_this.statusCode);
+}
 
 @override
 String toString() {
-  return 'BetterError(code: $code, message: $message, stack: $stack, statusCode: $statusCode)';
+  final _this = this as BetterError;
+  return 'BetterError(code: ${_this.code}, message: ${_this.message}, stack: ${_this.stack}, statusCode: ${_this.statusCode})';
 }
 
 
@@ -71,7 +77,7 @@ class _$BetterErrorCopyWithImpl<$Res>
 /// Create a copy of BetterError
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? message = null,Object? stack = freezed,Object? statusCode = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(BetterError(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,stack: freezed == stack ? _self.stack : stack // ignore: cast_nullable_to_non_nullable
@@ -243,16 +249,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BetterError&&(identical(other.code, code) || other.code == code)&&(identical(other.message, message) || other.message == message)&&(identical(other.stack, stack) || other.stack == stack)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BetterError&&(identical(other.code, code) || other.code == code)&&(identical(other.message, message) || other.message == message)&&(identical(other.stack, stack) || other.stack == stack)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,message,stack,statusCode);
+int get hashCode {
+    return Object.hash(runtimeType,code,message,stack,statusCode);
+}
 
 @override
 String toString() {
-  return 'BetterError(code: $code, message: $message, stack: $stack, statusCode: $statusCode)';
+    return 'BetterError(code: $code, message: $message, stack: $stack, statusCode: $statusCode)';
 }
 
 

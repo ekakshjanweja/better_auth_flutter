@@ -10,7 +10,8 @@ Suggestions or contributions welcome — reach out at [@ekaksh_janweja](https://
 - Social sign-in via ID token (Google, Apple) or web redirect
 - Password reset, email verification, account linking
 - Session listing and revocation
-- Reactive auth state: `authStateChanges`, `onAuthChange`, `BetterAuthBuilder`
+- Reactive auth state: `authStateChanges`, `onAuthChange`, `BetterAuthBuilder`,
+  Riverpod 3 providers
 - Persistent cookie sessions that survive restarts
 - Every call returns a sealed `Result<T>` — no thrown exceptions
 - Encrypted session storage by default (keychain/keystore)
@@ -128,6 +129,53 @@ BetterAuthFlutter.authStateChanges.listen((state) {
 Or `BetterAuthFlutter.onAuthChange` for a plain `Stream<User?>`. Read the state
 synchronously with `BetterAuthFlutter.authState`, and refresh it on demand with
 `BetterAuthFlutter.refreshSession()`.
+
+### Riverpod 3
+
+Prefer Riverpod? Import the opt-in `riverpod.dart` library alongside the main
+one and watch the providers inside a `ProviderScope`:
+
+```dart
+import "package:better_auth_flutter/better_auth_flutter.dart";
+import "package:better_auth_flutter/riverpod.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await BetterAuthFlutter.initialize(url: "https://example.com/api/auth");
+  runApp(const ProviderScope(child: MyApp()));
+}
+
+class AuthGate extends ConsumerWidget {
+  const AuthGate({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final auth = ref.watch(betterAuthStateProvider);
+
+    return auth.when(
+      data: (state) => switch (state) {
+        AuthInitial() || AuthLoading() => const SplashScreen(),
+        Authenticated(:final user) => HomeScreen(user: user),
+        Unauthenticated() => const SignInScreen(),
+        AuthError(:final error) => RetryScreen(error: error),
+      },
+      loading: () => const SplashScreen(),
+      error: (error, _) => RetryScreen(error: error),
+    );
+  }
+}
+```
+
+Four providers, one subscription under the hood:
+
+- `betterAuthStateProvider` (`StreamProvider<AuthState>`) — mirrors
+  `authStateChanges`, including the immediate replay of the current state.
+- `betterAuthClientProvider` — the API client. Requires `initialize()` first,
+  like `BetterAuthFlutter.client`.
+- `currentUserProvider` — the signed-in `User`, or null while the stored
+  session is still loading or when signed out.
+- `isAuthenticatedProvider` — true only for `Authenticated`.
 
 Auth state updates automatically on sign-in, sign-up, sign-out, session refresh,
 and session expiry (any `401`).

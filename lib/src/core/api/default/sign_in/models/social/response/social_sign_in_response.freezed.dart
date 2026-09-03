@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'social_sign_in_response.dart';
@@ -9,6 +9,7 @@ part of 'social_sign_in_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $SignInSocialResponseCopyWith<SignInSocialResponse> get copyWith => _$SignInSoci
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInSocialResponse&&(identical(other.redirect, redirect) || other.redirect == redirect)&&(identical(other.token, token) || other.token == token)&&(identical(other.url, url) || other.url == url)&&(identical(other.required, required) || other.required == required));
+  final _this = this as SignInSocialResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInSocialResponse&&(identical(other.redirect, _this.redirect) || other.redirect == _this.redirect)&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.url, _this.url) || other.url == _this.url)&&(identical(other.required, _this.required) || other.required == _this.required));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,redirect,token,url,required);
+int get hashCode {
+  final _this = this as SignInSocialResponse;
+  return Object.hash(runtimeType,_this.redirect,_this.token,_this.url,_this.required);
+}
 
 @override
 String toString() {
-  return 'SignInSocialResponse(redirect: $redirect, token: $token, url: $url, required: $required)';
+  final _this = this as SignInSocialResponse;
+  return 'SignInSocialResponse(redirect: ${_this.redirect}, token: ${_this.token}, url: ${_this.url}, required: ${_this.required})';
 }
 
 
@@ -66,7 +72,7 @@ class _$SignInSocialResponseCopyWithImpl<$Res>
 /// Create a copy of SignInSocialResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? redirect = null,Object? token = null,Object? url = null,Object? required = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(SignInSocialResponse(
 redirect: null == redirect ? _self.redirect : redirect // ignore: cast_nullable_to_non_nullable
 as bool,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
@@ -233,16 +239,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInSocialResponse&&(identical(other.redirect, redirect) || other.redirect == redirect)&&(identical(other.token, token) || other.token == token)&&(identical(other.url, url) || other.url == url)&&(identical(other.required, required) || other.required == required));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInSocialResponse&&(identical(other.redirect, redirect) || other.redirect == redirect)&&(identical(other.token, token) || other.token == token)&&(identical(other.url, url) || other.url == url)&&(identical(other.required, required) || other.required == required));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,redirect,token,url,required);
+int get hashCode {
+    return Object.hash(runtimeType,redirect,token,url,required);
+}
 
 @override
 String toString() {
-  return 'SignInSocialResponse(redirect: $redirect, token: $token, url: $url, required: $required)';
+    return 'SignInSocialResponse(redirect: $redirect, token: $token, url: $url, required: $required)';
 }
 
 

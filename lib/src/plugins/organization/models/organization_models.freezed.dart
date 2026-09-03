@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'organization_models.dart';
@@ -9,6 +9,7 @@ part of 'organization_models.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $OrganizationCopyWith<Organization> get copyWith => _$OrganizationCopyWithImpl<O
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Organization&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logo, logo) || other.logo == logo)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as Organization;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Organization&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.slug, _this.slug) || other.slug == _this.slug)&&(identical(other.logo, _this.logo) || other.logo == _this.logo)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,slug,logo,createdAt,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as Organization;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.slug,_this.logo,_this.createdAt,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'Organization(id: $id, name: $name, slug: $slug, logo: $logo, createdAt: $createdAt, metadata: $metadata)';
+  final _this = this as Organization;
+  return 'Organization(id: ${_this.id}, name: ${_this.name}, slug: ${_this.slug}, logo: ${_this.logo}, createdAt: ${_this.createdAt}, metadata: ${_this.metadata})';
 }
 
 
@@ -66,7 +72,7 @@ class _$OrganizationCopyWithImpl<$Res>
 /// Create a copy of Organization
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? slug = freezed,Object? logo = freezed,Object? createdAt = freezed,Object? metadata = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Organization(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,slug: freezed == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
@@ -214,7 +220,7 @@ return $default(_that.id,_that.name,_that.slug,_that.logo,_that.createdAt,_that.
 @JsonSerializable()
 
 class _Organization implements Organization {
-  const _Organization({required this.id, required this.name, this.slug, this.logo, this.createdAt, final  Map<String, dynamic>? metadata}): _metadata = metadata;
+  const _Organization({required this.id, required this.name, this.slug, this.logo, this.createdAt,  Map<String, dynamic>? metadata}): _metadata = metadata;
   factory _Organization.fromJson(Map<String, dynamic> json) => _$OrganizationFromJson(json);
 
 @override final  String id;
@@ -245,16 +251,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Organization&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logo, logo) || other.logo == logo)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Organization&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logo, logo) || other.logo == logo)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,slug,logo,createdAt,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,name,slug,logo,createdAt,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'Organization(id: $id, name: $name, slug: $slug, logo: $logo, createdAt: $createdAt, metadata: $metadata)';
+    return 'Organization(id: $id, name: $name, slug: $slug, logo: $logo, createdAt: $createdAt, metadata: $metadata)';
 }
 
 
@@ -314,16 +322,21 @@ $MemberCopyWith<Member> get copyWith => _$MemberCopyWithImpl<Member>(this as Mem
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Member&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.organizationId, organizationId) || other.organizationId == organizationId)&&(identical(other.role, role) || other.role == role)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.image, image) || other.image == image)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  final _this = this as Member;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Member&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.organizationId, _this.organizationId) || other.organizationId == _this.organizationId)&&(identical(other.role, _this.role) || other.role == _this.role)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.email, _this.email) || other.email == _this.email)&&(identical(other.image, _this.image) || other.image == _this.image)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,organizationId,role,name,email,image,createdAt);
+int get hashCode {
+  final _this = this as Member;
+  return Object.hash(runtimeType,_this.id,_this.userId,_this.organizationId,_this.role,_this.name,_this.email,_this.image,_this.createdAt);
+}
 
 @override
 String toString() {
-  return 'Member(id: $id, userId: $userId, organizationId: $organizationId, role: $role, name: $name, email: $email, image: $image, createdAt: $createdAt)';
+  final _this = this as Member;
+  return 'Member(id: ${_this.id}, userId: ${_this.userId}, organizationId: ${_this.organizationId}, role: ${_this.role}, name: ${_this.name}, email: ${_this.email}, image: ${_this.image}, createdAt: ${_this.createdAt})';
 }
 
 
@@ -352,7 +365,7 @@ class _$MemberCopyWithImpl<$Res>
 /// Create a copy of Member
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? organizationId = null,Object? role = null,Object? name = freezed,Object? email = freezed,Object? image = freezed,Object? createdAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Member(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String,organizationId: null == organizationId ? _self.organizationId : organizationId // ignore: cast_nullable_to_non_nullable
@@ -527,16 +540,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Member&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.organizationId, organizationId) || other.organizationId == organizationId)&&(identical(other.role, role) || other.role == role)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.image, image) || other.image == image)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Member&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.organizationId, organizationId) || other.organizationId == organizationId)&&(identical(other.role, role) || other.role == role)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.image, image) || other.image == image)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,organizationId,role,name,email,image,createdAt);
+int get hashCode {
+    return Object.hash(runtimeType,id,userId,organizationId,role,name,email,image,createdAt);
+}
 
 @override
 String toString() {
-  return 'Member(id: $id, userId: $userId, organizationId: $organizationId, role: $role, name: $name, email: $email, image: $image, createdAt: $createdAt)';
+    return 'Member(id: $id, userId: $userId, organizationId: $organizationId, role: $role, name: $name, email: $email, image: $image, createdAt: $createdAt)';
 }
 
 
@@ -599,16 +614,21 @@ $InvitationCopyWith<Invitation> get copyWith => _$InvitationCopyWithImpl<Invitat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Invitation&&(identical(other.id, id) || other.id == id)&&(identical(other.organizationId, organizationId) || other.organizationId == organizationId)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.status, status) || other.status == status)&&(identical(other.inviterId, inviterId) || other.inviterId == inviterId)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
+  final _this = this as Invitation;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Invitation&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.organizationId, _this.organizationId) || other.organizationId == _this.organizationId)&&(identical(other.email, _this.email) || other.email == _this.email)&&(identical(other.role, _this.role) || other.role == _this.role)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.inviterId, _this.inviterId) || other.inviterId == _this.inviterId)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,organizationId,email,role,status,inviterId,expiresAt);
+int get hashCode {
+  final _this = this as Invitation;
+  return Object.hash(runtimeType,_this.id,_this.organizationId,_this.email,_this.role,_this.status,_this.inviterId,_this.expiresAt);
+}
 
 @override
 String toString() {
-  return 'Invitation(id: $id, organizationId: $organizationId, email: $email, role: $role, status: $status, inviterId: $inviterId, expiresAt: $expiresAt)';
+  final _this = this as Invitation;
+  return 'Invitation(id: ${_this.id}, organizationId: ${_this.organizationId}, email: ${_this.email}, role: ${_this.role}, status: ${_this.status}, inviterId: ${_this.inviterId}, expiresAt: ${_this.expiresAt})';
 }
 
 
@@ -637,7 +657,7 @@ class _$InvitationCopyWithImpl<$Res>
 /// Create a copy of Invitation
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? organizationId = null,Object? email = null,Object? role = null,Object? status = null,Object? inviterId = freezed,Object? expiresAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Invitation(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,organizationId: null == organizationId ? _self.organizationId : organizationId // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
@@ -811,16 +831,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Invitation&&(identical(other.id, id) || other.id == id)&&(identical(other.organizationId, organizationId) || other.organizationId == organizationId)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.status, status) || other.status == status)&&(identical(other.inviterId, inviterId) || other.inviterId == inviterId)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Invitation&&(identical(other.id, id) || other.id == id)&&(identical(other.organizationId, organizationId) || other.organizationId == organizationId)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.status, status) || other.status == status)&&(identical(other.inviterId, inviterId) || other.inviterId == inviterId)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,organizationId,email,role,status,inviterId,expiresAt);
+int get hashCode {
+    return Object.hash(runtimeType,id,organizationId,email,role,status,inviterId,expiresAt);
+}
 
 @override
 String toString() {
-  return 'Invitation(id: $id, organizationId: $organizationId, email: $email, role: $role, status: $status, inviterId: $inviterId, expiresAt: $expiresAt)';
+    return 'Invitation(id: $id, organizationId: $organizationId, email: $email, role: $role, status: $status, inviterId: $inviterId, expiresAt: $expiresAt)';
 }
 
 
@@ -881,16 +903,21 @@ $FullOrganizationCopyWith<FullOrganization> get copyWith => _$FullOrganizationCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FullOrganization&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logo, logo) || other.logo == logo)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.members, members)&&const DeepCollectionEquality().equals(other.invitations, invitations));
+  final _this = this as FullOrganization;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FullOrganization&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.slug, _this.slug) || other.slug == _this.slug)&&(identical(other.logo, _this.logo) || other.logo == _this.logo)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.members, _this.members)&&const DeepCollectionEquality().equals(other.invitations, _this.invitations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,slug,logo,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(members),const DeepCollectionEquality().hash(invitations));
+int get hashCode {
+  final _this = this as FullOrganization;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.slug,_this.logo,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.members),const DeepCollectionEquality().hash(_this.invitations));
+}
 
 @override
 String toString() {
-  return 'FullOrganization(id: $id, name: $name, slug: $slug, logo: $logo, metadata: $metadata, members: $members, invitations: $invitations)';
+  final _this = this as FullOrganization;
+  return 'FullOrganization(id: ${_this.id}, name: ${_this.name}, slug: ${_this.slug}, logo: ${_this.logo}, metadata: ${_this.metadata}, members: ${_this.members}, invitations: ${_this.invitations})';
 }
 
 
@@ -919,7 +946,7 @@ class _$FullOrganizationCopyWithImpl<$Res>
 /// Create a copy of FullOrganization
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? slug = freezed,Object? logo = freezed,Object? metadata = freezed,Object? members = null,Object? invitations = null,}) {
-  return _then(_self.copyWith(
+  return _then(FullOrganization(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,slug: freezed == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
@@ -1068,7 +1095,7 @@ return $default(_that.id,_that.name,_that.slug,_that.logo,_that.metadata,_that.m
 @JsonSerializable()
 
 class _FullOrganization implements FullOrganization {
-  const _FullOrganization({required this.id, required this.name, this.slug, this.logo, final  Map<String, dynamic>? metadata, final  List<Member> members = const <Member>[], final  List<Invitation> invitations = const <Invitation>[]}): _metadata = metadata,_members = members,_invitations = invitations;
+  const _FullOrganization({required this.id, required this.name, this.slug, this.logo,  Map<String, dynamic>? metadata,  List<Member> members = const <Member>[],  List<Invitation> invitations = const <Invitation>[]}): _metadata = metadata,_members = members,_invitations = invitations;
   factory _FullOrganization.fromJson(Map<String, dynamic> json) => _$FullOrganizationFromJson(json);
 
 @override final  String id;
@@ -1112,16 +1139,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FullOrganization&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logo, logo) || other.logo == logo)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._members, _members)&&const DeepCollectionEquality().equals(other._invitations, _invitations));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FullOrganization&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logo, logo) || other.logo == logo)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.members, _members)&&const DeepCollectionEquality().equals(other.invitations, _invitations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,slug,logo,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_members),const DeepCollectionEquality().hash(_invitations));
+int get hashCode {
+    return Object.hash(runtimeType,id,name,slug,logo,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_members),const DeepCollectionEquality().hash(_invitations));
+}
 
 @override
 String toString() {
-  return 'FullOrganization(id: $id, name: $name, slug: $slug, logo: $logo, metadata: $metadata, members: $members, invitations: $invitations)';
+    return 'FullOrganization(id: $id, name: $name, slug: $slug, logo: $logo, metadata: $metadata, members: $members, invitations: $invitations)';
 }
 
 
@@ -1182,16 +1211,21 @@ $CreateOrganizationBodyCopyWith<CreateOrganizationBody> get copyWith => _$Create
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateOrganizationBody&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logo, logo) || other.logo == logo)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as CreateOrganizationBody;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateOrganizationBody&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.slug, _this.slug) || other.slug == _this.slug)&&(identical(other.logo, _this.logo) || other.logo == _this.logo)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,slug,logo,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as CreateOrganizationBody;
+  return Object.hash(runtimeType,_this.name,_this.slug,_this.logo,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'CreateOrganizationBody(name: $name, slug: $slug, logo: $logo, metadata: $metadata)';
+  final _this = this as CreateOrganizationBody;
+  return 'CreateOrganizationBody(name: ${_this.name}, slug: ${_this.slug}, logo: ${_this.logo}, metadata: ${_this.metadata})';
 }
 
 
@@ -1220,7 +1254,7 @@ class _$CreateOrganizationBodyCopyWithImpl<$Res>
 /// Create a copy of CreateOrganizationBody
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? slug = null,Object? logo = freezed,Object? metadata = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(CreateOrganizationBody(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String,logo: freezed == logo ? _self.logo : logo // ignore: cast_nullable_to_non_nullable
@@ -1366,7 +1400,7 @@ return $default(_that.name,_that.slug,_that.logo,_that.metadata);case _:
 @JsonSerializable()
 
 class _CreateOrganizationBody implements CreateOrganizationBody {
-  const _CreateOrganizationBody({required this.name, required this.slug, this.logo, final  Map<String, dynamic>? metadata}): _metadata = metadata;
+  const _CreateOrganizationBody({required this.name, required this.slug, this.logo,  Map<String, dynamic>? metadata}): _metadata = metadata;
   factory _CreateOrganizationBody.fromJson(Map<String, dynamic> json) => _$CreateOrganizationBodyFromJson(json);
 
 @override final  String name;
@@ -1395,16 +1429,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateOrganizationBody&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logo, logo) || other.logo == logo)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateOrganizationBody&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logo, logo) || other.logo == logo)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,slug,logo,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,name,slug,logo,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'CreateOrganizationBody(name: $name, slug: $slug, logo: $logo, metadata: $metadata)';
+    return 'CreateOrganizationBody(name: $name, slug: $slug, logo: $logo, metadata: $metadata)';
 }
 
 
@@ -1462,16 +1498,21 @@ $InviteMemberBodyCopyWith<InviteMemberBody> get copyWith => _$InviteMemberBodyCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InviteMemberBody&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.organizationId, organizationId) || other.organizationId == organizationId)&&(identical(other.resend, resend) || other.resend == resend));
+  final _this = this as InviteMemberBody;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InviteMemberBody&&(identical(other.email, _this.email) || other.email == _this.email)&&(identical(other.role, _this.role) || other.role == _this.role)&&(identical(other.organizationId, _this.organizationId) || other.organizationId == _this.organizationId)&&(identical(other.resend, _this.resend) || other.resend == _this.resend));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,email,role,organizationId,resend);
+int get hashCode {
+  final _this = this as InviteMemberBody;
+  return Object.hash(runtimeType,_this.email,_this.role,_this.organizationId,_this.resend);
+}
 
 @override
 String toString() {
-  return 'InviteMemberBody(email: $email, role: $role, organizationId: $organizationId, resend: $resend)';
+  final _this = this as InviteMemberBody;
+  return 'InviteMemberBody(email: ${_this.email}, role: ${_this.role}, organizationId: ${_this.organizationId}, resend: ${_this.resend})';
 }
 
 
@@ -1500,7 +1541,7 @@ class _$InviteMemberBodyCopyWithImpl<$Res>
 /// Create a copy of InviteMemberBody
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? role = null,Object? organizationId = freezed,Object? resend = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(InviteMemberBody(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String,organizationId: freezed == organizationId ? _self.organizationId : organizationId // ignore: cast_nullable_to_non_nullable
@@ -1667,16 +1708,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InviteMemberBody&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.organizationId, organizationId) || other.organizationId == organizationId)&&(identical(other.resend, resend) || other.resend == resend));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _InviteMemberBody&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.organizationId, organizationId) || other.organizationId == organizationId)&&(identical(other.resend, resend) || other.resend == resend));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,email,role,organizationId,resend);
+int get hashCode {
+    return Object.hash(runtimeType,email,role,organizationId,resend);
+}
 
 @override
 String toString() {
-  return 'InviteMemberBody(email: $email, role: $role, organizationId: $organizationId, resend: $resend)';
+    return 'InviteMemberBody(email: $email, role: $role, organizationId: $organizationId, resend: $resend)';
 }
 
 

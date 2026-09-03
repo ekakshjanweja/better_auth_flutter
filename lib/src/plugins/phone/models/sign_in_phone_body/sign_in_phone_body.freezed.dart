@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'sign_in_phone_body.dart';
@@ -9,6 +9,7 @@ part of 'sign_in_phone_body.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $SignInPhoneBodyCopyWith<SignInPhoneBody> get copyWith => _$SignInPhoneBodyCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInPhoneBody&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.password, password) || other.password == password)&&(identical(other.rememberMe, rememberMe) || other.rememberMe == rememberMe));
+  final _this = this as SignInPhoneBody;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInPhoneBody&&(identical(other.phoneNumber, _this.phoneNumber) || other.phoneNumber == _this.phoneNumber)&&(identical(other.password, _this.password) || other.password == _this.password)&&(identical(other.rememberMe, _this.rememberMe) || other.rememberMe == _this.rememberMe));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,phoneNumber,password,rememberMe);
+int get hashCode {
+  final _this = this as SignInPhoneBody;
+  return Object.hash(runtimeType,_this.phoneNumber,_this.password,_this.rememberMe);
+}
 
 @override
 String toString() {
-  return 'SignInPhoneBody(phoneNumber: $phoneNumber, password: $password, rememberMe: $rememberMe)';
+  final _this = this as SignInPhoneBody;
+  return 'SignInPhoneBody(phoneNumber: ${_this.phoneNumber}, password: ${_this.password}, rememberMe: ${_this.rememberMe})';
 }
 
 
@@ -66,7 +72,7 @@ class _$SignInPhoneBodyCopyWithImpl<$Res>
 /// Create a copy of SignInPhoneBody
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? phoneNumber = null,Object? password = null,Object? rememberMe = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(SignInPhoneBody(
 phoneNumber: null == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,rememberMe: freezed == rememberMe ? _self.rememberMe : rememberMe // ignore: cast_nullable_to_non_nullable
@@ -231,16 +237,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInPhoneBody&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.password, password) || other.password == password)&&(identical(other.rememberMe, rememberMe) || other.rememberMe == rememberMe));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInPhoneBody&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.password, password) || other.password == password)&&(identical(other.rememberMe, rememberMe) || other.rememberMe == rememberMe));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,phoneNumber,password,rememberMe);
+int get hashCode {
+    return Object.hash(runtimeType,phoneNumber,password,rememberMe);
+}
 
 @override
 String toString() {
-  return 'SignInPhoneBody(phoneNumber: $phoneNumber, password: $password, rememberMe: $rememberMe)';
+    return 'SignInPhoneBody(phoneNumber: $phoneNumber, password: $password, rememberMe: $rememberMe)';
 }
 
 

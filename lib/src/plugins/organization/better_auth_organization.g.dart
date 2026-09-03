@@ -25,7 +25,8 @@ class _BetterAuthOrganization implements BetterAuthOrganization {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<Result<Organization>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -294,7 +295,8 @@ class _BetterAuthOrganization implements BetterAuthOrganization {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<Result<Invitation>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
