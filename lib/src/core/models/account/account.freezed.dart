@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Account {
 
- String get id; String get providerId; String get accountId; String get userId; String? get accessToken; String? get refreshToken; String? get idToken; DateTime? get accessTokenExpiresAt; DateTime? get refreshTokenExpiresAt; String? get scope; String? get password; DateTime? get createdAt; DateTime? get updatedAt;
+ String get id; String get providerId; String get accountId; String get userId; String? get issuer; String? get accessToken; String? get refreshToken; String? get idToken; DateTime? get accessTokenExpiresAt; DateTime? get refreshTokenExpiresAt; String? get scope; String? get password; DateTime? get createdAt; DateTime? get updatedAt;
 /// Create a copy of Account
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $AccountCopyWith<Account> get copyWith => _$AccountCopyWithImpl<Account>(this as
 @override
 bool operator ==(Object other) {
   final _this = this as Account;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Account&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.providerId, _this.providerId) || other.providerId == _this.providerId)&&(identical(other.accountId, _this.accountId) || other.accountId == _this.accountId)&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.accessToken, _this.accessToken) || other.accessToken == _this.accessToken)&&(identical(other.refreshToken, _this.refreshToken) || other.refreshToken == _this.refreshToken)&&(identical(other.idToken, _this.idToken) || other.idToken == _this.idToken)&&(identical(other.accessTokenExpiresAt, _this.accessTokenExpiresAt) || other.accessTokenExpiresAt == _this.accessTokenExpiresAt)&&(identical(other.refreshTokenExpiresAt, _this.refreshTokenExpiresAt) || other.refreshTokenExpiresAt == _this.refreshTokenExpiresAt)&&(identical(other.scope, _this.scope) || other.scope == _this.scope)&&(identical(other.password, _this.password) || other.password == _this.password)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Account&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.providerId, _this.providerId) || other.providerId == _this.providerId)&&(identical(other.accountId, _this.accountId) || other.accountId == _this.accountId)&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.issuer, _this.issuer) || other.issuer == _this.issuer)&&(identical(other.accessToken, _this.accessToken) || other.accessToken == _this.accessToken)&&(identical(other.refreshToken, _this.refreshToken) || other.refreshToken == _this.refreshToken)&&(identical(other.idToken, _this.idToken) || other.idToken == _this.idToken)&&(identical(other.accessTokenExpiresAt, _this.accessTokenExpiresAt) || other.accessTokenExpiresAt == _this.accessTokenExpiresAt)&&(identical(other.refreshTokenExpiresAt, _this.refreshTokenExpiresAt) || other.refreshTokenExpiresAt == _this.refreshTokenExpiresAt)&&(identical(other.scope, _this.scope) || other.scope == _this.scope)&&(identical(other.password, _this.password) || other.password == _this.password)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as Account;
-  return Object.hash(runtimeType,_this.id,_this.providerId,_this.accountId,_this.userId,_this.accessToken,_this.refreshToken,_this.idToken,_this.accessTokenExpiresAt,_this.refreshTokenExpiresAt,_this.scope,_this.password,_this.createdAt,_this.updatedAt);
+  return Object.hash(runtimeType,_this.id,_this.providerId,_this.accountId,_this.userId,_this.issuer,_this.accessToken,_this.refreshToken,_this.idToken,_this.accessTokenExpiresAt,_this.refreshTokenExpiresAt,_this.scope,_this.password,_this.createdAt,_this.updatedAt);
 }
 
 @override
 String toString() {
   final _this = this as Account;
-  return 'Account(id: ${_this.id}, providerId: ${_this.providerId}, accountId: ${_this.accountId}, userId: ${_this.userId}, accessToken: ${_this.accessToken}, refreshToken: ${_this.refreshToken}, idToken: ${_this.idToken}, accessTokenExpiresAt: ${_this.accessTokenExpiresAt}, refreshTokenExpiresAt: ${_this.refreshTokenExpiresAt}, scope: ${_this.scope}, password: ${_this.password}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt})';
+  return 'Account(id: ${_this.id}, providerId: ${_this.providerId}, accountId: ${_this.accountId}, userId: ${_this.userId}, issuer: ${_this.issuer}, accessToken: ${_this.accessToken}, refreshToken: ${_this.refreshToken}, idToken: ${_this.idToken}, accessTokenExpiresAt: ${_this.accessTokenExpiresAt}, refreshTokenExpiresAt: ${_this.refreshTokenExpiresAt}, scope: ${_this.scope}, password: ${_this.password}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $AccountCopyWith<$Res>  {
   factory $AccountCopyWith(Account value, $Res Function(Account) _then) = _$AccountCopyWithImpl;
 @useResult
 $Res call({
- String id, String providerId, String accountId, String userId, String? accessToken, String? refreshToken, String? idToken, DateTime? accessTokenExpiresAt, DateTime? refreshTokenExpiresAt, String? scope, String? password, DateTime? createdAt, DateTime? updatedAt
+ String id, String providerId, String accountId, String userId, String? issuer, String? accessToken, String? refreshToken, String? idToken, DateTime? accessTokenExpiresAt, DateTime? refreshTokenExpiresAt, String? scope, String? password, DateTime? createdAt, DateTime? updatedAt
 });
 
 
@@ -71,13 +71,14 @@ class _$AccountCopyWithImpl<$Res>
 
 /// Create a copy of Account
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? providerId = null,Object? accountId = null,Object? userId = null,Object? accessToken = freezed,Object? refreshToken = freezed,Object? idToken = freezed,Object? accessTokenExpiresAt = freezed,Object? refreshTokenExpiresAt = freezed,Object? scope = freezed,Object? password = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? providerId = null,Object? accountId = null,Object? userId = null,Object? issuer = freezed,Object? accessToken = freezed,Object? refreshToken = freezed,Object? idToken = freezed,Object? accessTokenExpiresAt = freezed,Object? refreshTokenExpiresAt = freezed,Object? scope = freezed,Object? password = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(Account(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,providerId: null == providerId ? _self.providerId : providerId // ignore: cast_nullable_to_non_nullable
 as String,accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
+as String,issuer: freezed == issuer ? _self.issuer : issuer // ignore: cast_nullable_to_non_nullable
+as String?,accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
 as String?,idToken: freezed == idToken ? _self.idToken : idToken // ignore: cast_nullable_to_non_nullable
 as String?,accessTokenExpiresAt: freezed == accessTokenExpiresAt ? _self.accessTokenExpiresAt : accessTokenExpiresAt // ignore: cast_nullable_to_non_nullable
@@ -171,10 +172,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String providerId,  String accountId,  String userId,  String? accessToken,  String? refreshToken,  String? idToken,  DateTime? accessTokenExpiresAt,  DateTime? refreshTokenExpiresAt,  String? scope,  String? password,  DateTime? createdAt,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String providerId,  String accountId,  String userId,  String? issuer,  String? accessToken,  String? refreshToken,  String? idToken,  DateTime? accessTokenExpiresAt,  DateTime? refreshTokenExpiresAt,  String? scope,  String? password,  DateTime? createdAt,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Account() when $default != null:
-return $default(_that.id,_that.providerId,_that.accountId,_that.userId,_that.accessToken,_that.refreshToken,_that.idToken,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.scope,_that.password,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.providerId,_that.accountId,_that.userId,_that.issuer,_that.accessToken,_that.refreshToken,_that.idToken,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.scope,_that.password,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -192,10 +193,10 @@ return $default(_that.id,_that.providerId,_that.accountId,_that.userId,_that.acc
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String providerId,  String accountId,  String userId,  String? accessToken,  String? refreshToken,  String? idToken,  DateTime? accessTokenExpiresAt,  DateTime? refreshTokenExpiresAt,  String? scope,  String? password,  DateTime? createdAt,  DateTime? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String providerId,  String accountId,  String userId,  String? issuer,  String? accessToken,  String? refreshToken,  String? idToken,  DateTime? accessTokenExpiresAt,  DateTime? refreshTokenExpiresAt,  String? scope,  String? password,  DateTime? createdAt,  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _Account():
-return $default(_that.id,_that.providerId,_that.accountId,_that.userId,_that.accessToken,_that.refreshToken,_that.idToken,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.scope,_that.password,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.providerId,_that.accountId,_that.userId,_that.issuer,_that.accessToken,_that.refreshToken,_that.idToken,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.scope,_that.password,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -212,10 +213,10 @@ return $default(_that.id,_that.providerId,_that.accountId,_that.userId,_that.acc
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String providerId,  String accountId,  String userId,  String? accessToken,  String? refreshToken,  String? idToken,  DateTime? accessTokenExpiresAt,  DateTime? refreshTokenExpiresAt,  String? scope,  String? password,  DateTime? createdAt,  DateTime? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String providerId,  String accountId,  String userId,  String? issuer,  String? accessToken,  String? refreshToken,  String? idToken,  DateTime? accessTokenExpiresAt,  DateTime? refreshTokenExpiresAt,  String? scope,  String? password,  DateTime? createdAt,  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Account() when $default != null:
-return $default(_that.id,_that.providerId,_that.accountId,_that.userId,_that.accessToken,_that.refreshToken,_that.idToken,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.scope,_that.password,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.providerId,_that.accountId,_that.userId,_that.issuer,_that.accessToken,_that.refreshToken,_that.idToken,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.scope,_that.password,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -227,13 +228,14 @@ return $default(_that.id,_that.providerId,_that.accountId,_that.userId,_that.acc
 @JsonSerializable()
 
 class _Account implements Account {
-  const _Account({required this.id, required this.providerId, required this.accountId, required this.userId, this.accessToken, this.refreshToken, this.idToken, this.accessTokenExpiresAt, this.refreshTokenExpiresAt, this.scope, this.password, this.createdAt = null, this.updatedAt = null});
+  const _Account({required this.id, required this.providerId, required this.accountId, required this.userId, this.issuer, this.accessToken, this.refreshToken, this.idToken, this.accessTokenExpiresAt, this.refreshTokenExpiresAt, this.scope, this.password, this.createdAt = null, this.updatedAt = null});
   factory _Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 
 @override final  String id;
 @override final  String providerId;
 @override final  String accountId;
 @override final  String userId;
+@override final  String? issuer;
 @override final  String? accessToken;
 @override final  String? refreshToken;
 @override final  String? idToken;
@@ -257,18 +259,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Account&&(identical(other.id, id) || other.id == id)&&(identical(other.providerId, providerId) || other.providerId == providerId)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.idToken, idToken) || other.idToken == idToken)&&(identical(other.accessTokenExpiresAt, accessTokenExpiresAt) || other.accessTokenExpiresAt == accessTokenExpiresAt)&&(identical(other.refreshTokenExpiresAt, refreshTokenExpiresAt) || other.refreshTokenExpiresAt == refreshTokenExpiresAt)&&(identical(other.scope, scope) || other.scope == scope)&&(identical(other.password, password) || other.password == password)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Account&&(identical(other.id, id) || other.id == id)&&(identical(other.providerId, providerId) || other.providerId == providerId)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.issuer, issuer) || other.issuer == issuer)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.idToken, idToken) || other.idToken == idToken)&&(identical(other.accessTokenExpiresAt, accessTokenExpiresAt) || other.accessTokenExpiresAt == accessTokenExpiresAt)&&(identical(other.refreshTokenExpiresAt, refreshTokenExpiresAt) || other.refreshTokenExpiresAt == refreshTokenExpiresAt)&&(identical(other.scope, scope) || other.scope == scope)&&(identical(other.password, password) || other.password == password)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,providerId,accountId,userId,accessToken,refreshToken,idToken,accessTokenExpiresAt,refreshTokenExpiresAt,scope,password,createdAt,updatedAt);
+    return Object.hash(runtimeType,id,providerId,accountId,userId,issuer,accessToken,refreshToken,idToken,accessTokenExpiresAt,refreshTokenExpiresAt,scope,password,createdAt,updatedAt);
 }
 
 @override
 String toString() {
-    return 'Account(id: $id, providerId: $providerId, accountId: $accountId, userId: $userId, accessToken: $accessToken, refreshToken: $refreshToken, idToken: $idToken, accessTokenExpiresAt: $accessTokenExpiresAt, refreshTokenExpiresAt: $refreshTokenExpiresAt, scope: $scope, password: $password, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Account(id: $id, providerId: $providerId, accountId: $accountId, userId: $userId, issuer: $issuer, accessToken: $accessToken, refreshToken: $refreshToken, idToken: $idToken, accessTokenExpiresAt: $accessTokenExpiresAt, refreshTokenExpiresAt: $refreshTokenExpiresAt, scope: $scope, password: $password, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -279,7 +281,7 @@ abstract mixin class _$AccountCopyWith<$Res> implements $AccountCopyWith<$Res> {
   factory _$AccountCopyWith(_Account value, $Res Function(_Account) _then) = __$AccountCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String providerId, String accountId, String userId, String? accessToken, String? refreshToken, String? idToken, DateTime? accessTokenExpiresAt, DateTime? refreshTokenExpiresAt, String? scope, String? password, DateTime? createdAt, DateTime? updatedAt
+ String id, String providerId, String accountId, String userId, String? issuer, String? accessToken, String? refreshToken, String? idToken, DateTime? accessTokenExpiresAt, DateTime? refreshTokenExpiresAt, String? scope, String? password, DateTime? createdAt, DateTime? updatedAt
 });
 
 
@@ -296,13 +298,14 @@ class __$AccountCopyWithImpl<$Res>
 
 /// Create a copy of Account
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? providerId = null,Object? accountId = null,Object? userId = null,Object? accessToken = freezed,Object? refreshToken = freezed,Object? idToken = freezed,Object? accessTokenExpiresAt = freezed,Object? refreshTokenExpiresAt = freezed,Object? scope = freezed,Object? password = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? providerId = null,Object? accountId = null,Object? userId = null,Object? issuer = freezed,Object? accessToken = freezed,Object? refreshToken = freezed,Object? idToken = freezed,Object? accessTokenExpiresAt = freezed,Object? refreshTokenExpiresAt = freezed,Object? scope = freezed,Object? password = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_Account(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,providerId: null == providerId ? _self.providerId : providerId // ignore: cast_nullable_to_non_nullable
 as String,accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
+as String,issuer: freezed == issuer ? _self.issuer : issuer // ignore: cast_nullable_to_non_nullable
+as String?,accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
 as String?,idToken: freezed == idToken ? _self.idToken : idToken // ignore: cast_nullable_to_non_nullable
 as String?,accessTokenExpiresAt: freezed == accessTokenExpiresAt ? _self.accessTokenExpiresAt : accessTokenExpiresAt // ignore: cast_nullable_to_non_nullable

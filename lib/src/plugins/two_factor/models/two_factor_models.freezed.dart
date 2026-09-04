@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TwoFactorEnableBody {
 
- String get password; String? get issuer;
+ String get password; String? get issuer; String? get method;
 /// Create a copy of TwoFactorEnableBody
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $TwoFactorEnableBodyCopyWith<TwoFactorEnableBody> get copyWith => _$TwoFactorEna
 @override
 bool operator ==(Object other) {
   final _this = this as TwoFactorEnableBody;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TwoFactorEnableBody&&(identical(other.password, _this.password) || other.password == _this.password)&&(identical(other.issuer, _this.issuer) || other.issuer == _this.issuer));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TwoFactorEnableBody&&(identical(other.password, _this.password) || other.password == _this.password)&&(identical(other.issuer, _this.issuer) || other.issuer == _this.issuer)&&(identical(other.method, _this.method) || other.method == _this.method));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as TwoFactorEnableBody;
-  return Object.hash(runtimeType,_this.password,_this.issuer);
+  return Object.hash(runtimeType,_this.password,_this.issuer,_this.method);
 }
 
 @override
 String toString() {
   final _this = this as TwoFactorEnableBody;
-  return 'TwoFactorEnableBody(password: ${_this.password}, issuer: ${_this.issuer})';
+  return 'TwoFactorEnableBody(password: ${_this.password}, issuer: ${_this.issuer}, method: ${_this.method})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $TwoFactorEnableBodyCopyWith<$Res>  {
   factory $TwoFactorEnableBodyCopyWith(TwoFactorEnableBody value, $Res Function(TwoFactorEnableBody) _then) = _$TwoFactorEnableBodyCopyWithImpl;
 @useResult
 $Res call({
- String password, String? issuer
+ String password, String? issuer, String? method
 });
 
 
@@ -71,10 +71,11 @@ class _$TwoFactorEnableBodyCopyWithImpl<$Res>
 
 /// Create a copy of TwoFactorEnableBody
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? password = null,Object? issuer = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? password = null,Object? issuer = freezed,Object? method = freezed,}) {
   return _then(TwoFactorEnableBody(
 password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,issuer: freezed == issuer ? _self.issuer : issuer // ignore: cast_nullable_to_non_nullable
+as String?,method: freezed == method ? _self.method : method // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String password,  String? issuer)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String password,  String? issuer,  String? method)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TwoFactorEnableBody() when $default != null:
-return $default(_that.password,_that.issuer);case _:
+return $default(_that.password,_that.issuer,_that.method);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.password,_that.issuer);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String password,  String? issuer)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String password,  String? issuer,  String? method)  $default,) {final _that = this;
 switch (_that) {
 case _TwoFactorEnableBody():
-return $default(_that.password,_that.issuer);case _:
+return $default(_that.password,_that.issuer,_that.method);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.password,_that.issuer);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String password,  String? issuer)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String password,  String? issuer,  String? method)?  $default,) {final _that = this;
 switch (_that) {
 case _TwoFactorEnableBody() when $default != null:
-return $default(_that.password,_that.issuer);case _:
+return $default(_that.password,_that.issuer,_that.method);case _:
   return null;
 
 }
@@ -216,11 +217,12 @@ return $default(_that.password,_that.issuer);case _:
 @JsonSerializable()
 
 class _TwoFactorEnableBody implements TwoFactorEnableBody {
-  const _TwoFactorEnableBody({required this.password, this.issuer});
+  const _TwoFactorEnableBody({required this.password, this.issuer, this.method});
   factory _TwoFactorEnableBody.fromJson(Map<String, dynamic> json) => _$TwoFactorEnableBodyFromJson(json);
 
 @override final  String password;
 @override final  String? issuer;
+@override final  String? method;
 
 /// Create a copy of TwoFactorEnableBody
 /// with the given fields replaced by the non-null parameter values.
@@ -235,18 +237,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TwoFactorEnableBody&&(identical(other.password, password) || other.password == password)&&(identical(other.issuer, issuer) || other.issuer == issuer));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TwoFactorEnableBody&&(identical(other.password, password) || other.password == password)&&(identical(other.issuer, issuer) || other.issuer == issuer)&&(identical(other.method, method) || other.method == method));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,password,issuer);
+    return Object.hash(runtimeType,password,issuer,method);
 }
 
 @override
 String toString() {
-    return 'TwoFactorEnableBody(password: $password, issuer: $issuer)';
+    return 'TwoFactorEnableBody(password: $password, issuer: $issuer, method: $method)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$TwoFactorEnableBodyCopyWith<$Res> implements $TwoFactorEn
   factory _$TwoFactorEnableBodyCopyWith(_TwoFactorEnableBody value, $Res Function(_TwoFactorEnableBody) _then) = __$TwoFactorEnableBodyCopyWithImpl;
 @override @useResult
 $Res call({
- String password, String? issuer
+ String password, String? issuer, String? method
 });
 
 
@@ -274,10 +276,11 @@ class __$TwoFactorEnableBodyCopyWithImpl<$Res>
 
 /// Create a copy of TwoFactorEnableBody
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? password = null,Object? issuer = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? password = null,Object? issuer = freezed,Object? method = freezed,}) {
   return _then(_TwoFactorEnableBody(
 password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,issuer: freezed == issuer ? _self.issuer : issuer // ignore: cast_nullable_to_non_nullable
+as String?,method: freezed == method ? _self.method : method // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -832,7 +835,7 @@ as bool?,
 /// @nodoc
 mixin _$TwoFactorEnableResponse {
 
- String get totpURI; List<String> get backupCodes;
+ String? get method; String? get totpURI; List<String> get backupCodes;
 /// Create a copy of TwoFactorEnableResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -846,20 +849,20 @@ $TwoFactorEnableResponseCopyWith<TwoFactorEnableResponse> get copyWith => _$TwoF
 @override
 bool operator ==(Object other) {
   final _this = this as TwoFactorEnableResponse;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TwoFactorEnableResponse&&(identical(other.totpURI, _this.totpURI) || other.totpURI == _this.totpURI)&&const DeepCollectionEquality().equals(other.backupCodes, _this.backupCodes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TwoFactorEnableResponse&&(identical(other.method, _this.method) || other.method == _this.method)&&(identical(other.totpURI, _this.totpURI) || other.totpURI == _this.totpURI)&&const DeepCollectionEquality().equals(other.backupCodes, _this.backupCodes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as TwoFactorEnableResponse;
-  return Object.hash(runtimeType,_this.totpURI,const DeepCollectionEquality().hash(_this.backupCodes));
+  return Object.hash(runtimeType,_this.method,_this.totpURI,const DeepCollectionEquality().hash(_this.backupCodes));
 }
 
 @override
 String toString() {
   final _this = this as TwoFactorEnableResponse;
-  return 'TwoFactorEnableResponse(totpURI: ${_this.totpURI}, backupCodes: ${_this.backupCodes})';
+  return 'TwoFactorEnableResponse(method: ${_this.method}, totpURI: ${_this.totpURI}, backupCodes: ${_this.backupCodes})';
 }
 
 
@@ -870,7 +873,7 @@ abstract mixin class $TwoFactorEnableResponseCopyWith<$Res>  {
   factory $TwoFactorEnableResponseCopyWith(TwoFactorEnableResponse value, $Res Function(TwoFactorEnableResponse) _then) = _$TwoFactorEnableResponseCopyWithImpl;
 @useResult
 $Res call({
- String totpURI, List<String> backupCodes
+ String? method, String? totpURI, List<String> backupCodes
 });
 
 
@@ -887,10 +890,11 @@ class _$TwoFactorEnableResponseCopyWithImpl<$Res>
 
 /// Create a copy of TwoFactorEnableResponse
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? totpURI = null,Object? backupCodes = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? method = freezed,Object? totpURI = freezed,Object? backupCodes = null,}) {
   return _then(TwoFactorEnableResponse(
-totpURI: null == totpURI ? _self.totpURI : totpURI // ignore: cast_nullable_to_non_nullable
-as String,backupCodes: null == backupCodes ? _self.backupCodes : backupCodes // ignore: cast_nullable_to_non_nullable
+method: freezed == method ? _self.method : method // ignore: cast_nullable_to_non_nullable
+as String?,totpURI: freezed == totpURI ? _self.totpURI : totpURI // ignore: cast_nullable_to_non_nullable
+as String?,backupCodes: null == backupCodes ? _self.backupCodes : backupCodes // ignore: cast_nullable_to_non_nullable
 as List<String>,
   ));
 }
@@ -976,10 +980,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String totpURI,  List<String> backupCodes)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? method,  String? totpURI,  List<String> backupCodes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TwoFactorEnableResponse() when $default != null:
-return $default(_that.totpURI,_that.backupCodes);case _:
+return $default(_that.method,_that.totpURI,_that.backupCodes);case _:
   return orElse();
 
 }
@@ -997,10 +1001,10 @@ return $default(_that.totpURI,_that.backupCodes);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String totpURI,  List<String> backupCodes)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? method,  String? totpURI,  List<String> backupCodes)  $default,) {final _that = this;
 switch (_that) {
 case _TwoFactorEnableResponse():
-return $default(_that.totpURI,_that.backupCodes);case _:
+return $default(_that.method,_that.totpURI,_that.backupCodes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1017,10 +1021,10 @@ return $default(_that.totpURI,_that.backupCodes);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String totpURI,  List<String> backupCodes)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? method,  String? totpURI,  List<String> backupCodes)?  $default,) {final _that = this;
 switch (_that) {
 case _TwoFactorEnableResponse() when $default != null:
-return $default(_that.totpURI,_that.backupCodes);case _:
+return $default(_that.method,_that.totpURI,_that.backupCodes);case _:
   return null;
 
 }
@@ -1032,10 +1036,11 @@ return $default(_that.totpURI,_that.backupCodes);case _:
 @JsonSerializable()
 
 class _TwoFactorEnableResponse implements TwoFactorEnableResponse {
-  const _TwoFactorEnableResponse({required this.totpURI,  List<String> backupCodes = const <String>[]}): _backupCodes = backupCodes;
+  const _TwoFactorEnableResponse({this.method, this.totpURI,  List<String> backupCodes = const <String>[]}): _backupCodes = backupCodes;
   factory _TwoFactorEnableResponse.fromJson(Map<String, dynamic> json) => _$TwoFactorEnableResponseFromJson(json);
 
-@override final  String totpURI;
+@override final  String? method;
+@override final  String? totpURI;
  final  List<String> _backupCodes;
 @override@JsonKey() List<String> get backupCodes {
   if (_backupCodes is EqualUnmodifiableListView) return _backupCodes;
@@ -1057,18 +1062,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TwoFactorEnableResponse&&(identical(other.totpURI, totpURI) || other.totpURI == totpURI)&&const DeepCollectionEquality().equals(other.backupCodes, _backupCodes));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TwoFactorEnableResponse&&(identical(other.method, method) || other.method == method)&&(identical(other.totpURI, totpURI) || other.totpURI == totpURI)&&const DeepCollectionEquality().equals(other.backupCodes, _backupCodes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,totpURI,const DeepCollectionEquality().hash(_backupCodes));
+    return Object.hash(runtimeType,method,totpURI,const DeepCollectionEquality().hash(_backupCodes));
 }
 
 @override
 String toString() {
-    return 'TwoFactorEnableResponse(totpURI: $totpURI, backupCodes: $backupCodes)';
+    return 'TwoFactorEnableResponse(method: $method, totpURI: $totpURI, backupCodes: $backupCodes)';
 }
 
 
@@ -1079,7 +1084,7 @@ abstract mixin class _$TwoFactorEnableResponseCopyWith<$Res> implements $TwoFact
   factory _$TwoFactorEnableResponseCopyWith(_TwoFactorEnableResponse value, $Res Function(_TwoFactorEnableResponse) _then) = __$TwoFactorEnableResponseCopyWithImpl;
 @override @useResult
 $Res call({
- String totpURI, List<String> backupCodes
+ String? method, String? totpURI, List<String> backupCodes
 });
 
 
@@ -1096,10 +1101,11 @@ class __$TwoFactorEnableResponseCopyWithImpl<$Res>
 
 /// Create a copy of TwoFactorEnableResponse
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? totpURI = null,Object? backupCodes = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? method = freezed,Object? totpURI = freezed,Object? backupCodes = null,}) {
   return _then(_TwoFactorEnableResponse(
-totpURI: null == totpURI ? _self.totpURI : totpURI // ignore: cast_nullable_to_non_nullable
-as String,backupCodes: null == backupCodes ? _self._backupCodes : backupCodes // ignore: cast_nullable_to_non_nullable
+method: freezed == method ? _self.method : method // ignore: cast_nullable_to_non_nullable
+as String?,totpURI: freezed == totpURI ? _self.totpURI : totpURI // ignore: cast_nullable_to_non_nullable
+as String?,backupCodes: null == backupCodes ? _self._backupCodes : backupCodes // ignore: cast_nullable_to_non_nullable
 as List<String>,
   ));
 }

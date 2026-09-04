@@ -16,7 +16,11 @@ void main() {
   group("two_factor plugin", () {
     test("exposes typed request and response models", () {
       const enable = TwoFactorEnableBody(password: "pw");
-      expect(enable.toJson(), {"password": "pw", "issuer": null});
+      expect(enable.toJson(), {
+        "password": "pw",
+        "issuer": null,
+        "method": null,
+      });
 
       const verify = TwoFactorVerifyBody(code: "123456", trustDevice: true);
       expect(verify.toJson()["trustDevice"], isTrue);

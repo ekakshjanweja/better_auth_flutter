@@ -83,4 +83,18 @@ abstract class BetterAuthAdmin {
   Future<Result<CheckPermissionResponse>> hasPermission({
     @BodyExtra("permissions") required Map<String, dynamic> permissions,
   });
+
+  /// Reads a single user by id (`GET /admin/get-user?id=…`).
+  @GET("/admin/get-user")
+  Future<Result<UserResponse>> getUser({
+    @Query("id") required String id,
+  });
+
+  /// Updates user fields. [body] is `{"userId": …, "data": {…}}` where `data`
+  /// is a flat map of user columns to set (`name`, `email`, `role`,
+  /// `banned`, …).
+  @POST("/admin/update-user")
+  Future<Result<UserResponse>> updateUser({
+    @Body(nullToAbsent: true) required Map<String, dynamic> body,
+  });
 }

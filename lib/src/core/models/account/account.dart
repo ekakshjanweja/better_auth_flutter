@@ -10,6 +10,10 @@ abstract class Account with _$Account {
     required String providerId,
     required String accountId,
     required String userId,
+    // 1.7 account identity namespace (`local:credential`,
+    // `local:oauth:<provider>`, or the provider's trusted issuer).
+    // Nullable so rows from pre-1.7 servers still parse.
+    String? issuer,
     String? accessToken,
     String? refreshToken,
     String? idToken,

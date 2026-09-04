@@ -21,6 +21,11 @@ abstract class BetterAuthMagicLink {
 
   /// Sends a sign-in link to the given email. Delivery is handled by the
   /// server; the link's callback carries the token back to the app.
+  ///
+  /// Since server 1.7, if the account's email was never confirmed and the
+  /// user first signs in here instead, the server treats proven mailbox
+  /// control as truth: it removes any unproven password/linked accounts and
+  /// revokes sessions. Tell the user to set a new password via reset flow.
   @POST("/sign-in/magic-link")
   Future<Result<StatusResponse>> signIn({@Body() required MagicLinkBody body});
 

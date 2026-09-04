@@ -60,7 +60,7 @@ class _BetterAuthClient implements BetterAuthClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/reference/openapi.json',
+            '/open-api/generate-schema',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -616,7 +616,7 @@ class _BetterAuthClient implements BetterAuthClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/forget-password',
+            '/request-password-reset',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -721,42 +721,6 @@ class _BetterAuthClient implements BetterAuthClient {
   }) {
     return BetterAuthCallAdapter<StatusResponse>().adapt(
       () => _validateResetPasswordToken(token: token),
-    );
-  }
-
-  Future<HttpResponse<StatusResponse>> _setPassword({
-    required String newPassword,
-  }) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{'newPassword': newPassword};
-    final _options = _setStreamType<Result<StatusResponse>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            '/set-password',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late StatusResponse _value;
-    try {
-      _value = StatusResponse.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
-      rethrow;
-    }
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<Result<StatusResponse>> setPassword({required String newPassword}) {
-    return BetterAuthCallAdapter<StatusResponse>().adapt(
-      () => _setPassword(newPassword: newPassword),
     );
   }
 
@@ -946,12 +910,21 @@ class _BetterAuthClient implements BetterAuthClient {
   Future<HttpResponse<StatusResponse>> _updateUser({
     String? name,
     String? image,
+    String? username,
+    String? displayUsername,
+    String? phoneNumber,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{'name': name, 'image': image};
+    final _data = <String, dynamic>{
+      'name': name,
+      'image': image,
+      'username': username,
+      'displayUsername': displayUsername,
+      'phoneNumber': phoneNumber,
+    };
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<Result<StatusResponse>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
@@ -976,9 +949,55 @@ class _BetterAuthClient implements BetterAuthClient {
   }
 
   @override
-  Future<Result<StatusResponse>> updateUser({String? name, String? image}) {
+  Future<Result<StatusResponse>> updateUser({
+    String? name,
+    String? image,
+    String? username,
+    String? displayUsername,
+    String? phoneNumber,
+  }) {
     return BetterAuthCallAdapter<StatusResponse>().adapt(
-      () => _updateUser(name: name, image: image),
+      () => _updateUser(
+        name: name,
+        image: image,
+        username: username,
+        displayUsername: displayUsername,
+        phoneNumber: phoneNumber,
+      ),
+    );
+  }
+
+  Future<HttpResponse<dynamic>> _updateSession({
+    Map<String, dynamic> body = const {},
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    _data.removeWhere((k, v) => v == null);
+    final _options = _setStreamType<Result<dynamic>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/update-session',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<dynamic>> updateSession({
+    Map<String, dynamic> body = const {},
+  }) {
+    return BetterAuthCallAdapter<dynamic>().adapt(
+      () => _updateSession(body: body),
     );
   }
 
@@ -1184,14 +1203,12 @@ class _BetterAuthClient implements BetterAuthClient {
   }
 
   Future<HttpResponse<StatusResponse>> _unlinkAccount({
-    Map<String, dynamic> body = const {},
+    required String accountId,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body);
-    _data.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{'accountId': accountId};
     final _options = _setStreamType<Result<StatusResponse>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -1215,11 +1232,9 @@ class _BetterAuthClient implements BetterAuthClient {
   }
 
   @override
-  Future<Result<StatusResponse>> unlinkAccount({
-    Map<String, dynamic> body = const {},
-  }) {
+  Future<Result<StatusResponse>> unlinkAccount({required String accountId}) {
     return BetterAuthCallAdapter<StatusResponse>().adapt(
-      () => _unlinkAccount(body: body),
+      () => _unlinkAccount(accountId: accountId),
     );
   }
 
@@ -1408,6 +1423,68 @@ class _BetterAuthClient implements BetterAuthClient {
     );
   }
 
+  Future<HttpResponse<dynamic>> _oauthCallbackPost({
+    required String provider,
+    Map<String, dynamic> body = const {},
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    _data.removeWhere((k, v) => v == null);
+    final _options = _setStreamType<Result<dynamic>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/callback/${provider}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<dynamic>> oauthCallbackPost({
+    required String provider,
+    Map<String, dynamic> body = const {},
+  }) {
+    return BetterAuthCallAdapter<dynamic>().adapt(
+      () => _oauthCallbackPost(provider: provider, body: body),
+    );
+  }
+
+  Future<HttpResponse<dynamic>> _errorCodes() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<Result<dynamic>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/error',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<dynamic>> errorCodes() {
+    return BetterAuthCallAdapter<dynamic>().adapt(() => _errorCodes());
+  }
+
   Future<HttpResponse<SignInSocialResponse>> _linkSocial({
     Map<String, dynamic> body = const {},
   }) async {
@@ -1449,13 +1526,19 @@ class _BetterAuthClient implements BetterAuthClient {
   }
 
   Future<HttpResponse<dynamic>> _getAccessToken({
-    Map<String, dynamic> body = const {},
+    String? accountId,
+    bool? useAccountCookie,
+    String? userId,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body);
+    final _data = <String, dynamic>{
+      'accountId': accountId,
+      'useAccountCookie': useAccountCookie,
+      'userId': userId,
+    };
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
@@ -1475,21 +1558,33 @@ class _BetterAuthClient implements BetterAuthClient {
 
   @override
   Future<Result<dynamic>> getAccessToken({
-    Map<String, dynamic> body = const {},
+    String? accountId,
+    bool? useAccountCookie,
+    String? userId,
   }) {
     return BetterAuthCallAdapter<dynamic>().adapt(
-      () => _getAccessToken(body: body),
+      () => _getAccessToken(
+        accountId: accountId,
+        useAccountCookie: useAccountCookie,
+        userId: userId,
+      ),
     );
   }
 
   Future<HttpResponse<dynamic>> _refreshToken({
-    Map<String, dynamic> body = const {},
+    String? accountId,
+    bool? useAccountCookie,
+    String? userId,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body);
+    final _data = <String, dynamic>{
+      'accountId': accountId,
+      'useAccountCookie': useAccountCookie,
+      'userId': userId,
+    };
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
@@ -1508,10 +1603,44 @@ class _BetterAuthClient implements BetterAuthClient {
   }
 
   @override
-  Future<Result<dynamic>> refreshToken({Map<String, dynamic> body = const {}}) {
+  Future<Result<dynamic>> refreshToken({
+    String? accountId,
+    bool? useAccountCookie,
+    String? userId,
+  }) {
     return BetterAuthCallAdapter<dynamic>().adapt(
-      () => _refreshToken(body: body),
+      () => _refreshToken(
+        accountId: accountId,
+        useAccountCookie: useAccountCookie,
+        userId: userId,
+      ),
     );
+  }
+
+  Future<HttpResponse<dynamic>> _accountInfo() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<Result<dynamic>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/account-info',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<dynamic>> accountInfo() {
+    return BetterAuthCallAdapter<dynamic>().adapt(() => _accountInfo());
   }
 
   Future<HttpResponse<dynamic>> _enableTwoFactor({
@@ -1966,6 +2095,65 @@ class _BetterAuthClient implements BetterAuthClient {
     return BetterAuthCallAdapter<dynamic>().adapt(
       () => _getFullOrganization(queries: queries),
     );
+  }
+
+  Future<HttpResponse<dynamic>> _getOrganization({
+    Map<String, dynamic> queries = const {},
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(queries);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<Result<dynamic>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/organization/get-organization',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<dynamic>> getOrganization({
+    Map<String, dynamic> queries = const {},
+  }) {
+    return BetterAuthCallAdapter<dynamic>().adapt(
+      () => _getOrganization(queries: queries),
+    );
+  }
+
+  Future<HttpResponse<dynamic>> _getActiveMemberRole() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<Result<dynamic>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/organization/get-active-member-role',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<dynamic>> getActiveMemberRole() {
+    return BetterAuthCallAdapter<dynamic>().adapt(() => _getActiveMemberRole());
   }
 
   Future<HttpResponse<dynamic>> _checkOrganizationSlug({
@@ -3207,17 +3395,13 @@ class _BetterAuthClient implements BetterAuthClient {
     );
   }
 
-  Future<HttpResponse<dynamic>> _generatePasskeyAuthenticateOptions({
-    Map<String, dynamic> body = const {},
-  }) async {
+  Future<HttpResponse<dynamic>> _generatePasskeyAuthenticateOptions() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body);
-    _data.removeWhere((k, v) => v == null);
+    const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<Result<dynamic>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+      Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
             '/passkey/generate-authenticate-options',
@@ -3233,11 +3417,9 @@ class _BetterAuthClient implements BetterAuthClient {
   }
 
   @override
-  Future<Result<dynamic>> generatePasskeyAuthenticateOptions({
-    Map<String, dynamic> body = const {},
-  }) {
+  Future<Result<dynamic>> generatePasskeyAuthenticateOptions() {
     return BetterAuthCallAdapter<dynamic>().adapt(
-      () => _generatePasskeyAuthenticateOptions(body: body),
+      () => _generatePasskeyAuthenticateOptions(),
     );
   }
 
@@ -3513,6 +3695,34 @@ class _BetterAuthClient implements BetterAuthClient {
   Future<Result<dynamic>> denyDevice({Map<String, dynamic> body = const {}}) {
     return BetterAuthCallAdapter<dynamic>().adapt(
       () => _denyDevice(body: body),
+    );
+  }
+
+  Future<HttpResponse<dynamic>> _deviceInfo({required String userCode}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'user_code': userCode};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<Result<dynamic>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/device',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<Result<dynamic>> deviceInfo({required String userCode}) {
+    return BetterAuthCallAdapter<dynamic>().adapt(
+      () => _deviceInfo(userCode: userCode),
     );
   }
 

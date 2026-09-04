@@ -30,7 +30,10 @@ abstract class BetterAuthClient {
   @GET("/ok")
   Future<Result<StatusResponse>> ok();
 
-  @GET("/reference/openapi.json")
+  /// Raw Better Auth OpenAPI schema. Since server 1.7 this lives at
+  /// `/open-api/generate-schema` (`/reference/openapi.json` was removed);
+  /// `/reference` now serves the Scalar HTML reference instead.
+  @GET("/open-api/generate-schema")
   Future<Result<dynamic>> openApiReference();
 
   @POST("/sign-up/email")
@@ -125,7 +128,10 @@ abstract class BetterAuthClient {
     @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
   });
 
-  @POST("/forget-password")
+  /// Requests a password-reset email. Since server 1.7 the route is
+  /// `/request-password-reset` (`/forget-password` was removed). Needs the
+  /// server's `sendResetPassword` email hook configured.
+  @POST("/request-password-reset")
   Future<Result<StatusResponse>> forgotPassword({
     @BodyExtra("email") required String email,
     @BodyExtra("redirectTo") String? redirectTo,
@@ -140,11 +146,6 @@ abstract class BetterAuthClient {
   @GET("/reset-password/{token}")
   Future<Result<StatusResponse>> validateResetPasswordToken({
     @Path("token") required String token,
-  });
-
-  @POST("/set-password")
-  Future<Result<StatusResponse>> setPassword({
-    @BodyExtra("newPassword") required String newPassword,
   });
 
   @GET("/verify-email")
@@ -176,6 +177,15 @@ abstract class BetterAuthClient {
   Future<Result<StatusResponse>> updateUser({
     @BodyExtra("name") String? name,
     @BodyExtra("image") String? image,
+    @BodyExtra("username") String? username,
+    @BodyExtra("displayUsername") String? displayUsername,
+    @BodyExtra("phoneNumber") String? phoneNumber,
+  });
+
+  /// Writes custom session data (flat key/value map) to the current session.
+  @POST("/update-session")
+  Future<Result<dynamic>> updateSession({
+    @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
   });
 
   /// Raw `POST /update-user` body. Prefer [updateUser]; use this for
@@ -210,9 +220,12 @@ abstract class BetterAuthClient {
   @GET("/list-accounts")
   Future<Result<List<Account>>> listAccounts();
 
+  /// Unlinks an external account. Since server 1.7 [accountId] is required
+  /// and must be the local account row id from [listAccounts]
+  /// (`account.id`) — the old `providerId`-based selectors were removed.
   @POST("/unlink-account")
   Future<Result<StatusResponse>> unlinkAccount({
-    @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
+    @BodyExtra("accountId") required String accountId,
   });
 
   @GET("/list-sessions")
@@ -239,20 +252,51 @@ abstract class BetterAuthClient {
     @Queries() Map<String, dynamic> queries = const {},
   });
 
+  /// POST variant of the OAuth callback. Needed for providers that post the
+  /// authorization response back (e.g. Sign in with Apple with
+  /// `response_mode=form_post`): [body] carries the posted form fields
+  /// (`code`, `state`, `user`, `error`, …).
+  @POST("/callback/{provider}")
+  Future<Result<dynamic>> oauthCallbackPost({
+    @Path("provider") required String provider,
+    @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
+  });
+
+  /// Machine-readable error-code reference served by the backend.
+  @GET("/error")
+  Future<Result<dynamic>> errorCodes();
+
   @POST("/link-social")
   Future<Result<SignInSocialResponse>> linkSocial({
     @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
   });
 
+  /// Reads the provider tokens for a linked account. Since server 1.7 the
+  /// account must be selected explicitly: pass the local account row id
+  /// from [listAccounts] as [accountId], or `useAccountCookie: true` to use
+  /// the signed account cookie. Omitting both is rejected by the server.
   @POST("/get-access-token")
   Future<Result<dynamic>> getAccessToken({
-    @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
+    @BodyExtra("accountId") String? accountId,
+    @BodyExtra("useAccountCookie") bool? useAccountCookie,
+    @BodyExtra("userId") String? userId,
   });
 
+  /// Refreshes provider tokens. Same 1.7 account selectors as
+  /// [getAccessToken]: [accountId] or `useAccountCookie: true`.
   @POST("/refresh-token")
   Future<Result<dynamic>> refreshToken({
-    @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
+    @BodyExtra("accountId") String? accountId,
+    @BodyExtra("useAccountCookie") bool? useAccountCookie,
+    @BodyExtra("userId") String? userId,
   });
+
+  /// 1.7 account identity for the selected account: `{user, account, data}`.
+  /// `account` carries the local row `id` plus the 1.7 `issuer` and
+  /// provider-side `accountId` — use `account.id` for [unlinkAccount] and
+  /// the token selectors above; `providerId` selectors no longer exist.
+  @GET("/account-info")
+  Future<Result<dynamic>> accountInfo();
 
   @POST("/two-factor/enable")
   Future<Result<dynamic>> enableTwoFactor({
@@ -318,6 +362,14 @@ abstract class BetterAuthClient {
   Future<Result<dynamic>> getFullOrganization({
     @Queries() Map<String, dynamic> queries = const {},
   });
+
+  @GET("/organization/get-organization")
+  Future<Result<dynamic>> getOrganization({
+    @Queries() Map<String, dynamic> queries = const {},
+  });
+
+  @GET("/organization/get-active-member-role")
+  Future<Result<dynamic>> getActiveMemberRole();
 
   @POST("/organization/check-slug")
   Future<Result<dynamic>> checkOrganizationSlug({
@@ -494,10 +546,10 @@ abstract class BetterAuthClient {
     @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
   });
 
-  @POST("/passkey/generate-authenticate-options")
-  Future<Result<dynamic>> generatePasskeyAuthenticateOptions({
-    @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
-  });
+  /// `GET /passkey/generate-authenticate-options` since the 1.7 passkey
+  /// extraction (`@better-auth/passkey`).
+  @GET("/passkey/generate-authenticate-options")
+  Future<Result<dynamic>> generatePasskeyAuthenticateOptions();
 
   @POST("/passkey/verify-authentication")
   Future<Result<dynamic>> verifyPasskeyAuthentication({
@@ -537,5 +589,12 @@ abstract class BetterAuthClient {
   @POST("/device/deny")
   Future<Result<dynamic>> denyDevice({
     @Body(nullToAbsent: true) Map<String, dynamic> body = const {},
+  });
+
+  /// Polls a device-authorization request: `{user_code, status, client_id?,
+  /// scope?}` with `status` one of `pending`/`approved`/`denied`.
+  @GET("/device")
+  Future<Result<dynamic>> deviceInfo({
+    @Query("user_code") required String userCode,
   });
 }

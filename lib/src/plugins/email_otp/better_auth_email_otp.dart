@@ -27,6 +27,9 @@ abstract class BetterAuthEmailOtp {
     @BodyExtra("otp") required String otp,
   });
 
+  /// Signs in with an OTP. Same server-1.7 mailbox-truth rule as the
+  /// magic-link flow: an unconfirmed account signing in here first loses
+  /// its unproven password/linked accounts and sessions.
   @POST("/sign-in/email-otp")
   Future<Result<SignUpResponse>> signIn({
     @BodyExtra("email") required String email,
@@ -43,5 +46,33 @@ abstract class BetterAuthEmailOtp {
     @BodyExtra("email") required String email,
     @BodyExtra("otp") required String otp,
     @BodyExtra("password") required String password,
+  });
+
+  /// Starts an email change: sends an OTP to [newEmail].
+  @POST("/email-otp/request-email-change")
+  Future<Result<SuccessResponse>> requestEmailChange({
+    @BodyExtra("newEmail") required String newEmail,
+  });
+
+  /// Completes an email change with the OTP sent to the new address.
+  @POST("/email-otp/change-email")
+  Future<Result<SuccessResponse>> changeEmail({
+    @BodyExtra("newEmail") required String newEmail,
+    @BodyExtra("otp") required String otp,
+  });
+
+  /// Verifies an OTP without consuming it. [type] is one of
+  /// `email-verification`, `sign-in`, `forget-password`, `change-email`.
+  @POST("/email-otp/check-verification-otp")
+  Future<Result<SuccessResponse>> checkVerificationOtp({
+    @BodyExtra("email") required String email,
+    @BodyExtra("type") required String type,
+    @BodyExtra("otp") required String otp,
+  });
+
+  /// Sends a password-reset OTP (no reset link involved).
+  @POST("/email-otp/request-password-reset")
+  Future<Result<SuccessResponse>> requestPasswordReset({
+    @BodyExtra("email") required String email,
   });
 }

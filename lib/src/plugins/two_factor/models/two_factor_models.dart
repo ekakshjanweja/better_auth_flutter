@@ -4,11 +4,17 @@ part "two_factor_models.freezed.dart";
 part "two_factor_models.g.dart";
 
 /// Body for enabling two-factor auth. [password] re-authenticates the user.
+///
+/// [method] selects the second factor (server 1.7): `"totp"` (default,
+/// returns [TwoFactorEnableResponse.totpURI] + backup codes) or `"otp"`
+/// (codes are delivered over the configured channel; the response carries
+/// no `totpURI`).
 @freezed
 abstract class TwoFactorEnableBody with _$TwoFactorEnableBody {
   const factory TwoFactorEnableBody({
     required String password,
     String? issuer,
+    String? method,
   }) = _TwoFactorEnableBody;
 
   factory TwoFactorEnableBody.fromJson(Map<String, dynamic> json) =>
@@ -37,12 +43,15 @@ abstract class TwoFactorVerifyBody with _$TwoFactorVerifyBody {
       _$TwoFactorVerifyBodyFromJson(json);
 }
 
-/// Response from enabling 2FA: the TOTP URI to render as a QR code, plus
-/// one-time backup codes to show the user once.
+/// Response from enabling 2FA. Branch on [method] (server 1.7 returns it):
+/// `"totp"` carries the [totpURI] to render as a QR code plus one-time
+/// backup codes to show the user once; `"otp"` carries neither (codes go
+/// out over the configured channel), so [totpURI] is null there.
 @freezed
 abstract class TwoFactorEnableResponse with _$TwoFactorEnableResponse {
   const factory TwoFactorEnableResponse({
-    required String totpURI,
+    String? method,
+    String? totpURI,
     @Default(<String>[]) List<String> backupCodes,
   }) = _TwoFactorEnableResponse;
 

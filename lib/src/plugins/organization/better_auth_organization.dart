@@ -67,4 +67,12 @@ abstract class BetterAuthOrganization {
   Future<Result<Invitation>> acceptInvitation({
     @Body() required Map<String, dynamic> body,
   });
+
+  @GET("/organization/get-organization")
+  Future<Result<dynamic>> getOrganization({
+    @Queries() Map<String, dynamic> queries = const {},
+  });
+
+  @GET("/organization/get-active-member-role")
+  Future<Result<dynamic>> getActiveMemberRole();
 }

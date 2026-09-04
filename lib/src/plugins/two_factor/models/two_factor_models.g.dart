@@ -10,6 +10,7 @@ _TwoFactorEnableBody _$TwoFactorEnableBodyFromJson(Map<String, dynamic> json) =>
     _TwoFactorEnableBody(
       password: json['password'] as String,
       issuer: json['issuer'] as String?,
+      method: json['method'] as String?,
     );
 
 Map<String, dynamic> _$TwoFactorEnableBodyToJson(
@@ -17,6 +18,7 @@ Map<String, dynamic> _$TwoFactorEnableBodyToJson(
 ) => <String, dynamic>{
   'password': instance.password,
   'issuer': instance.issuer,
+  'method': instance.method,
 };
 
 _TwoFactorPasswordBody _$TwoFactorPasswordBodyFromJson(
@@ -43,7 +45,8 @@ Map<String, dynamic> _$TwoFactorVerifyBodyToJson(
 _TwoFactorEnableResponse _$TwoFactorEnableResponseFromJson(
   Map<String, dynamic> json,
 ) => _TwoFactorEnableResponse(
-  totpURI: json['totpURI'] as String,
+  method: json['method'] as String?,
+  totpURI: json['totpURI'] as String?,
   backupCodes:
       (json['backupCodes'] as List<dynamic>?)
           ?.map((e) => e as String)
@@ -54,6 +57,7 @@ _TwoFactorEnableResponse _$TwoFactorEnableResponseFromJson(
 Map<String, dynamic> _$TwoFactorEnableResponseToJson(
   _TwoFactorEnableResponse instance,
 ) => <String, dynamic>{
+  'method': instance.method,
   'totpURI': instance.totpURI,
   'backupCodes': instance.backupCodes,
 };

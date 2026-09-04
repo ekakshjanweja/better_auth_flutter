@@ -1,5 +1,45 @@
 # Changelog
 
+## 0.1.2
+
+Aligns the client with Better Auth server **1.7** (backend in
+`vigilant-spoon` updated 1.6.9 → 1.7.2, including the extracted
+`@better-auth/passkey` and `@better-auth/api-key` packages).
+
+### Breaking
+
+* `setPassword` (`POST /set-password`) removed — the route no longer exists
+  in 1.7. Use the reset-password flow instead.
+* `unlinkAccount` now requires the local `accountId` from `listAccounts`;
+  the old `providerId`-based call is rejected by 1.7 servers.
+* `TwoFactorEnableResponse.totpURI` is nullable and carries the new
+  `method` field — OTP-method enables return no `totpURI`/backup codes.
+* `TwoFactorEnableBody` accepts `method: "otp" | "totp"`.
+
+### Added
+
+* 1.7 account identity: `Account.issuer`, `accountInfo()`
+  (`GET /account-info`), and explicit selectors on `getAccessToken` /
+  `refreshToken` (`accountId` or `useAccountCookie`).
+* New core routes: `updateSession`, `deviceInfo` (`GET /device`),
+  `errorCodes` (`GET /error`), `oauthCallbackPost`
+  (`POST /callback/{provider}` — e.g. Apple `form_post`), `getOrganization`,
+  `getActiveMemberRole`.
+* New plugin routes: anonymous `deleteUser`, email-OTP `requestEmailChange`
+  / `changeEmail` / `checkVerificationOtp` / `requestPasswordReset`, admin
+  `getUser` / `updateUser`, organization `getOrganization` /
+  `getActiveMemberRole`.
+* `updateUser` accepts `username`, `displayUsername`, `phoneNumber`.
+
+### Fixed
+
+* `forgotPassword` calls `POST /request-password-reset`
+  (`/forget-password` removed in 1.7).
+* `openApiReference` calls `GET /open-api/generate-schema`
+  (`/reference/openapi.json` removed in 1.7).
+* Passkey authenticate options fetched with `GET`, matching the extracted
+  1.7 passkey package.
+
 ## 0.1.1
 
 ### Added
