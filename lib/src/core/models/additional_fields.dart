@@ -1,8 +1,8 @@
 import "package:better_auth_flutter/src/core/models/session/session.dart";
 import "package:better_auth_flutter/src/core/models/user/user.dart";
 
-/// Reads an [User.additionalFields] / [Session.additionalFields] entry with a
-/// typed cast. Returns `null` when [key] is absent; throws an [ArgumentError]
+/// Reads a [User.additionalFields] / [Session.additionalFields] entry with
+/// a typed cast. Returns `null` when [key] is absent; throws an [ArgumentError]
 /// when the key exists but the value isn't assignable to [T]. Pass [decode]
 /// for values that need conversion (e.g. nested JSON into a typed object).
 T? _readAdditionalField<T>(

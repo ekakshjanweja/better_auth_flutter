@@ -22,7 +22,7 @@ Suggestions or contributions welcome — reach out at [@ekaksh_janweja](https://
 
 ```yaml
 dependencies:
-  better_auth_flutter: ^0.1.1
+  better_auth_flutter: ^0.2.0
 ```
 
 ## Getting started
@@ -54,6 +54,10 @@ void main() async {
 | `hydrateOnInit` | `true` | Look up the stored session in the background on startup |
 | `mode` | `AuthMode.cookie` | Cookie or bearer authentication |
 | `callbackUrlScheme` | `null` | Custom URL scheme for browser-redirect social sign-in |
+| `tokenStorage` | keychain on native | Bearer-mode token store. Defaults to `SecureTokenStorage` |
+
+`initialize` can be called again; it tears down the previous configuration first.
+`BetterAuthFlutter.reset()` does the same teardown without starting a new client.
 
 ## Results
 
@@ -220,18 +224,34 @@ if (free.data?.available == true) print("username is free");
 
 ### Additional fields
 
-Better Auth lets you add custom columns to the `user` and `session` tables.
-The server merges them as flat top-level keys into the JSON, so this client
-collects every key the static models don't own into an `additionalFields` map
-rather than dropping it:
+Better Auth custom columns land in `additionalFields` instead of being dropped.
+`toAppMap()` flattens core + custom keys so a downstream app can parse this
+into its own model. If that model is also named `User`, prefix the import:
+`import "package:better_auth_flutter/better_auth_flutter.dart" as auth;`
 
 ```dart
 final session = await client.getSession();
-final user = session.data?.user;
+final user = session.data?.user;          // User?
 
 user?.additionalFields["firstName"];      // dynamic
 user?.field<String>("firstName");         // typed, or null if absent
-user?.field<String>("role") ?? "user";    // with a default
+user?.toAppMap();                         // core + custom keys, for AppUser.fromJson
+```
+
+Typical downstream shape:
+
+```dart
+class AppUser {
+  AppUser({required this.auth, required this.tenantId});
+
+  final User auth;
+  final String tenantId;
+
+  factory AppUser.fromAuth(User auth) => AppUser(
+    auth: auth,
+    tenantId: auth.field<String>("tenantId") ?? "",
+  );
+}
 ```
 
 To *write* custom fields, flat-merge them as top-level keys through the raw
@@ -260,10 +280,10 @@ final googleUser = await GoogleSignIn(serverClientId: "…").signIn();
 final auth = await googleUser!.authentication;
 
 await BetterAuthFlutter.client.signInSocial(
-  body: {
-    "provider": "google",
-    "idToken": {"token": auth.idToken},
-  },
+  body: SignInSocialBody.of(
+    provider: SocialProvider.google,
+    idToken: SocialIdTokenBody(token: auth.idToken!),
+  ),
 );
 ```
 
@@ -274,6 +294,8 @@ Other providers use a browser redirect. Pass `callbackUrlScheme` to
 then:
 
 ```dart
+import "package:better_auth_flutter/plugins/one_time_token.dart";
+
 final result = await BetterAuthFlutter.signInWithProvider(
   provider: SocialProvider.github,
 );
@@ -283,7 +305,6 @@ if (result case Success(:final data) when data.token != null) {
   await BetterAuthFlutter.client.oneTimeToken.verify(
     body: {"token": data.token},
   );
-  await BetterAuthFlutter.refreshSession();
 }
 ```
 
@@ -328,14 +349,13 @@ Requires the `bearer()` plugin on your server.
 await BetterAuthFlutter.initialize(
   url: "https://example.com/api/auth",
   mode: AuthMode.bearer,
-  // Optional: persist the token across restarts (in-memory by default).
-  tokenStorage: MySecureTokenStorage(),
 );
 ```
 
-> With the default `InMemoryTokenStorage`, bearer sessions do **not** survive an
-> app restart. Supply a `TokenStorage<String>` backed by secure storage to
-> persist them. Keep `BearerOptions.requireSignature` in sync with your server's
+> Native bearer mode persists the token in the keychain/keystore
+> (`SecureTokenStorage`). Pass `tokenStorage: InMemoryTokenStorage()` if you
+> do not want the session to survive a restart. Keep
+> `BearerOptions.requireSignature` in sync with your server's
 > `bearer({ requireSignature })` — a mismatch produces bare 401s.
 
 ## Plugins
@@ -469,16 +489,20 @@ the server extends them on access, so this package needs no refresh machinery.
 Android, iOS, macOS, Windows, and Linux are supported. Web is not currently
 supported.
 
-Browser-redirect social sign-in (`signInWithProvider`) uses
-[flutter_web_auth_2](https://pub.dev/packages/flutter_web_auth_2), which needs a
-callback activity registered for your scheme in
+Browser-redirect social sign-in (`signInWithProvider`) uses `url_launcher` plus
+`app_links` — not `flutter_web_auth_2`. That package's Android Auth Tab path
+crashes when the default "browser" is a non-exported Activity (common with
+fintech/loan apps). Register the scheme on **MainActivity** in
 `android/app/src/main/AndroidManifest.xml`:
 
 ```xml
 <activity
-    android:name="com.linusu.flutter_web_auth_2.CallbackActivity"
-    android:exported="true">
-  <intent-filter android:label="flutter_web_auth_2">
+    android:name=".MainActivity"
+    android:exported="true"
+    android:launchMode="singleTop"
+    android:taskAffinity="">
+  <!-- existing MAIN/LAUNCHER filter -->
+  <intent-filter>
     <action android:name="android.intent.action.VIEW" />
     <category android:name="android.intent.category.DEFAULT" />
     <category android:name="android.intent.category.BROWSABLE" />
@@ -487,8 +511,23 @@ callback activity registered for your scheme in
 </activity>
 ```
 
-The scheme must match `callbackUrlScheme` in `initialize`. The native ID-token
-flow needs none of this.
+Also add a `<queries>` entry so Custom Tabs / https launches resolve on API 30+:
+
+```xml
+<queries>
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="https" />
+  </intent>
+  <intent>
+    <action android:name="android.support.customtabs.action.CustomTabsService" />
+  </intent>
+</queries>
+```
+
+On iOS, add the same scheme to `CFBundleURLTypes` in `Info.plist`. The scheme
+must match `callbackUrlScheme` in `initialize`. The native ID-token flow needs
+none of this.
 
 ## Contributing
 

@@ -86,7 +86,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   padding: const EdgeInsets.only(bottom: 12),
                   child: Text(
                     _error!,
-                    style: TextStyle(color: Theme.of(context).colorScheme.error),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
                   ),
                 ),
               FilledButton(

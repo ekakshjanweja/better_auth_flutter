@@ -10,8 +10,6 @@ class HomeScreen extends StatelessWidget {
 
   Future<void> _signOut() async {
     await BetterAuthFlutter.client.signOut();
-    // Clear the persisted session too, so it isn't rehydrated next launch.
-    await BetterAuthFlutter.clearCookies();
   }
 
   @override

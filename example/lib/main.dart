@@ -15,6 +15,7 @@ Future<void> main() async {
   await BetterAuthFlutter.initialize(
     url: kBaseUrl,
     enableLogging: kDebugMode,
+    callbackUrlScheme: "betterauth",
   );
 
   runApp(const ExampleApp());

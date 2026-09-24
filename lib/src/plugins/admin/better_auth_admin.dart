@@ -86,9 +86,7 @@ abstract class BetterAuthAdmin {
 
   /// Reads a single user by id (`GET /admin/get-user?id=…`).
   @GET("/admin/get-user")
-  Future<Result<UserResponse>> getUser({
-    @Query("id") required String id,
-  });
+  Future<Result<UserResponse>> getUser({@Query("id") required String id});
 
   /// Updates user fields. [body] is `{"userId": …, "data": {…}}` where `data`
   /// is a flat map of user columns to set (`name`, `email`, `role`,

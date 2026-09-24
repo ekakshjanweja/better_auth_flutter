@@ -3,7 +3,7 @@ import "package:better_auth_flutter/src/core/api/default/sign_in/models/social/b
 import "package:better_auth_flutter/src/core/api/default/sign_in/models/social/social_provider.dart";
 import "package:better_auth_flutter/src/core/api/models/result/better_error/better_error.dart";
 import "package:better_auth_flutter/src/core/api/models/result/result/result.dart";
-import "package:flutter_web_auth_2/flutter_web_auth_2.dart";
+import "package:better_auth_flutter/src/core/oauth/browser_auth.dart";
 
 /// Drives the browser-redirect leg of social sign-in.
 ///
@@ -11,14 +11,14 @@ import "package:flutter_web_auth_2/flutter_web_auth_2.dart";
 /// better served by the native ID-token path (`SignInSocialBody.of(idToken:)`),
 /// which avoids the browser and the cookie caveat below entirely.
 ///
-/// **The cookie caveat.** The system browser used here
-/// (`ASWebAuthenticationSession` on iOS, Chrome Custom Tabs on Android) keeps
-/// its own cookie store. A session cookie Better Auth sets during the redirect
-/// lands there, not in this package's Dio jar — so a plain cookie-mode flow
-/// cannot pick the session up afterward. The reliable answer is a token handoff:
-/// point [callbackURL] at a server route that mints a one-time token and
-/// redirects to `<scheme>://callback?token=…`, then exchange it with the
-/// `one_time_token` plugin. [parseCallback] extracts that token.
+/// **The cookie caveat.** The browser used here (`url_launcher` Custom Tabs /
+/// the system browser) keeps its own cookie store. A session cookie Better Auth
+/// sets during the redirect lands there, not in this package's Dio jar — so a
+/// plain cookie-mode flow cannot pick the session up afterward. The reliable
+/// answer is a token handoff: point [callbackURL] at a server route that mints
+/// a one-time token and redirects to `<scheme>://callback?token=…`, then
+/// exchange it with the `one_time_token` plugin. [SocialCallback.parse]
+/// extracts that token.
 class OAuthHandler {
   OAuthHandler({
     required this.client,
@@ -45,7 +45,7 @@ class OAuthHandler {
   static Future<String> _defaultAuthenticate({
     required String url,
     required String callbackUrlScheme,
-  }) => FlutterWebAuth2.authenticate(
+  }) => BrowserAuth().authenticate(
     url: url,
     callbackUrlScheme: callbackUrlScheme,
   );
@@ -98,8 +98,8 @@ class OAuthHandler {
           code: "MISSING_CALLBACK_SCHEME",
           message:
               "Set callbackUrlScheme in BetterAuthFlutter.initialize, and "
-              "register the matching CallbackActivity/URL scheme in your app. "
-              "See the README's platform setup.",
+              "register the matching URL scheme on MainActivity (Android) or "
+              "CFBundleURLTypes (iOS). See the README's platform setup.",
           stack: null,
         ),
       );
@@ -121,6 +121,10 @@ class OAuthHandler {
     try {
       final raw = await _authenticate(url: url, callbackUrlScheme: scheme);
       return Result.ok(SocialCallback.parse(raw));
+    } on BrowserAuthException catch (e) {
+      return Result.err(
+        BetterError(code: e.code, message: e.message, stack: null),
+      );
     } catch (e) {
       return Result.err(
         BetterError(

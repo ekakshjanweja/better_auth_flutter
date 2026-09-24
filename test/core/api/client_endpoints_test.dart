@@ -21,8 +21,8 @@ import "package:http_mock_adapter/http_mock_adapter.dart";
 
 const _baseUrl = "http://localhost:3000/api/auth";
 
-Dio _dio(DioAdapter adapter) => Dio(BaseOptions(baseUrl: _baseUrl))
-  ..httpClientAdapter = adapter;
+Dio _dio(DioAdapter adapter) =>
+    Dio(BaseOptions(baseUrl: _baseUrl))..httpClientAdapter = adapter;
 
 void main() {
   group("1.7 renamed routes", () {
@@ -193,20 +193,15 @@ void main() {
       final adapter = DioAdapter(dio: Dio());
       adapter.onGet(
         "/device",
-        (server) => server.reply(200, {
-          "user_code": "ABC-123",
-          "status": "pending",
-        }),
+        (server) =>
+            server.reply(200, {"user_code": "ABC-123", "status": "pending"}),
         queryParameters: {"user_code": "ABC-123"},
       );
       final client = BetterAuthClient(_dio(adapter), baseUrl: _baseUrl);
 
       final result = await client.deviceInfo(userCode: "ABC-123");
 
-      expect(
-        (result as Success<dynamic>).data["status"],
-        "pending",
-      );
+      expect((result as Success<dynamic>).data["status"], "pending");
     });
 
     test("oauthCallbackPost posts provider form fields", () async {
@@ -228,10 +223,7 @@ void main() {
 
     test("errorCodes reads the server code reference", () async {
       final adapter = DioAdapter(dio: Dio());
-      adapter.onGet(
-        "/error",
-        (server) => server.reply(200, {"codes": []}),
-      );
+      adapter.onGet("/error", (server) => server.reply(200, {"codes": []}));
       final client = BetterAuthClient(_dio(adapter), baseUrl: _baseUrl);
 
       expect(await client.errorCodes(), isA<Success<dynamic>>());
@@ -279,6 +271,7 @@ void main() {
         adapter.onPost(
           route,
           (server) => server.reply(200, {"success": true}),
+          data: Matchers.any,
         );
       }
       final plugin = BetterAuthEmailOtp(_dio(adapter), baseUrl: _baseUrl);
@@ -348,10 +341,7 @@ void main() {
         "/organization/get-active-member-role",
         (server) => server.reply(200, "admin"),
       );
-      final plugin = BetterAuthOrganization(
-        _dio(adapter),
-        baseUrl: _baseUrl,
-      );
+      final plugin = BetterAuthOrganization(_dio(adapter), baseUrl: _baseUrl);
 
       expect(await plugin.getOrganization(), isA<Success<dynamic>>());
       expect(await plugin.getActiveMemberRole(), isA<Success<dynamic>>());

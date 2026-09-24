@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.2.0
+
+### Breaking
+
+* Social redirect no longer depends on `flutter_web_auth_2`. Register the
+  callback scheme on `MainActivity` (Android) / `CFBundleURLTypes` (iOS) and
+  drop the `com.linusu.flutter_web_auth_2.CallbackActivity` entry.
+
+### Added
+
+* `User.toAppMap()` flattens core fields plus `additionalFields` so a
+  downstream app can parse the auth user into its own model. If that model is
+  also named `User`, prefix the import (`as auth`).
+* `BetterAuthFlutter.reset()` tears down a previous `initialize` so it can
+  be called again (tests, hot-restart, URL changes).
+* `SecureTokenStorage` — native bearer mode now persists the token in the
+  keychain/keystore by default.
+
+### Fixed
+
+* Android social sign-in no longer crashes when the default "browser" is a
+  non-exported Activity (Opay and similar fintech/loan apps). The flow now
+  uses `url_launcher` (Custom Tabs, then the system browser) plus `app_links`.
+* Auth state now follows email-OTP, magic-link verify, one-time-token
+  verify, passkey authenticate, and phone verify — not just email/password.
+* `signOut` / 401 / empty `get-session` clear the persisted cookie jar and
+  bearer token, so the next launch cannot rehydrate a revoked session.
+* `updateUser` refreshes `AuthState.user` (from the response, or via
+  `get-session` when the server only returns `{ status: true }`).
+* `BrowserAuth` ignores a stale cold-start deep link instead of completing
+  OAuth with leftover `getInitialLink` data.
+
+### Changed
+
+* Dependencies refreshed to current pub.dev latest (`dio` 5.11, `cookie_jar`
+  4.0.9, `app_links` 7.2, `url_launcher` 6.3, `logger` 2.8, `build_runner`
+  2.16, `freezed` 4.0.2). `flutter_web_auth_2` removed.
+* Request `User-Agent` is now `BetterAuthFlutter/0.2.0`.
+
 ## 0.1.2
 
 Aligns the client with Better Auth server **1.7** (backend in

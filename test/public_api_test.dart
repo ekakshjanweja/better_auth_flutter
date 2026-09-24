@@ -55,10 +55,15 @@ void main() {
       expect(StorageInterface, isNotNull);
       expect(HiveStorage, isNotNull);
       expect(SharedPreferencesStorage, isNotNull);
+      expect(SecureTokenStorage, isNotNull);
+      expect(InMemoryTokenStorage, isNotNull);
+      expect(BetterAuthFlutter.reset, isA<Function>());
+      expect(BetterAuthFlutter.version, "0.2.0");
     });
 
     test("exposes domain models and widgets", () {
       expect(User, isNotNull);
+      expect(BrowserAuth, isNotNull);
       expect(Session, isNotNull);
       expect(Account, isNotNull);
       expect(Verification, isNotNull);

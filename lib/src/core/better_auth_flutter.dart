@@ -15,6 +15,7 @@ import "package:better_auth_flutter/src/core/oauth/oauth_handler.dart";
 import "package:better_auth_flutter/src/core/storage/custom_persist_cookie_jar.dart";
 import "package:better_auth_flutter/src/core/storage/memory_storage.dart";
 import "package:better_auth_flutter/src/core/storage/secure_storage.dart";
+import "package:better_auth_flutter/src/core/storage/secure_token_storage.dart";
 import "package:better_auth_flutter/src/core/storage/storage.dart";
 import "package:better_auth_flutter/src/core/storage/token_storage.dart";
 import "package:better_auth_flutter/src/core/utils/logger.dart";
@@ -25,18 +26,23 @@ import "package:dio_cookie_manager/dio_cookie_manager.dart";
 import "package:flutter/foundation.dart";
 
 class BetterAuthFlutter {
-  static final BetterAuthFlutter _instance = BetterAuthFlutter._();
-  late final BetterAuthClient _client;
+  BetterAuthFlutter._();
+
+  static BetterAuthClient? _client;
   static bool _initialized = false;
 
   static late String baseUrl;
-  static late final Dio dioClient;
-  static late final StorageInterface? storage;
-  static late final CustomPersistCookieJar _cookieJar;
+  static late Dio dioClient;
+  static late StorageInterface? storage;
+  static late CustomPersistCookieJar _cookieJar;
   static final AuthStateController _authState = AuthStateController();
-  static late final AuthMode _mode;
+  static late AuthMode _mode;
   static TokenStorage<String>? _tokenStorage;
   static String? _callbackUrlScheme;
+  static final List<Interceptor> _ownedInterceptors = <Interceptor>[];
+
+  /// Package version sent as the `user-agent` on every request.
+  static const String version = "0.2.0";
 
   /// Starts a browser-redirect social sign-in for providers without a native
   /// SDK. Requires `callbackUrlScheme` to have been passed to [initialize].
@@ -66,10 +72,6 @@ class BetterAuthFlutter {
 
   /// Clears the stored bearer token, if any.
   static Future<void> clearBearerToken() async => _tokenStorage?.delete();
-
-  BetterAuthFlutter._() {
-    _client = BetterAuthClient(dioClient, baseUrl: baseUrl);
-  }
 
   /// The current authentication state, synchronously.
   static AuthState get authState => _authState.current;
@@ -137,6 +139,9 @@ class BetterAuthFlutter {
 
   /// Configures the SDK. Must be called before [client].
   ///
+  /// Safe to call again: a second call tears down the previous configuration
+  /// (interceptors, client, in-flight refresh) and applies the new one.
+  ///
   /// Set [enableLogging] to emit internal diagnostics — typically
   /// `enableLogging: kDebugMode`. It is off by default because these logs go to
   /// the system log, which is readable on-device.
@@ -147,8 +152,8 @@ class BetterAuthFlutter {
   /// startup on a slow connection. Gate your UI on [authStateChanges] instead.
   /// [mode] selects cookie (default) or bearer authentication. In bearer mode
   /// the token is captured from the `set-auth-token` response header and stored
-  /// in [tokenStorage] (in-memory by default, so it does not survive a restart
-  /// unless you supply persistent storage).
+  /// in [tokenStorage] (keychain/keystore by default on native; in-memory on
+  /// web).
   static Future<void> initialize({
     required String url,
     Dio? dio,
@@ -160,7 +165,7 @@ class BetterAuthFlutter {
     bool enableLogging = false,
     bool hydrateOnInit = true,
   }) async {
-    if (_initialized) return;
+    if (_initialized) await reset();
 
     BetterAuthLog.enabled = enableLogging;
     baseUrl = url;
@@ -177,22 +182,7 @@ class BetterAuthFlutter {
       storage = null;
     }
 
-    dioClient =
-        dio ??
-        Dio(
-          BaseOptions(
-            headers: {
-              // String literals rather than HttpHeaders.* constants, which come
-              // from dart:io and are unavailable on web.
-              "content-type": "application/json",
-              "user-agent": "BetterAuthFlutter/1.0.0",
-              "flutter-origin": "flutter://",
-              "expo-origin": "exp://",
-              "x-skip-oauth-proxy": true,
-            },
-            validateStatus: (status) => status != null && status < 300,
-          ),
-        );
+    dioClient = dio ?? _defaultDio();
 
     // Better Auth rejects any cookie-bearing non-GET request that arrives
     // without an `Origin` header (403 MISSING_OR_NULL_ORIGIN). It reads only
@@ -217,21 +207,77 @@ class BetterAuthFlutter {
     // Cookie xor bearer for auth transport; both share the null-stripping and
     // auth-state interceptors.
     if (mode == AuthMode.bearer) {
-      _tokenStorage = tokenStorage ?? InMemoryTokenStorage<String>();
-      dioClient.interceptors.add(
+      _tokenStorage =
+          tokenStorage ??
+          (kIsWeb ? InMemoryTokenStorage<String>() : SecureTokenStorage());
+      _addInterceptor(
         BearerInterceptor(storage: _tokenStorage!, options: bearerOptions),
       );
     } else {
-      dioClient.interceptors.add(CookieManager(_cookieJar));
+      _addInterceptor(CookieManager(_cookieJar));
     }
-    dioClient.interceptors.add(RemoveNullsInterceptor());
-    dioClient.interceptors.add(AuthStateInterceptor(_authState));
+    _addInterceptor(RemoveNullsInterceptor());
+    _addInterceptor(
+      AuthStateInterceptor(
+        _authState,
+        onSessionEnded: _clearPersistedSession,
+        onProfileChanged: refreshSession,
+      ),
+    );
+    _client = BetterAuthClient(dioClient, baseUrl: baseUrl);
     _initialized = true;
 
     if (hydrateOnInit) {
       // Intentionally not awaited — see [hydrateOnInit].
       unawaited(refreshSession());
     }
+  }
+
+  /// Tears down a previous [initialize] so it can be called again.
+  ///
+  /// Removes interceptors this package added, drops the client, and returns
+  /// [authState] to [AuthInitial]. Does not delete persisted cookies or the
+  /// bearer token — the next [initialize] (or a sign-out) owns that.
+  static Future<void> reset() async {
+    if (!_initialized) return;
+    _inFlightRefresh = null;
+    for (final interceptor in _ownedInterceptors) {
+      dioClient.interceptors.remove(interceptor);
+    }
+    _ownedInterceptors.clear();
+    _client = null;
+    _tokenStorage = null;
+    _callbackUrlScheme = null;
+    _authState.emit(const AuthState.initial());
+    _initialized = false;
+  }
+
+  static Dio _defaultDio() {
+    return Dio(
+      BaseOptions(
+        headers: <String, Object>{
+          // String literals rather than HttpHeaders.* constants, which come
+          // from dart:io and are unavailable on web.
+          "content-type": "application/json",
+          "user-agent": "BetterAuthFlutter/$version",
+          "flutter-origin": "flutter://",
+          "expo-origin": "exp://",
+          "x-skip-oauth-proxy": true,
+        },
+        validateStatus: (status) => status != null && status < 300,
+      ),
+    );
+  }
+
+  static void _addInterceptor(Interceptor interceptor) {
+    _ownedInterceptors.add(interceptor);
+    dioClient.interceptors.add(interceptor);
+  }
+
+  static Future<void> _clearPersistedSession() async {
+    if (!_initialized) return;
+    await _cookieJar.deleteAll();
+    await _tokenStorage?.delete();
   }
 
   /// The `scheme://host[:port]` of [url], or null when it has none to give.
@@ -256,7 +302,7 @@ class BetterAuthFlutter {
       _initialized,
       "BetterAuthFlutter not initialized. Call initialize() first.",
     );
-    return _instance._client;
+    return _client!;
   }
 
   /// Clears every cookie from both the in-memory jar and the durable store,
@@ -264,13 +310,15 @@ class BetterAuthFlutter {
   ///
   /// Call this after signing out. Clearing only the jar leaves the session
   /// cookie in durable storage, where the next launch rehydrates it.
+  ///
+  /// `client.signOut()` already triggers this via the auth-state interceptor;
+  /// this method is for custom HTTP clients and tests.
   static Future<void> clearCookies() async {
     assert(
       _initialized,
       "BetterAuthFlutter not initialized. Call initialize() first.",
     );
-    await _cookieJar.deleteAll();
-    await _tokenStorage?.delete();
+    await _clearPersistedSession();
     _authState.setUnauthenticated();
   }
 
