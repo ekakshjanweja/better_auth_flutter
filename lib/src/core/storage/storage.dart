@@ -6,7 +6,8 @@ import "dart:io";
 /// jar remains the source of truth for scoping (path, `secure`, expiry) during
 /// a run; this interface only mirrors cookies so a session survives a restart.
 ///
-/// Ship-provided implementations: `HiveStorage`, `SharedPreferencesStorage`.
+/// Ship-provided implementations: `SecureStorage`, `SharedPreferencesStorage`
+/// (and deprecated `HiveStorage`).
 /// Implement this yourself to use a different backend.
 abstract class StorageInterface {
   /// Persists [cookies] for [url] (keyed by host), replacing any existing entry.

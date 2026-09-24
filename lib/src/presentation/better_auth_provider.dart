@@ -55,20 +55,43 @@ class _BetterAuthProviderState extends State<BetterAuthProvider> {
       if (!mounted) return;
       setState(() => _state = state);
     });
-    if (widget.refreshOnResume) {
-      _lifecycle = SessionLifecycleObserver(
+    _syncResume(enabled: widget.refreshOnResume);
+    _syncReconnect(enabled: widget.refreshOnReconnect);
+  }
+
+  @override
+  void didUpdateWidget(BetterAuthProvider oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.refreshOnResume != widget.refreshOnResume) {
+      _syncResume(enabled: widget.refreshOnResume);
+    }
+    if (oldWidget.refreshOnReconnect != widget.refreshOnReconnect) {
+      _syncReconnect(enabled: widget.refreshOnReconnect);
+    }
+  }
+
+  void _syncResume({required bool enabled}) {
+    if (enabled) {
+      _lifecycle ??= SessionLifecycleObserver(
         onResume: BetterAuthFlutter.refreshSession,
       )..attach();
+      return;
     }
-    if (widget.refreshOnReconnect && !kIsWeb) {
-      // refreshSession is single-flight, so a burst of connectivity events
-      // shares one in-flight request instead of stampeding /get-session.
-      _connectivity = Connectivity().onConnectivityChanged.listen((results) {
-        if (results.any((result) => result != ConnectivityResult.none)) {
-          BetterAuthFlutter.refreshSession();
-        }
-      });
-    }
+    _lifecycle?.detach();
+    _lifecycle = null;
+  }
+
+  void _syncReconnect({required bool enabled}) {
+    _connectivity?.cancel();
+    _connectivity = null;
+    if (!enabled || kIsWeb) return;
+    // refreshSession is single-flight, so a burst of connectivity events
+    // shares one in-flight request instead of stampeding /get-session.
+    _connectivity = Connectivity().onConnectivityChanged.listen((results) {
+      if (results.any((result) => result != ConnectivityResult.none)) {
+        BetterAuthFlutter.refreshSession();
+      }
+    });
   }
 
   @override

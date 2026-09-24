@@ -33,6 +33,14 @@ jobs:
       - name: Analyze
         run: flutter analyze --fatal-infos
 
+      - name: Example dependencies
+        run: flutter pub get
+        working-directory: example
+
+      - name: Analyze example
+        run: flutter analyze --fatal-infos
+        working-directory: example
+
       - name: Test
         run: flutter test --coverage
 

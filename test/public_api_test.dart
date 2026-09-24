@@ -53,6 +53,7 @@ void main() {
 
     test("exposes storage contracts and shipped backends", () {
       expect(StorageInterface, isNotNull);
+      // ignore: deprecated_member_use_from_same_package
       expect(HiveStorage, isNotNull);
       expect(SharedPreferencesStorage, isNotNull);
       expect(SecureTokenStorage, isNotNull);

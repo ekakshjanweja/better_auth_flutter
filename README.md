@@ -418,10 +418,10 @@ Session cookies persist through a `StorageInterface`. `SecureStorage`
 platforms — session cookies are credentials, so they are encrypted at rest and
 chunked to fit iOS keychain limits.
 
-`HiveStorage` and `SharedPreferencesStorage` are also bundled (both
-**unencrypted**) for cases where the secure backend is inconvenient — for
-example desktop platforms, where `flutter_secure_storage` needs native
-dependencies such as `libsecret`:
+`SharedPreferencesStorage` is also bundled (**unencrypted**) for cases where
+the secure backend is inconvenient — for example desktop platforms, where
+`flutter_secure_storage` needs native dependencies such as `libsecret`.
+`HiveStorage` is still exported but deprecated: Hive is unmaintained.
 
 ```dart
 await BetterAuthFlutter.initialize(url: "…", store: SharedPreferencesStorage());

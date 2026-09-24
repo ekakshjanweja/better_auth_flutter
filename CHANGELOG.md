@@ -31,6 +31,11 @@
   `get-session` when the server only returns `{ status: true }`).
 * `BrowserAuth` ignores a stale cold-start deep link instead of completing
   OAuth with leftover `getInitialLink` data.
+* Backing out of Custom Tabs cancels social sign-in instead of waiting for
+  the five-minute timeout. Only `scheme://callback` is accepted as the
+  OAuth return URL.
+* `BetterAuthProvider` picks up changes to `refreshOnResume` /
+  `refreshOnReconnect`.
 
 ### Changed
 
@@ -38,6 +43,8 @@
   4.0.9, `app_links` 7.2, `url_launcher` 6.3, `logger` 2.8, `build_runner`
   2.16, `freezed` 4.0.2). `flutter_web_auth_2` removed.
 * Request `User-Agent` is now `BetterAuthFlutter/0.2.0`.
+* `HiveStorage` is deprecated (Hive is unmaintained). Prefer `SecureStorage`
+  or `SharedPreferencesStorage`.
 
 ## 0.1.2
 

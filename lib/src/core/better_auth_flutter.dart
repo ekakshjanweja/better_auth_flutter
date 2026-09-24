@@ -176,7 +176,7 @@ class BetterAuthFlutter {
       storage = store;
     } else if (!kIsWeb) {
       // Encrypted keychain/keystore by default: session cookies are credentials.
-      // Opt into HiveStorage/SharedPreferencesStorage explicitly via [store].
+      // Opt into SharedPreferencesStorage explicitly via [store].
       storage = SecureStorage();
     } else {
       storage = null;
