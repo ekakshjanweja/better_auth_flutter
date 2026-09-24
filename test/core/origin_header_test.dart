@@ -1,5 +1,6 @@
 import "dart:io";
 
+import "package:better_auth_flutter/src/core/auth/auth_state.dart";
 import "package:better_auth_flutter/src/core/better_auth_flutter.dart";
 import "package:better_auth_flutter/src/core/storage/storage.dart";
 import "package:dio/dio.dart";
@@ -22,8 +23,6 @@ class _NoopStorage implements StorageInterface {
 }
 
 void main() {
-  // `initialize` is a one-shot guarded by a static flag and assigns `late final`
-  // fields, so this file gets exactly one call to it.
   test("initialize derives the Origin header from the base url", () async {
     await BetterAuthFlutter.initialize(
       url: "https://auth.example.com/api/auth",
@@ -39,4 +38,35 @@ void main() {
       "https://auth.example.com",
     );
   });
+
+  test("initialize can be called again with a new url", () async {
+    await BetterAuthFlutter.initialize(
+      url: "https://other.example.com/api/auth",
+      dio: Dio(),
+      store: _NoopStorage(),
+      hydrateOnInit: false,
+    );
+
+    expect(
+      BetterAuthFlutter.dioClient.options.headers["origin"],
+      "https://other.example.com",
+    );
+    expect(BetterAuthFlutter.authState, const AuthState.initial());
+  });
+
+  test(
+    "initialize sets the package user-agent on the default client",
+    () async {
+      await BetterAuthFlutter.initialize(
+        url: "https://auth.example.com/api/auth",
+        store: _NoopStorage(),
+        hydrateOnInit: false,
+      );
+
+      expect(
+        BetterAuthFlutter.dioClient.options.headers["user-agent"],
+        "BetterAuthFlutter/${BetterAuthFlutter.version}",
+      );
+    },
+  );
 }

@@ -7,6 +7,7 @@
 // examples at least typecheck against the real surface.
 import "package:better_auth_flutter/better_auth_flutter.dart";
 import "package:better_auth_flutter/plugins/jwt.dart";
+import "package:better_auth_flutter/plugins/one_time_token.dart";
 import "package:better_auth_flutter/riverpod.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -178,5 +179,18 @@ void main() {
   test("the JWT plugin getter is reachable from its library", () {
     // Only compiles if plugins/jwt.dart exports the plugin surface.
     expect(JwtTokenResponse, isNotNull);
+  });
+
+  test("the social ID-token snippet typechecks", () {
+    final body = SignInSocialBody.of(
+      provider: SocialProvider.google,
+      idToken: const SocialIdTokenBody(token: "id.jwt"),
+    );
+    expect(body.provider, "google");
+    expect(body.idToken?.token, "id.jwt");
+  });
+
+  test("the one-time-token snippet typechecks", () {
+    expect(BetterAuthOneTimeToken, isNotNull);
   });
 }

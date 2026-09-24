@@ -22,20 +22,5 @@ A minimal app showing email/password sign-in, sign-up, reactive auth gating with
    flutter run
    ```
 
-## Social sign-in (Android)
-
-Redirect-based social sign-in with `flutter_web_auth_2` needs a callback
-activity in `android/app/src/main/AndroidManifest.xml`:
-
-```xml
-<activity
-    android:name="com.linusu.flutter_web_auth_2.CallbackActivity"
-    android:exported="true">
-  <intent-filter android:label="flutter_web_auth_2">
-    <action android:name="android.intent.action.VIEW" />
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" />
-    <data android:scheme="YOUR_SCHEME" />
-  </intent-filter>
-</activity>
-```
+The example registers the `betterauth` scheme on Android (`MainActivity`) and
+iOS (`CFBundleURLTypes`) so `signInWithProvider` can return from the browser.

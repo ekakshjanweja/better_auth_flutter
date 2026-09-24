@@ -6,9 +6,8 @@ void main() {
   group("SessionLifecycleObserver", () {
     test("calls onResume when the app resumes", () {
       var calls = 0;
-      SessionLifecycleObserver(
-        onResume: () => calls++,
-      ).didChangeAppLifecycleState(AppLifecycleState.resumed);
+      SessionLifecycleObserver(onResume: () => calls++)
+          .didChangeAppLifecycleState(AppLifecycleState.resumed);
 
       expect(calls, 1);
     });

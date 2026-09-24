@@ -44,6 +44,13 @@ sealed class AuthState with _$AuthState {
     _ => null,
   };
 
+  /// The current session, or null when there isn't one (or we never received
+  /// it — some sign-in responses only carry the user).
+  Session? get session => switch (this) {
+    Authenticated(:final session) => session,
+    _ => null,
+  };
+
   /// Whether there is a confirmed session.
   bool get isAuthenticated => this is Authenticated;
 

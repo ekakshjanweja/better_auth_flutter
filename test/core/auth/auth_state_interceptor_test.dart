@@ -231,5 +231,90 @@ void main() {
 
       expect(state, isA<Authenticated>());
     });
+
+    test("marks authenticated after plugin session routes", () {
+      const paths = [
+        "/sign-in/email-otp",
+        "/magic-link/verify",
+        "/one-time-token/verify",
+        "/passkey/verify-authentication",
+        "/phone-number/verify",
+      ];
+
+      for (final path in paths) {
+        final state = _afterResponse(
+          AuthStateController(),
+          _response(path, {"user": _userJson}),
+        );
+        expect(state, isA<Authenticated>(), reason: path);
+      }
+    });
+
+    test("clears persisted session after sign-out", () async {
+      var cleared = 0;
+      final controller = AuthStateController()
+        ..setAuthenticated(const User(id: "1", name: "Ada", email: "a@b.c"));
+      final interceptor = AuthStateInterceptor(
+        controller,
+        onSessionEnded: () async => cleared++,
+      );
+
+      interceptor.onResponse(
+        _response("/sign-out", {"success": true}),
+        ResponseInterceptorHandler(),
+      );
+      await Future<void>.delayed(Duration.zero);
+
+      expect(controller.current, const Unauthenticated());
+      expect(cleared, 1);
+    });
+
+    test("updates the user from an update-user response that echoes it", () {
+      final controller = AuthStateController()
+        ..setAuthenticated(const User(id: "1", name: "Ada", email: "a@b.c"));
+
+      final state = _afterResponse(
+        controller,
+        _response("/update-user", {
+          "status": true,
+          "user": {..._userJson, "name": "Ada Lovelace"},
+        }),
+      );
+
+      expect(state, isA<Authenticated>());
+      expect(state.user?.name, "Ada Lovelace");
+    });
+
+    test(
+      "refreshes the session when update-user has no user payload",
+      () async {
+        var refreshed = 0;
+        final controller = AuthStateController()
+          ..setAuthenticated(const User(id: "1", name: "Ada", email: "a@b.c"));
+        final interceptor = AuthStateInterceptor(
+          controller,
+          onProfileChanged: () async => refreshed++,
+        );
+
+        interceptor.onResponse(
+          _response("/update-user", {"status": true}),
+          ResponseInterceptorHandler(),
+        );
+        await Future<void>.delayed(Duration.zero);
+
+        expect(controller.current, isA<Authenticated>());
+        expect(refreshed, 1);
+      },
+    );
+
+    test("keeps the session when email-otp sign-in returns 401", () async {
+      const user = User(id: "1", name: "Ada", email: "a@b.c");
+      final controller = AuthStateController()..setAuthenticated(user);
+
+      expect(
+        await _afterFailedRequest(controller, "/sign-in/email-otp", 401),
+        const AuthState.authenticated(user: user),
+      );
+    });
   });
 }

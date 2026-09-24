@@ -16,11 +16,8 @@ void main() {
       final user = User.fromJson(_userJson());
 
       expect(user.id, "1");
-      expect(user.additionalFields, {
-        "firstName": "Ada",
-        "role": "admin",
-        "logins": 3,
-      });
+      expect(user.role, "admin");
+      expect(user.additionalFields, {"firstName": "Ada", "logins": 3});
     });
 
     test("is empty when the server sends no custom keys", () {
@@ -43,7 +40,7 @@ void main() {
       final user = User.fromJson(_userJson());
 
       expect(user.field<String>("firstName"), "Ada");
-      expect(user.field<String>("role") ?? "user", "admin");
+      expect(user.role ?? "user", "admin");
       expect(user.field<String>("missing"), isNull);
     });
 
@@ -51,6 +48,14 @@ void main() {
       final user = User.fromJson(_userJson());
 
       expect(() => user.field<int>("firstName"), throwsArgumentError);
+    });
+
+    test("toAppMap flattens core fields with additionalFields", () {
+      final user = User.fromJson(_userJson());
+
+      expect(user.toAppMap()["id"], "1");
+      expect(user.toAppMap()["firstName"], "Ada");
+      expect(user.toAppMap()["role"], "admin");
     });
 
     test("field supports decode for nested values", () {

@@ -29,8 +29,7 @@ export "src/core/api/client/better_auth_client.dart" show BetterAuthClient;
 // Result and errors.
 export "src/core/api/models/result/result/result.dart"
     show Result, Success, Failure;
-export "src/core/api/models/result/result/result_extension.dart"
-    show ResultX;
+export "src/core/api/models/result/result/result_extension.dart" show ResultX;
 export "src/core/api/models/result/better_error/better_error.dart"
     show BetterError, BetterErrorCodes;
 export "src/core/api/models/result/status_response/status_response.dart"
@@ -71,6 +70,8 @@ export "src/core/api/default/sign_in/models/social/body/sign_in_social_body.dart
 export "src/core/api/default/sign_in/models/username/username_available_response.dart"
     show UsernameAvailableResponse;
 export "src/core/oauth/oauth_handler.dart" show OAuthHandler, SocialCallback;
+export "src/core/oauth/browser_auth.dart"
+    show BrowserAuth, BrowserAuthException;
 export "src/core/api/models/session/session_response.dart" show SessionResponse;
 export "src/core/api/models/common/sign_out/sign_out_response.dart"
     show SignOutResponse;
@@ -92,6 +93,7 @@ export "src/core/storage/shared_preferences_storage.dart"
     show SharedPreferencesStorage;
 export "src/core/storage/token_storage.dart"
     show TokenStorage, InMemoryTokenStorage;
+export "src/core/storage/secure_token_storage.dart" show SecureTokenStorage;
 
 // Widgets.
 export "src/presentation/better_auth_provider.dart" show BetterAuthProvider;

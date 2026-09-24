@@ -7,33 +7,30 @@ const _user = User(id: "1", name: "Ada", email: "ada@example.com");
 
 ProviderContainer _containerWith(AuthState state) => ProviderContainer(
   overrides: [
-    betterAuthStateProvider.overrideWith((ref) => Stream.value(state)),
+    betterAuthStateProvider.overrideWithValue(AsyncValue.data(state)),
   ],
 );
 
 void main() {
   group("betterAuthStateProvider", () {
     test("emits the current state with no initialization", () async {
-      final container = ProviderContainer();
-      addTearDown(container.dispose);
-
       // The SDK is untouched here: no initialize(), no network. The replay in
       // authStateChanges is what delivers the initial state.
       await expectLater(
-        container.read(betterAuthStateProvider.future),
-        completion(const AuthState.initial()),
+        BetterAuthFlutter.authStateChanges,
+        emits(const AuthState.initial()),
       );
     });
 
-    test("surfaces overridden transitions", () async {
+    test("surfaces overridden transitions", () {
       final container = _containerWith(
         const AuthState.authenticated(user: _user),
       );
       addTearDown(container.dispose);
 
-      await expectLater(
-        container.read(betterAuthStateProvider.future),
-        completion(const AuthState.authenticated(user: _user)),
+      expect(
+        container.read(betterAuthStateProvider).value,
+        const AuthState.authenticated(user: _user),
       );
     });
   });
@@ -79,7 +76,13 @@ void main() {
       // same way the static accessor does, not return a broken client.
       expect(
         () => container.read(betterAuthClientProvider),
-        throwsA(isA<AssertionError>()),
+        throwsA(
+          isA<Exception>().having(
+            (e) => e.toString(),
+            "message",
+            contains("BetterAuthFlutter not initialized"),
+          ),
+        ),
       );
     });
   });

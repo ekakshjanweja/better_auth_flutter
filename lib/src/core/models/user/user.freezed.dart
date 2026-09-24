@@ -19,8 +19,8 @@ mixin _$User {
  String get id; String get name; String get email; bool get emailVerified; String? get image; DateTime? get createdAt; DateTime? get updatedAt; bool get twoFactorEnabled; String? get username; String? get displayUsername; bool get isAnonymous; String? get phoneNumber; bool get phoneNumberVerified; String? get role; bool get banned; String? get banReason; DateTime? get banExpires;/// Server-defined custom fields
 /// ([additionalFields](https://www.better-auth.com/docs/concepts/database#extending-core-schema))
 /// that aren't part of the static [User] shape. Populated from unmapped
-/// JSON keys by [User.fromJson]; never serialized back out. Read via the
-/// `field` extension, e.g. `user.field<String>('firstName')`.
+/// JSON keys by [User.fromJson]; never serialized back out. Read via
+/// the `field` extension, e.g. `user.field<String>('firstName')`.
 @JsonKey(readValue: _readUserAdditionalFields, includeToJson: false) Map<String, dynamic> get additionalFields;
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
@@ -236,8 +236,8 @@ return $default(_that.id,_that.name,_that.email,_that.emailVerified,_that.image,
 /// @nodoc
 @JsonSerializable()
 
-class _User implements User {
-  const _User({required this.id, required this.name, required this.email, this.emailVerified = false, this.image, this.createdAt = null, this.updatedAt = null, this.twoFactorEnabled = false, this.username, this.displayUsername, this.isAnonymous = false, this.phoneNumber, this.phoneNumberVerified = false, this.role, this.banned = false, this.banReason, this.banExpires, @JsonKey(readValue: _readUserAdditionalFields, includeToJson: false)  Map<String, dynamic> additionalFields = const <String, dynamic>{}}): _additionalFields = additionalFields;
+class _User extends User {
+  const _User({required this.id, required this.name, required this.email, this.emailVerified = false, this.image, this.createdAt = null, this.updatedAt = null, this.twoFactorEnabled = false, this.username, this.displayUsername, this.isAnonymous = false, this.phoneNumber, this.phoneNumberVerified = false, this.role, this.banned = false, this.banReason, this.banExpires, @JsonKey(readValue: _readUserAdditionalFields, includeToJson: false)  Map<String, dynamic> additionalFields = const <String, dynamic>{}}): _additionalFields = additionalFields,super._();
   factory _User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
 @override final  String id;
@@ -260,14 +260,14 @@ class _User implements User {
 /// Server-defined custom fields
 /// ([additionalFields](https://www.better-auth.com/docs/concepts/database#extending-core-schema))
 /// that aren't part of the static [User] shape. Populated from unmapped
-/// JSON keys by [User.fromJson]; never serialized back out. Read via the
-/// `field` extension, e.g. `user.field<String>('firstName')`.
+/// JSON keys by [User.fromJson]; never serialized back out. Read via
+/// the `field` extension, e.g. `user.field<String>('firstName')`.
  final  Map<String, dynamic> _additionalFields;
 /// Server-defined custom fields
 /// ([additionalFields](https://www.better-auth.com/docs/concepts/database#extending-core-schema))
 /// that aren't part of the static [User] shape. Populated from unmapped
-/// JSON keys by [User.fromJson]; never serialized back out. Read via the
-/// `field` extension, e.g. `user.field<String>('firstName')`.
+/// JSON keys by [User.fromJson]; never serialized back out. Read via
+/// the `field` extension, e.g. `user.field<String>('firstName')`.
 @override@JsonKey(readValue: _readUserAdditionalFields, includeToJson: false) Map<String, dynamic> get additionalFields {
   if (_additionalFields is EqualUnmodifiableMapView) return _additionalFields;
   // ignore: implicit_dynamic_type

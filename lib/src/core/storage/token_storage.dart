@@ -4,9 +4,8 @@
 /// refresh model: Better Auth's bearer token is a session token, not an
 /// access/refresh pair, so there is nothing to refresh.
 ///
-/// The default is [InMemoryTokenStorage], which does **not** survive an app
-/// restart. For a persistent bearer session, supply an implementation backed by
-/// secure storage — see the README.
+/// Native bearer mode defaults to `SecureTokenStorage` (keychain/keystore).
+/// Pass [InMemoryTokenStorage] to keep the token in process memory only.
 abstract class TokenStorage<T> {
   /// The stored token, or null if none.
   Future<T?> read();
@@ -20,9 +19,9 @@ abstract class TokenStorage<T> {
 
 /// A [TokenStorage] that keeps the token in memory only.
 ///
-/// The token is lost when the process ends, so bearer sessions do not survive
-/// an app restart with this default. That is a deliberate safe default — the
-/// token is a credential, and writing it to disk should be an explicit choice.
+/// The token is lost when the process ends. Use this when you do not want a
+/// bearer session to survive an app restart; native bearer mode otherwise
+/// defaults to `SecureTokenStorage`.
 class InMemoryTokenStorage<T> implements TokenStorage<T> {
   T? _token;
 

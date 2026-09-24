@@ -7,11 +7,14 @@ import "package:path_provider/path_provider.dart";
 
 /// Unencrypted, on-disk cookie storage backed by Hive.
 ///
-/// Session cookies are bearer credentials; this backend stores them in
+/// Hive is unmaintained. Prefer [SecureStorage] (the default) or
+/// [SharedPreferencesStorage]. This backend stores session cookies in
 /// plaintext in the application documents directory, where a device backup or
-/// a rooted/jailbroken read can recover a live session. Prefer `SecureStorage`
-/// unless you have a specific reason not to (for example desktop platforms
-/// where the secure backend needs native dependencies).
+/// a rooted/jailbroken read can recover a live session.
+@Deprecated(
+  "Hive is unmaintained. Use SecureStorage (the default) or "
+  "SharedPreferencesStorage.",
+)
 class HiveStorage implements StorageInterface {
   static const String _boxName = "better_auth_cookies";
 

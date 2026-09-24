@@ -4,8 +4,19 @@ part "user.freezed.dart";
 
 part "user.g.dart";
 
+/// The Better Auth user payload.
+///
+/// Custom server columns
+/// ([additionalFields](https://www.better-auth.com/docs/concepts/database#extending-core-schema))
+/// land in [additionalFields]. Use `field<T>()` to read them, or [toAppMap]
+/// to flatten core + custom keys into a map your app model can parse.
+///
+/// If your app already has a `User` type, prefix the import:
+/// `import "package:better_auth_flutter/better_auth_flutter.dart" as auth;`
 @freezed
 abstract class User with _$User {
+  const User._();
+
   const factory User({
     required String id,
     required String name,
@@ -28,14 +39,30 @@ abstract class User with _$User {
     /// Server-defined custom fields
     /// ([additionalFields](https://www.better-auth.com/docs/concepts/database#extending-core-schema))
     /// that aren't part of the static [User] shape. Populated from unmapped
-    /// JSON keys by [User.fromJson]; never serialized back out. Read via the
-    /// `field` extension, e.g. `user.field<String>('firstName')`.
+    /// JSON keys by [User.fromJson]; never serialized back out. Read via
+    /// the `field` extension, e.g. `user.field<String>('firstName')`.
     @JsonKey(readValue: _readUserAdditionalFields, includeToJson: false)
     @Default(<String, dynamic>{})
     Map<String, dynamic> additionalFields,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  /// Core fields plus [additionalFields], flattened.
+  ///
+  /// Downstream apps can feed this into their own model:
+  /// ```dart
+  /// class AppUser {
+  ///   AppUser.fromAuth(User auth)
+  ///     : id = auth.id,
+  ///       firstName = auth.field<String>("firstName");
+  /// }
+  /// // or: AppUser.fromJson(auth.toAppMap())
+  /// ```
+  Map<String, dynamic> toAppMap() => <String, dynamic>{
+    ...toJson(),
+    ...additionalFields,
+  };
 }
 
 const _knownUserKeys = <String>{
@@ -58,9 +85,9 @@ const _knownUserKeys = <String>{
   "banExpires",
 };
 
-/// [JsonKey.readValue] for [User.additionalFields]: returns every server key
-/// the static model doesn't own — Better Auth merges `additionalFields` into
-/// the user object as flat top-level keys, so this collects the remainder.
+/// [JsonKey.readValue] for [User.additionalFields]: returns every server
+/// key the static model doesn't own — Better Auth merges `additionalFields`
+/// into the user object as flat top-level keys, so this collects the remainder.
 Map<String, dynamic> _readUserAdditionalFields(
   Map<dynamic, dynamic> json,
   String _,

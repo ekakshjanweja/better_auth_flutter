@@ -92,6 +92,11 @@ void main() {
       expect(const AuthState.loading().user, isNull);
     });
 
+    test("exposes the session only when authenticated", () {
+      expect(const AuthState.authenticated(user: _user).session, isNull);
+      expect(const AuthState.unauthenticated().session, isNull);
+    });
+
     test("reports isAuthenticated correctly", () {
       expect(
         const AuthState.authenticated(user: _user).isAuthenticated,

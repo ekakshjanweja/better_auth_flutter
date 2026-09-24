@@ -13,9 +13,9 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final _email = TextEditingController(text: "user@example.com");
-  final _password = TextEditingController(text: "password123");
-  final _name = TextEditingController(text: "Ada Lovelace");
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+  final _name = TextEditingController();
 
   bool _signUp = false;
   bool _busy = false;
@@ -86,7 +86,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   padding: const EdgeInsets.only(bottom: 12),
                   child: Text(
                     _error!,
-                    style: TextStyle(color: Theme.of(context).colorScheme.error),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
                   ),
                 ),
               FilledButton(
